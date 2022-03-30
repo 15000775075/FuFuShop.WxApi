@@ -1,0 +1,439 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.warp.data-v-57a983c6 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.warp .top_address.data-v-57a983c6 {
+  width: 640rpx;
+  padding: 30rpx 30rpx;
+  background-color: #F7F7F7;
+  border-radius: 8rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.warp .top_address .input_css.data-v-57a983c6 {
+  width: 49%;
+}
+.warp .top_address .select_address.data-v-57a983c6 {
+  width: 540rpx;
+  display: flex;
+  flex-direction: column;
+  font-size: 29rpx;
+  color: #4d4d4d;
+}
+.warp .top_address .select_address .name-tel.data-v-57a983c6 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.warp .top_address .select_address .address-box.data-v-57a983c6 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20rpx;
+}
+.warp .top_address .rig_icon.data-v-57a983c6 {
+  width: 100rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.warp .cen_goods.data-v-57a983c6 {
+  width: 640rpx;
+  padding: 0 30rpx;
+  margin-top: 20rpx;
+  background-color: #F7F7F7;
+  border-radius: 8rpx;
+  display: flex;
+  flex-direction: column;
+}
+.warp .cen_goods .goods_top.data-v-57a983c6 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1rpx solid #DCDCDC;
+}
+.warp .cen_goods .goods_top .top_top.data-v-57a983c6 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #545454;
+  padding: 15rpx 0rpx;
+  font-size: 30rpx;
+}
+.warp .cen_goods .goods_car.data-v-57a983c6 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1rpx solid #DCDCDC;
+}
+.warp .cen_goods .goods_car .car_top.data-v-57a983c6 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #545454;
+  padding: 10rpx 0rpx;
+  margin-top: 10rpx;
+  font-size: 28rpx;
+}
+.warp .cen_goods .goods_car .car_top image.data-v-57a983c6 {
+  height: 50rpx;
+  width: 50rpx;
+}
+.warp .cen_goods .goods_car .car_bot.data-v-57a983c6 {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.warp .cen_goods .goods_car .car_bot .tab_list.data-v-57a983c6 {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 29rpx;
+}
+.warp .cen_goods .goods_car .car_bot .tab_list .tab_item.data-v-57a983c6 {
+  height: 60rpx;
+  width: 100%;
+  border-radius: 35rpx;
+  background-color: white;
+  font-family: PingFangSC-Ultralight,ans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+.warp .cen_goods .goods_car .car_bot .tab_list .active.data-v-57a983c6 {
+  color: white;
+  background-color: #FF4544;
+}
+.warp .cen_goods .goods.data-v-57a983c6 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #DCDCDC;
+}
+.warp .cen_goods .goods .img_css.data-v-57a983c6 {
+  height: 150rpx;
+  width: 150rpx;
+}
+.warp .cen_goods .goods .goods_rig.data-v-57a983c6 {
+  width: 450rpx;
+  display: flex;
+  flex-direction: column;
+}
+.warp .cen_goods .goods .goods_rig .rig_name.data-v-57a983c6 {
+  width: 100%;
+  font-size: 30rpx;
+  color: #4c4c4c;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.warp .cen_goods .goods .goods_rig .rig_type.data-v-57a983c6 {
+  font-size: 29rpx;
+  margin-top: 30rpx;
+  color: #7d7d7d;
+}
+.warp .cen_goods .goods .goods_rig .rig_bot.data-v-57a983c6 {
+  width: 100%;
+  margin-top: 5rpx;
+  color: #7d7d7d;
+  font-size: 29rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.warp .cen_goods .goods .goods_rig .rig_bot .bot_price.data-v-57a983c6 {
+  color: #303030;
+  font-size: 30rpx;
+}
+.warp .cen_goods .yhq.data-v-57a983c6 {
+  width: 100%;
+  padding: 30rpx 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.warp .cen_goods .yhq .yhq_lef.data-v-57a983c6 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 29rpx;
+}
+.warp .cen_goods .yhq .yhq_lef image.data-v-57a983c6 {
+  height: 37rpx;
+  width: 37rpx;
+  color: #474747;
+  margin-right: 10rpx;
+}
+.warp .cen_goods .yhq .yhq_rig.data-v-57a983c6 {
+  display: flex;
+  font-size: 29rpx;
+  flex-direction: row;
+  align-items: center;
+  color: #7d7d7d;
+}
+.warp .cen_goods .yhq .yf_rig.data-v-57a983c6 {
+  color: #FF4544;
+}
+.warp .cen_goods .liuyan.data-v-57a983c6 {
+  width: 100%;
+  padding: 30rpx 0;
+  border-top: 1rpx solid #DCDCDC;
+  border-bottom: 1rpx solid #DCDCDC;
+}
+.warp .cen_goods .total_price.data-v-57a983c6 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20rpx 0;
+}
+.warp .cen_goods .total_price .color1.data-v-57a983c6 {
+  font-size: 28rpx;
+  color: #949494;
+}
+.warp .cen_goods .total_price .color2.data-v-57a983c6 {
+  font-size: 29rpx;
+  color: #434343;
+  margin-left: 15rpx;
+}
+.warp .cen_goods .total_price .color3.data-v-57a983c6 {
+  font-size: 28rpx;
+  color: #FF4544;
+}
+.warp .bot_btn.data-v-57a983c6 {
+  width: 100%;
+  height: 130rpx;
+  position: fixed;
+  bottom: 0;
+  z-index: 99999;
+  background-color: white;
+  border-top: 1rpx solid #efefef;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.warp .bot_btn .btn_lef.data-v-57a983c6 {
+  color: #FF4544;
+  font-size: 29rpx;
+  margin-left: 30rpx;
+}
+.warp .bot_btn .btn_rig.data-v-57a983c6 {
+  width: 250rpx;
+  height: 80rpx;
+  margin-right: 30rpx;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29rpx;
+  color: white;
+  background-color: #FF4544;
+}
+.warp .select_yhq.data-v-57a983c6 {
+  width: 100%;
+  height: 700rpx;
+  overflow: hidden;
+  background-color: #F7F7F7;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.warp .select_yhq .top_nav.data-v-57a983c6 {
+  width: 100%;
+  height: 200rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.warp .select_yhq .top_nav .top_name.data-v-57a983c6 {
+  width: 90%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.warp .select_yhq .top_nav .car_bot.data-v-57a983c6 {
+  width: 90%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.warp .select_yhq .top_nav .car_bot .tab_list.data-v-57a983c6 {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 29rpx;
+}
+.warp .select_yhq .top_nav .car_bot .tab_list .tab_item.data-v-57a983c6 {
+  height: 60rpx;
+  width: 100%;
+  border-radius: 35rpx;
+  background-color: #F7F7F7;
+  font-family: PingFangSC-Ultralight,ans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+.warp .select_yhq .top_nav .car_bot .tab_list .active.data-v-57a983c6 {
+  color: white;
+  background-color: #FF4544;
+}
+.warp .select_yhq .bot_list.data-v-57a983c6 {
+  height: 500rpx;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.warp .select_yhq .bot_list .coupon-item.data-v-57a983c6 {
+  width: 90%;
+  height: auto;
+  background-color: white;
+  display: table;
+  border-radius: 10rpx;
+  padding: 0 20rpx;
+  margin-top: 12rpx;
+  margin-bottom: 10rpx;
+  border: 1px solid #eeeeee;
+  position: relative;
+}
+.warp .select_yhq .bot_list .coupon-item .coupon-money.data-v-57a983c6 {
+  width: 465rpx;
+  height: auto;
+  display: table;
+  float: left;
+  padding: 26rpx 0;
+  border-style: none dotted none none;
+  border-color: #eeeeee;
+}
+.warp .select_yhq .bot_list .coupon-item .coupon-money .demand.data-v-57a983c6 {
+  width: 100%;
+  height: 30rpx;
+  line-height: 30rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+.warp .select_yhq .bot_list .coupon-item .coupon-money .layof.data-v-57a983c6 {
+  width: 100%;
+  height: 48rpx;
+  line-height: 30rpx;
+  font-size: 44rpx;
+  color: #ff9000;
+  font-weight: bold;
+}
+.warp .select_yhq .bot_list .coupon-item .get-btn.data-v-57a983c6 {
+  width: 146rpx;
+  height: 52rpx;
+  line-height: 50rpx;
+  position: absolute;
+  top: 50%;
+  right: 26rpx;
+  margin-top: -26rpx;
+  text-align: center;
+  border-radius: 60rpx;
+  color: #ff9000;
+  border: 1px solid #ff9000;
+  font-size: 24rpx;
+  float: right;
+}
+.warp .select_yhq .bot_list .coupon-item.data-v-57a983c6:after {
+  width: 40rpx;
+  height: 20rpx;
+  position: absolute;
+  left: 460rpx;
+  top: -1px;
+  border-radius: 0 0 40rpx 40rpx;
+  content: "";
+  display: block;
+  background: #F7F7F7;
+  border: 1px solid #eeeeee;
+  border-top: 0px;
+}
+.warp .select_yhq .bot_list .coupon-item.data-v-57a983c6:before {
+  width: 40rpx;
+  height: 20rpx;
+  position: absolute;
+  left: 460rpx;
+  bottom: -1px;
+  border-radius: 40rpx 40rpx 0 0;
+  content: "";
+  display: block;
+  background: #F7F7F7;
+  border: 1px solid #eeeeee;
+  border-bottom: 0px;
+}
+.warp .select_yhq .bot_list .no_goods.data-v-57a983c6 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  font-size: 30rpx;
+  color: #9d9d9d;
+}
+.warp .select_yhq .bot_list .no_goods image.data-v-57a983c6 {
+  width: 300rpx;
+  height: 300rpx;
+  margin-bottom: 10rpx;
+}
+

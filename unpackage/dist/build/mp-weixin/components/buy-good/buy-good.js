@@ -1,0 +1,10 @@
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["components/buy-good/buy-good"],{"0457":function(n,o,u){"use strict";u.d(o,"b",(function(){return t})),u.d(o,"c",(function(){return i})),u.d(o,"a",(function(){return e}));var e={uniIcons:function(){return Promise.all([u.e("common/vendor"),u.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(u.bind(null,"5f68"))},uniNumberBox:function(){return u.e("uni_modules/uni-number-box/components/uni-number-box/uni-number-box").then(u.bind(null,"851a"))}},t=function(){var n=this,o=n.$createElement;n._self._c},i=[]},"16bb":function(n,o,u){"use strict";u.r(o);var e=u("0457"),t=u("59f0");for(var i in t)"default"!==i&&function(n){u.d(o,n,(function(){return t[n]}))}(i);u("a670");var c,r=u("f0c5"),s=Object(r["a"])(t["default"],e["b"],e["c"],!1,null,"c122b576",null,!1,e["a"],c);o["default"]=s.exports},"464c":function(n,o,u){},"59f0":function(n,o,u){"use strict";u.r(o);var e=u("93f9"),t=u.n(e);for(var i in e)"default"!==i&&function(n){u.d(o,n,(function(){return e[n]}))}(i);o["default"]=t.a},"93f9":function(n,o,u){"use strict";(function(n){Object.defineProperty(o,"__esModule",{value:!0}),o.default=void 0;var u={name:"buy-good",props:{buy_good:{type:Object,default:{}}},data:function(){return{selectIndex:0}},methods:{handleComfig:function(o){if(1==o)console.log("加入购物车");else{var u=[];u.push(this.buy_good.id),n.navigateTo({url:"/pages/nowBuy/nowBuy?id="+JSON.stringify(u)})}console.log(this.buy_good)},closeBuyGood:function(){this.$emit("closeBuyGood")},selectCategory:function(n,o){this.selectIndex=o}}};o.default=u}).call(this,u("543d")["default"])},a670:function(n,o,u){"use strict";var e=u("464c"),t=u.n(e);t.a}}]);
+;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
+    'components/buy-good/buy-good-create-component',
+    {
+        'components/buy-good/buy-good-create-component':(function(module, exports, __webpack_require__){
+            __webpack_require__('543d')['createComponent'](__webpack_require__("16bb"))
+        })
+    },
+    [['components/buy-good/buy-good-create-component']]
+]);

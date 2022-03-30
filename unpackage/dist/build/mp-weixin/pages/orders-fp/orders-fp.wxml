@@ -1,0 +1,1 @@
+<view class="warp data-v-191bc7be"><block wx:if="{{fpUrl}}"><image src="{{fpUrl}}" class="data-v-191bc7be"></image></block><block wx:else><view class="noFp data-v-191bc7be">暂无发票</view></block></view>

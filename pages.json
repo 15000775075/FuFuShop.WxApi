@@ -1,0 +1,214 @@
+{
+	"pages": [ 
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/category_menu/category_menu",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"enablePullDownRefresh": false
+			}
+		
+		}
+		,{
+		    "path" : "pages/search/search",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "搜索",
+		        "enablePullDownRefresh": false
+		    }
+		}
+		,{
+		    "path" : "pages/shop_cart/shop_cart",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "购物车",
+		        "enablePullDownRefresh": false
+		    }
+		}
+	    ,{
+            "path" : "pages/my/my",
+            "style" :                                                                                     
+            {
+                "navigationBarTitleText": "用户中心",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/myCollection/myCollection",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的收藏",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/myFootPrint/myFootPrint",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "浏览记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/goodDetail/goodDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my-integral/my-integral",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "积分商城",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my-exchange/my-exchange",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的兑换",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/integral-record/integral-record",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "积分收支",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/orders/orders",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的订单",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/order-search/order-search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单搜索",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/orders-fp/orders-fp",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发票",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/adter-sales/adter-sales",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "售后列表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/bind-phone/bind-phone",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定手机号",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/address/address",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "收货地址",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/coupon/coupon",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的优惠券",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/nowBuy/nowBuy",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "结算",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/evaluate/evaluate",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "评价",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#8a8a8a",
+		"selectedColor": "#d81e06",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/images/common/index_n.png",
+				"selectedIconPath": "static/images/common/index.png"
+			},
+			{
+				"pagePath": "pages/category_menu/category_menu",
+				"text": "分类",
+				"iconPath": "static/images/common/menu_n.png",
+				"selectedIconPath": "static/images/common/menu.png"
+			}, {
+				"pagePath": "pages/shop_cart/shop_cart",
+				"text": "购物车",
+				"iconPath": "static/images/common/cart_n.png",
+				"selectedIconPath": "static/images/common/cart.png"
+			}, {
+				"pagePath": "pages/my/my",
+				"text": "我",
+				"iconPath": "static/images/common/my_n.png",
+				"selectedIconPath": "static/images/common/my.png"
+			}
+		]
+	}
+}
