@@ -1,7 +1,7 @@
-const serverUrl = 'https://www.fufuchaoshi.com'; 
+const serverUrl = 'http://localhost:5166/api/'; 
 const urlList = {
 	//微信登录
-	wxlogin: serverUrl + '/user/wxlogin',
+	wxlogin: serverUrl + 'User/OnLogin',
 };
 /**
  * @param {请求地址} url 
