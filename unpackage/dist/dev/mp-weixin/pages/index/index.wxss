@@ -84,6 +84,7 @@
 }
 .content .goods.data-v-57280228 {
   width: 100%;
+  padding-top: 30rpx;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

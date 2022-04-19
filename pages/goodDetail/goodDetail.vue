@@ -106,6 +106,10 @@
 <script>
 	import BuyGoods from '@/components/buy-good/buy-good.vue'
 	import HaiBao from '@/components/haibao/haibao.vue'
+	const {
+		urlList,
+		https
+	} = require('@/static/api');
 	export default {
 		components:{
 			BuyGoods,
@@ -141,9 +145,21 @@
 		onLoad(options) {
 			console.log('商品ID--',options.id)
 			let that=this
-			
+			this.getDetial(options.id)
 		},
 		methods:{
+			getDetial(id){
+				let param={
+					id:id,
+					data:""
+				}
+				https(urlList.getDetial, 'POST', param, '获取商品信息').then(data => {
+					this.goods = data.data
+					console.log('请求成功', data)
+				}).catch(err => {
+					console.log('请求失败', err)
+				})
+			},
 			openBuyGood(){
 				this.showBuyGood= true;
 				this.buy_good = this.goods

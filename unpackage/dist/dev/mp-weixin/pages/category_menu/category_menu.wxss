@@ -144,7 +144,7 @@
   height: 50rpx;
   width: 50rpx;
   border-radius: 50%;
-  border: 1rpx solid  #FF4544;
+  border: 1rpx solid #FF4544;
   display: flex;
   align-items: center;
   justify-content: center;

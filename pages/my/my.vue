@@ -4,7 +4,7 @@
 			<image src="/static/images/my/my-bg.png"></image>
 		</view>
 		<view class="top_avatar">
-			<image :src="userInfo.avatarUrl?userInfo.avatarUrl:'/static/images/my/avatar.png'"></image>
+			<image :src="userInfo.avatarImage?userInfo.avatarImage:'/static/images/my/avatar.png'"></image>
 			<view v-if="userInfo.nickName" class="name">{{userInfo.nickName}}</view>
 			<view v-else class="name" @tap="getuserinfo">点击登录</view>
 		</view>
@@ -156,7 +156,7 @@
 					that.userInfo = res.data;
 				}
 			});
-
+			console.log(that.userInfo);
 		},
 		methods: {
 			goUrl(num, orderNum) {
@@ -253,13 +253,20 @@
 								if (res.code) {
 									let postData = {
 										code: res.code,
+										userinfo: res1.userInfo
 										// platUserInfoMap: {
 										// 	encryptedData: res1.encryptedData,
 										// 	iv: res1.iv,
 										// }
 									};
-									https(urlList.wxlogin, 'POST', postData, '').then(data => {
+									https(urlList.wxlogin, 'POST', postData, '登录中').then(data => {
 										console.log('请求成功', data)
+										uni.setStorageSync('token',data.data.auth.token);
+										uni.setStorageSync('user_info',data.data.user);
+										uni.showToast({
+											title:"登录成功"
+										})
+										that.userInfo = data.data.user;
 									}).catch(err => {
 										console.log('请求失败', err)
 									})
