@@ -59,136 +59,39 @@
 					"/static/images/index/banner.png",
 				],
 				noticeBarText: '这是 NoticeBar 通告栏，这是 NoticeBar 通告栏，这是 NoticeBar 通告栏',
-				goods: [{
-						id: 111,
-						name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img: '/static/images/index/good.jpg',
-						price: '215.26',
-						kc: 100,
-						buy_num: 1,
-						category: [{
-								id: 1001,
-								text: '27黑色'
-							},
-							{
-								id: 1002,
-								text: '28黑色'
-							},
-							{
-								id: 1003,
-								text: '29黑色'
-							},
-							{
-								id: 1003,
-								text: '25黑色'
-							},
-						]
-					},
-					{
-						id: 111,
-						name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img: '/static/images/index/good.jpg',
-						price: '215.26',
-						kc: 10,
-						buy_num: 1,
-						category: [{
-								id: 1001,
-								text: '27黑色 （9956款）'
-							},
-							{
-								id: 1002,
-								text: '28黑色 （9956款）'
-							},
-							{
-								id: 1003,
-								text: '29黑色 （9956款）'
-							},
-							{
-								id: 1003,
-								text: '25黑色 （9956款）'
-							},
-						]
-					},
-					{
-						id: 111,
-						name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img: '/static/images/index/good.jpg',
-						price: '215.26',
-						kc: 1,
-						buy_num: 1,
-						category: [{
-								id: 1001,
-								text: '27黑色 （9956款）'
-							},
-							{
-								id: 1002,
-								text: '28黑色 （9956款）'
-							},
-							{
-								id: 1003,
-								text: '29黑色 （9956款）'
-							},
-							{
-								id: 1003,
-								text: '25黑色 （9956款）'
-							},
-						]
-					},
-					{
-						id: 111,
-						name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img: '/static/images/index/good.jpg',
-						price: '215.26',
-						kc: 5,
-						buy_num: 1,
-						category: [{
-								id: 1001,
-								text: '27黑色 （9956款）'
-							},
-							{
-								id: 1002,
-								text: '28黑色 （9956款）'
-							},
-							{
-								id: 1003,
-								text: '29黑色 （9956款）'
-							},
-							{
-								id: 1003,
-								text: '25黑色 （9956款）'
-							},
-						]
-					},
-					{
-						id: 111,
-						name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img: '/static/images/index/good.jpg',
-						price: '215.26',
-					},
-					{
-						id: 111,
-						name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img: '/static/images/index/good.jpg',
-						price: '215.26',
-					},
-					{
-						id: 111,
-						name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img: '/static/images/index/good.jpg',
-						price: '215.26',
-					},
-
-				],
+				goods: [],
 				showBuyGood: false,
 				buy_good: {},
+				page:1,
+				limit:15,
+				order:"",
+				where:""
 			}
 		},
 		onLoad() {
 			//获取轮播列表
 			// this.getSwiperList();
-			this.getGoodsRecommendList();
+			//this.getGoodsRecommendList();
+			this.getGoodsPageList(this.page,this.limit,this.order,this.where)
 		},
 		methods: {
+			//分页查询商品列表
+			getGoodsPageList(page,limit,order,where)
+			{
+				let param=
+				{
+					page:page,
+					limit:limit,
+					order:order,
+					where:where,
+				};
+				https(urlList.getGoodsPageList,'post',param,'').then(data=>
+				{
+					this.goods=data.data.list
+				}).catch(err => {
+						console.log('请求失败', err)
+					})
+			},
 			// 获取首页推荐商品
 			getGoodsRecommendList() {
 				let param = {

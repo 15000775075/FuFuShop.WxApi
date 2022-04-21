@@ -173,6 +173,16 @@
 				})
 			},
 			onCollection(){
+				let param=
+				{
+					id:this.goods.id,
+					data:""
+				}
+				https(urlList.goodsCollection, 'POST', param, '').then(data => {
+					this.getDetial(this.goods.id);
+				}).catch(err => {
+					console.log('收藏失败', err)
+				})
 				this.goods.isSc = !this.goods.isSc;
 			},
 			onFenx(){
