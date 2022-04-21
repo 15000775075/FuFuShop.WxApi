@@ -258,15 +258,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
 __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   components: {
@@ -279,23 +270,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       "/static/images/index/banner.png",
       "/static/images/index/banner.png"],
 
-      goods: {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        text: '精神网红小姑娘精神网红小姑娘精神网红小姑娘精神网红小姑娘精神网红小姑娘精神网红小姑娘',
-        img: '/static/images/index/good.jpg',
-        price: 215.26,
-        oldPrice: '428',
-        isSc: false,
-        kc: 100,
-        buy_num: 1,
-        category: [
-        { id: 1001, text: '27黑色' },
-        { id: 1002, text: '28黑色' },
-        { id: 1003, text: '29黑色' },
-        { id: 1003, text: '25黑色' }] },
-
-
+      goods: {},
       showBuyGood: false,
       buy_good: {} };
 
@@ -331,8 +306,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
     },
     onCollection: function onCollection() {var _this2 = this;
-      var param =
-      {
+      var param = {
         id: this.goods.id,
         data: "" };
 

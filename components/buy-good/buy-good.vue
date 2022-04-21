@@ -58,10 +58,7 @@
 			addCart() {
 				let param = {
 					"nums": this.buy_good.buy_num,
-					"productId": this.buy_good.id,
-					"type": 1, //直接增加
-					"cartType": 1, //普通购物
-					"objectId": this.selectIndex
+					"productId": this.buy_good.product.id
 				}
 				https(urlList.addCart, 'POST', param, '添加中').then(data => {
 					console.log('请求成功', data)

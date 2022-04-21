@@ -200,10 +200,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
     addCart: function addCart() {
       var param = {
         "nums": this.buy_good.buy_num,
-        "productId": this.buy_good.id,
-        "type": 1, //直接增加
-        "cartType": 1, //普通购物
-        "objectId": this.selectIndex };
+        "productId": this.buy_good.product.id };
 
       https(urlList.addCart, 'POST', param, '添加中').then(function (data) {
         console.log('请求成功', data);

@@ -1,132 +1,153 @@
 {
-  "setting": {},
-  "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
-    "miniprogram": {
-      "list": [
-        {
-          "name": "分类",
-          "pathName": "pages/category_menu/category_menu",
-          "query": "",
-          "scene": null
+    "setting": {},
+    "condition": {
+        "plugin": {
+            "list": []
         },
-        {
-          "name": "购物车",
-          "pathName": "pages/shop_cart/shop_cart",
-          "query": "",
-          "scene": null
+        "game": {
+            "list": []
         },
-        {
-          "name": "个人中心",
-          "pathName": "pages/my/my",
-          "query": "",
-          "scene": null
+        "gamePlugin": {
+            "list": []
         },
-        {
-          "name": "我的收藏",
-          "pathName": "pages/myCollection/myCollection",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "我的足迹",
-          "pathName": "pages/myFootPrint/myFootPrint",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "商品详情",
-          "pathName": "pages/goodDetail/goodDetail",
-          "query": "id=111",
-          "scene": null
-        },
-        {
-          "name": "商品详情",
-          "pathName": "pages/goodDetail/goodDetail",
-          "query": "id=111",
-          "scene": null
-        },
-        {
-          "name": "浏览记录",
-          "pathName": "pages/myFootPrint/myFootPrint",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "积分",
-          "pathName": "pages/my-integral/my-integral",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "我的兑换",
-          "pathName": "pages/my-exchange/my-exchange",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "我的订单",
-          "pathName": "pages/orders/orders",
-          "query": "tabIndex=3",
-          "scene": null
-        },
-        {
-          "name": "订单搜索",
-          "pathName": "pages/order-search/order-search",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "绑定手机号",
-          "pathName": "pages/bind-phone/bind-phone",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "收货地址",
-          "pathName": "pages/address/address",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "收货地址",
-          "pathName": "pages/address/address",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "优惠券",
-          "pathName": "pages/coupon/coupon",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "结算",
-          "pathName": "pages/nowBuy/nowBuy",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "评价",
-          "pathName": "pages/evaluate/evaluate",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "搜索",
-          "pathName": "pages/search/search",
-          "query": "",
-          "scene": null
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "分类",
+                    "pathName": "pages/category_menu/category_menu",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "购物车",
+                    "pathName": "pages/shop_cart/shop_cart",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "个人中心",
+                    "pathName": "pages/my/my",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "我的收藏",
+                    "pathName": "pages/myCollection/myCollection",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "我的足迹",
+                    "pathName": "pages/myFootPrint/myFootPrint",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "商品详情",
+                    "pathName": "pages/goodDetail/goodDetail",
+                    "query": "id=111",
+                    "scene": null
+                },
+                {
+                    "name": "商品详情",
+                    "pathName": "pages/goodDetail/goodDetail",
+                    "query": "id=111",
+                    "scene": null
+                },
+                {
+                    "name": "浏览记录",
+                    "pathName": "pages/myFootPrint/myFootPrint",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "积分",
+                    "pathName": "pages/my-integral/my-integral",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "我的兑换",
+                    "pathName": "pages/my-exchange/my-exchange",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "我的订单",
+                    "pathName": "pages/orders/orders",
+                    "query": "tabIndex=3",
+                    "scene": null
+                },
+                {
+                    "name": "订单搜索",
+                    "pathName": "pages/order-search/order-search",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "绑定手机号",
+                    "pathName": "pages/bind-phone/bind-phone",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "收货地址",
+                    "pathName": "pages/address/address",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "收货地址",
+                    "pathName": "pages/address/address",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "优惠券",
+                    "pathName": "pages/coupon/coupon",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "结算",
+                    "pathName": "pages/nowBuy/nowBuy",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "评价",
+                    "pathName": "pages/evaluate/evaluate",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "搜索",
+                    "pathName": "pages/search/search",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/category_menu/category_menu",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/goodDetail/goodDetail",
+                    "query": "id=4143",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/shop_cart/shop_cart",
+                    "query": "",
+                    "scene": null,
+                    "launchMode": "default"
+                }
+            ]
         }
-      ]
     }
-  }
 }

@@ -1,4 +1,4 @@
-//const serverUrl = 'http://localhost:5166/api/';
+//const serverUrl = 'http://localhost/api/';
 const serverUrl = 'http://114.132.200.253:8081/api/';
 const urlList = {
 	//微信登录

@@ -3413,7 +3413,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(uni) {//const serverUrl = 'http://localhost:5166/api/';
+/* WEBPACK VAR INJECTION */(function(uni) {//const serverUrl = 'http://localhost/api/';
 var serverUrl = 'http://114.132.200.253:8081/api/';
 var urlList = {
   //微信登录

@@ -210,87 +210,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+var _require =
+
+
+
+
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   data: function data() {
     return {
       selectAllGoods: false,
-      goods: [
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 1,
-        selected: false },
-
-      {
-        id: 222,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 10,
-        selected: false },
-
-      {
-        id: 333,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 3,
-        selected: false },
-
-      {
-        id: 444,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 1,
-        selected: false },
-
-      {
-        id: 555,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2,
-        selected: false },
-
-      {
-        id: 666,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 1,
-        selected: false },
-
-      {
-        id: 777,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 1,
-        selected: false }],
-
-
-
+      goods: [],
       totalPrice: '0.00',
       isChange: false };
 
+  },
+  onLoad: function onLoad() {
   },
   methods: {
     goodDetail: function goodDetail(id) {

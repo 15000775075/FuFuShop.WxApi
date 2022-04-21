@@ -202,145 +202,47 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
   data: function data() {
     return {
-      lefNavList: [{
-        title: 'jk区',
-        id: 1111 },
-
-      {
-        title: '丝袜区',
-        id: 2222 },
-
-      {
-        title: '高端区',
-        id: 3333 },
-
-      {
-        title: '低端区',
-        id: 4444 }],
-
-
+      lefNavList: [],
       lefIndex: 1,
       isHideLoading: false, //下拉加载状态
-
-      goods: [{
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        kc: 100,
-        buy_num: 1,
-        category: [{
-          id: 1001,
-          text: '27黑色' },
-
-        {
-          id: 1002,
-          text: '28黑色' },
-
-        {
-          id: 1003,
-          text: '29黑色' },
-
-        {
-          id: 1003,
-          text: '25黑色' }] },
-
-
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        kc: 10,
-        buy_num: 1,
-        category: [{
-          id: 1001,
-          text: '27黑色 （9956款）' },
-
-        {
-          id: 1002,
-          text: '28黑色 （9956款）' },
-
-        {
-          id: 1003,
-          text: '29黑色 （9956款）' },
-
-        {
-          id: 1003,
-          text: '25黑色 （9956款）' }] },
-
-
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        kc: 1,
-        buy_num: 1,
-        category: [{
-          id: 1001,
-          text: '27黑色 （9956款）' },
-
-        {
-          id: 1002,
-          text: '28黑色 （9956款）' },
-
-        {
-          id: 1003,
-          text: '29黑色 （9956款）' },
-
-        {
-          id: 1003,
-          text: '25黑色 （9956款）' }] },
-
-
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        onnum: 100 },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        onnum: 100 },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        onnum: 100 },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        onnum: 100 }],
-
-
-
+      goods: [],
       showBuyGood: false,
-      buy_good: {} };
+      buy_good: {},
+      page: 1,
+      limit: 10,
+      order: "",
+      where: "",
+      catId: 0 };
 
   },
   onLoad: function onLoad() {
     this.getAllCategories();
+    this.getGoodsPageList(this.page, this.limit, this.order, this.where);
   },
   methods: {
-    getAllCategories: function getAllCategories() {var _this = this;
-      https(urlList.getAllCategories, 'POST', "", '获取分类列表').then(function (data) {
-        _this.lefNavList = data.data;
+    getGoodsPageList: function getGoodsPageList(page, limit, order, where)
+    {var _this = this;
+      var param = {
+        "page": page,
+        "limit": limit,
+        "order": order,
+        "where": where };
+
+
+      console.log(param);
+      https(urlList.getGoodsPageList, 'POST', param, '获取商品列表').then(function (data) {
+        _this.goods = data.data.list;
         console.log('请求成功', data);
       }).catch(function (err) {
         console.log('请求失败', err);
+      });
+    },
+    getAllCategories: function getAllCategories() {var _this2 = this;
+      https(urlList.getAllCategories, 'POST', "", '获取分类列表').then(function (data)
+      {
+        _this2.lefNavList = data.data;
+      }).catch(function (err)
+      {
       });
     },
     goSearch: function goSearch() {
@@ -354,20 +256,20 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
     },
     // 左侧切换tabs
-    onLefTabs: function onLefTabs(index, id) {var _this2 = this;
+    onLefTabs: function onLefTabs(index, id) {var _this3 = this;
       this.lefIndex = index;
       console.log('分类ID---', id);
       var where = {
-        goodsCategoryId: id };
+        catId: id };
 
       var param = {
         "page": 1,
         "limit": 10,
-        "order": "id",
+        "order": "",
         "where": JSON.stringify(where) };
 
       https(urlList.getGoodsPageList, 'POST', param, '获取商品列表').then(function (data) {
-        _this2.goods = data.data.list;
+        _this3.goods = data.data.list;
         console.log('请求成功', data);
       }).catch(function (err) {
         console.log('请求失败', err);
