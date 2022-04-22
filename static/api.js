@@ -1,8 +1,9 @@
-//const serverUrl = 'http://localhost/api/';
-const serverUrl = 'http://114.132.200.253:8081/api/';
+const serverUrl = 'http://localhost/api/';
+//const serverUrl = 'http://114.132.200.253:8081/api/';
 const urlList = {
 	//微信登录
 	wxlogin: serverUrl + 'User/OnLogin',
+	getUser: serverUrl + 'User/GetUserInfo',
 	//商品收藏
 	goodsCollection:serverUrl+'User/GoodsCollection',
 	//广告
@@ -13,6 +14,7 @@ const urlList = {
 	getAllCategories: serverUrl + 'Good/GetAllCategories',
 	//分页获取商品列表
 	getGoodsPageList: serverUrl + 'Good/GetGoodsPageList',
+	getGoodsComment: serverUrl + 'Good/GetGoodsComment',
 	getDetial: serverUrl + 'Good/GetDetial',
 	//购物车
 	addCart: serverUrl + 'Cart/AddCart',

@@ -10,7 +10,7 @@
 		</view>
 		<view class="top_tab1">
 			<view class="tab1_item" @tap="goUrl(1)">
-				<view class="tab1_item_top">0</view>
+				<view class="tab1_item_top">{{userInfo.collectionCount}}</view>
 				<view class="tab1_item_bot">
 					<image src="/static/images/my/sc.png"></image>
 					<text>我的收藏</text>
@@ -18,7 +18,7 @@
 			</view>
 			<view class="rig_bor"></view>
 			<view class="tab1_item" @tap="goUrl(2)">
-				<view class="tab1_item_top">0</view>
+				<view class="tab1_item_top">{{userInfo.footPrintCount}}</view>
 				<view class="tab1_item_bot">
 					<image src="/static/images/my/zj.png"></image>
 					<text>我的足迹</text>
@@ -149,14 +149,7 @@
 		},
 		onLoad() {
 			const that = this;
-			uni.getStorage({
-				key: 'user_info',
-				success: function(res) {
-					console.log('登录信息', res.data);
-					that.userInfo = res.data;
-				}
-			});
-			console.log(that.userInfo);
+			this.getUser()
 		},
 		methods: {
 			goUrl(num, orderNum) {
@@ -220,21 +213,6 @@
 											})
 										},
 									})
-									// https(urlList.clearStorage,'GET','','正在清理...').then(data => {
-									// 	wx.clearStorage({
-									// 		success: (res) => {
-									// 			wx.reLaunch({
-									// 				url: '/pages/login/login',
-									// 			})
-									// 		},
-									// 	})
-									// }).catch(err => {
-									// 	uni.showToast({
-									// 		title:err,
-									// 		icon:'none',
-									// 		duration:1500
-									// 	})
-									// })
 								}
 							}
 						})
@@ -254,15 +232,11 @@
 									let postData = {
 										code: res.code,
 										userinfo: res1.userInfo
-										// platUserInfoMap: {
-										// 	encryptedData: res1.encryptedData,
-										// 	iv: res1.iv,
-										// }
 									};
 									https(urlList.wxlogin, 'POST', postData, '登录中').then(data => {
 										console.log('请求成功', data)
 										uni.setStorageSync('token',data.data.auth.token);
-										uni.setStorageSync('user_info',data.data.user);
+										//uni.setStorageSync('user_info',data.data.user);
 										uni.showToast({
 											title:"登录成功"
 										})
@@ -294,7 +268,18 @@
 					}
 				})
 
+			},
+			getUser()
+			{
+				https(urlList.getUser, 'POST', '', '').then(data => {
+					this.userInfo = data.data;
+					console.log('userinfo:'+this.userinfo)
+				}).catch(err => {
+					console.log('请求失败', err)
+				})
 			}
+		
+		
 		}
 	}
 </script>

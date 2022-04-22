@@ -218,23 +218,21 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
   data: function data() {
     return {
-      swiperList: [
-      "/static/images/index/banner.png",
-      "/static/images/index/banner.png"],
-
-      noticeBarText: '这是 NoticeBar 通告栏，这是 NoticeBar 通告栏，这是 NoticeBar 通告栏',
+      swiperList: [],
+      noticeBarText: '欢迎进入辅辅超市',
       goods: [],
       showBuyGood: false,
       buy_good: {},
       page: 1,
       limit: 15,
-      order: "",
-      where: "" };
+      order: "sort asc",
+      where: "",
+      keyword: "" };
 
   },
   onLoad: function onLoad() {
     //获取轮播列表
-    // this.getSwiperList();
+    this.getSwiperList();
     //this.getGoodsRecommendList();
     this.getGoodsPageList(this.page, this.limit, this.order, this.where);
   },
@@ -259,8 +257,8 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
     // 获取首页推荐商品
     getGoodsRecommendList: function getGoodsRecommendList() {var _this2 = this;
       var param = {
-        id: 9,
-        data: 'True' };
+        id: 100,
+        data: '' };
 
       https(urlList.getGoodsRecommendList, 'POST', param, '获取商品').
       then(function (data) {
@@ -271,9 +269,17 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       });
     },
     //轮播列表
-    getSwiperList: function getSwiperList() {
+    getSwiperList: function getSwiperList() {var _this3 = this;
+      var param = {
+        "otherData": "",
+        "id": 0,
+        "page": 1,
+        "limit": 10,
+        "order": "",
+        "where": "TplIndexBanner1" };
+
       https(urlList.getAdvertList, 'POST', param, '获取广告').then(function (data) {
-        console.log('请求成功', data);
+        _this3.swiperList = data.data;
       }).catch(function (err) {
         console.log('请求失败', err);
       });

@@ -257,7 +257,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   components: {
@@ -266,33 +265,90 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
   data: function data() {
     return {
-      swiperList: [
-      "/static/images/index/banner.png",
-      "/static/images/index/banner.png"],
-
-      goods: {},
-      showBuyGood: false,
-      buy_good: {} };
+      goodsId: 0, // 商品id
+      goodsInfo: {}, // 商品详情
+      cartNums: 0, // 购物车数量
+      product: {}, // 货品详情   
+      buyNum: 1, // 选定的购买数量
+      minBuyNum: 1, // 最小可购买数量
+      type: 2, // 1加入购物车 2购买
+      cartType: 1,
+      isfav: false, // 商品是否收藏
+      goodsInfoImages: [] };
 
   },
   onLoad: function onLoad(options) {
-    console.log('商品ID--', options.id);
-    var that = this;
-    this.getDetial(options.id);
+    //获取商品ID
+    if (options.id != '') {
+      this.goodsId = options.id;
+    }
+    if (this.goodsId) {
+      //this.getServiceDescription();
+      this.getGoodsDetail();
+      this.getGoodsParams();
+      this.getGoodsComments();
+    } else {
+
+    }
   },
   methods: {
-    getDetial: function getDetial(id) {var _this = this;
-      var param = {
-        id: id,
-        data: "" };
+    // 获取商品评论信息
+    getGoodsComments: function getGoodsComments() {var _this2 = this;
+      var data = {
+        page: 1,
+        limit: 5,
+        id: this.goodsId,
+        order: "",
+        where: "",
+        otherData: "" };
 
-      https(urlList.getDetial, 'POST', param, '获取商品信息').then(function (data) {
-        _this.goods = data.data;
-        console.log('请求成功', data);
+      https(urlList.getGoodsComment, 'POST', data, '').then(function (data) {
+        _this2.goods = data.data;
+
       }).catch(function (err) {
-        console.log('请求失败', err);
+        //console.log('请求失败', err)
       });
     },
+    //获取商品详情
+    getGoodsDetail: function getGoodsDetail(id) {
+      var _this = this;
+      var data = {
+        id: parseInt(this.goodsId),
+        data: "" };
+
+      https(urlList.getDetial, 'POST', data, '').then(function (res) {
+        if (res.status == true) {
+          var info = res.data;
+          var products = res.data.products;
+          _this.goodsInfoImages = info.images.split(',');
+          _this.goodsInfo = info;
+          _this.isfav = res.data.isFav;
+          _this.product = products;
+        } else
+
+        {
+
+        }
+      }).catch(function (err) {});
+    },
+    // 获取商品参数信息
+    getGoodsParams: function getGoodsParams() {
+      https(urlList.getDetial, 'POST', data, '').then(function (res) {
+        if (res.status == true) {
+          var info = res.data;
+          var products = res.data.products;
+          _this.goodsInfoImages = info.images.split(',');
+          _this.goodsInfo = info;
+          _this.isfav = res.data.isFav;
+          _this.product = products;
+        } else
+
+        {
+
+        }
+      }).catch(function (err) {});
+    },
+
     openBuyGood: function openBuyGood() {
       this.showBuyGood = true;
       this.buy_good = this.goods;
@@ -305,17 +361,16 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         url: '/pages/index/index' });
 
     },
-    onCollection: function onCollection() {var _this2 = this;
+    onCollection: function onCollection() {var _this3 = this;
       var param = {
-        id: this.goods.id,
+        id: this.goodsInfo.id,
         data: "" };
 
       https(urlList.goodsCollection, 'POST', param, '').then(function (data) {
-        _this2.getDetial(_this2.goods.id);
+        _this3.isfav = !_this3.isfav;
       }).catch(function (err) {
-        console.log('收藏失败', err);
+
       });
-      this.goods.isSc = !this.goods.isSc;
     },
     onFenx: function onFenx() {
       this.$refs.popup.open();

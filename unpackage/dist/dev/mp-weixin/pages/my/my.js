@@ -304,14 +304,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
   },
   onLoad: function onLoad() {
     var that = this;
-    uni.getStorage({
-      key: 'user_info',
-      success: function success(res) {
-        console.log('登录信息', res.data);
-        that.userInfo = res.data;
-      } });
-
-    console.log(that.userInfo);
+    this.getUser();
   },
   methods: {
     goUrl: function goUrl(num, orderNum) {
@@ -375,21 +368,6 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
                   } });
 
-                // https(urlList.clearStorage,'GET','','正在清理...').then(data => {
-                // 	wx.clearStorage({
-                // 		success: (res) => {
-                // 			wx.reLaunch({
-                // 				url: '/pages/login/login',
-                // 			})
-                // 		},
-                // 	})
-                // }).catch(err => {
-                // 	uni.showToast({
-                // 		title:err,
-                // 		icon:'none',
-                // 		duration:1500
-                // 	})
-                // })
               }
             } });
 
@@ -408,16 +386,12 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
               if (res.code) {
                 var postData = {
                   code: res.code,
-                  userinfo: res1.userInfo
-                  // platUserInfoMap: {
-                  // 	encryptedData: res1.encryptedData,
-                  // 	iv: res1.iv,
-                  // }
-                };
+                  userinfo: res1.userInfo };
+
                 https(urlList.wxlogin, 'POST', postData, '登录中').then(function (data) {
                   console.log('请求成功', data);
                   uni.setStorageSync('token', data.data.auth.token);
-                  uni.setStorageSync('user_info', data.data.user);
+                  //uni.setStorageSync('user_info',data.data.user);
                   uni.showToast({
                     title: "登录成功" });
 
@@ -449,6 +423,15 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         } });
 
 
+    },
+    getUser: function getUser()
+    {var _this = this;
+      https(urlList.getUser, 'POST', '', '').then(function (data) {
+        _this.userInfo = data.data;
+        console.log('userinfo:' + _this.userinfo);
+      }).catch(function (err) {
+        console.log('请求失败', err);
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

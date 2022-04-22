@@ -144,6 +144,27 @@
                     "name": "",
                     "pathName": "pages/shop_cart/shop_cart",
                     "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/search/search",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/my/my",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/goodDetail/goodDetail",
+                    "query": "id=4143",
                     "scene": null,
                     "launchMode": "default"
                 }

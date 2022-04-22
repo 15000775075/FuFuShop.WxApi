@@ -174,54 +174,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var _default =
+var _require =
+
+
+
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   data: function data() {
     return {
-      searchValue: '',
-      goods: [
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg' }] };
-
-
+      page: 1,
+      limit: 15,
+      order: "viewCount asc",
+      where: "",
+      goods: [],
+      searchValue: "" };
 
 
   },
+  onLoad: function onLoad() {
+    this.getGoodsPageList(this.page, this.limit, this.order, this.where);
+  },
   methods: {
+    //分页查询商品列表
+    getGoodsPageList: function getGoodsPageList(page, limit, order, where) {var _this = this;
+      var param = {
+        page: page,
+        limit: limit,
+        order: order,
+        where: where };
+
+      https(urlList.getGoodsPageList, 'post', param, '').then(function (data) {
+        var list = data.data.list;
+        console.log(list.length);
+        if (list.length <= 0) {
+          _this.getGoodsRecommendList();
+        } else {
+          _this.goods = list;
+        }
+      }).catch(function (err) {
+        console.log('请求失败', err);
+      });
+    },
+    // 获取首页推荐商品
+    getGoodsRecommendList: function getGoodsRecommendList() {var _this2 = this;
+      var param = {
+        id: 100,
+        data: '' };
+
+      https(urlList.getGoodsRecommendList, 'POST', param, '获取商品').
+      then(function (data) {
+        _this2.goods = data.data;
+        console.log('请求成功', data);
+      }).catch(function (err) {
+        console.log('请求失败', err);
+      });
+    },
+
     onSearch: function onSearch() {
-      console.log('搜索', this.searchValue);
+      var where = {
+        searchName: this.searchValue };
+
+      this.getGoodsPageList(this.page, this.limit, this.order, JSON.stringify(where));
     },
     goGoodDetail: function goGoodDetail(id) {
       uni.navigateTo({

@@ -12,7 +12,7 @@
 			<swiper class="swiper-box" indicator-dots="true" autoplay="true" :interval="4000"
 				indicator-active-color="white">
 				<swiper-item v-for="(item ,index) in swiperList" :key="index">
-					<image :src="item" style="width: 100%;height: 100%;"></image>
+					<image :src="item.imageUrl" style="width: 100%;height: 100%;"></image>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -54,23 +54,21 @@
 		},
 		data() {
 			return {
-				swiperList: [
-					"/static/images/index/banner.png",
-					"/static/images/index/banner.png",
-				],
-				noticeBarText: '这是 NoticeBar 通告栏，这是 NoticeBar 通告栏，这是 NoticeBar 通告栏',
+				swiperList: [],
+				noticeBarText: '欢迎进入辅辅超市',
 				goods: [],
 				showBuyGood: false,
 				buy_good: {},
 				page:1,
 				limit:15,
-				order:"",
-				where:""
+				order:"sort asc",
+				where:"",
+				keyword:""
 			}
 		},
 		onLoad() {
 			//获取轮播列表
-			// this.getSwiperList();
+			 this.getSwiperList();
 			//this.getGoodsRecommendList();
 			this.getGoodsPageList(this.page,this.limit,this.order,this.where)
 		},
@@ -95,8 +93,8 @@
 			// 获取首页推荐商品
 			getGoodsRecommendList() {
 				let param = {
-					id: 9,
-					data: 'True'
+					id: 100,
+					data: ''
 				};
 				https(urlList.getGoodsRecommendList, 'POST', param, '获取商品')
 					.then(data => {
@@ -108,8 +106,16 @@
 			},
 			//轮播列表
 			getSwiperList() {
+				let param={
+					"otherData": "",
+					  "id": 0,
+					  "page":1,
+					  "limit": 10,
+					  "order": "",
+					  "where": "TplIndexBanner1",
+				};
 				https(urlList.getAdvertList, 'POST', param, '获取广告').then(data => {
-					console.log('请求成功', data)
+					this.swiperList=data.data;
 				}).catch(err => {
 					console.log('请求失败', err)
 				})

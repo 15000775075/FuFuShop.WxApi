@@ -3,7 +3,7 @@
 		<view class="swiper_css">
 			<swiper class="swiper-box" indicator-dots="true" autoplay="true" :interval="4000"
 				indicator-active-color="white">
-				<swiper-item v-for="(item ,index) in goods.image" :key="index">
+				<swiper-item v-for="(item ,index) in goodsInfoImages" :key="index">
 					<image :src="item" style="width: 100%;height: 100%;"></image>
 				</swiper-item>
 			</swiper>
@@ -12,16 +12,16 @@
 			<uni-icons type="cart" color="#616161" size="27"></uni-icons>
 		</view> -->
 		<view class="good_detail">
-			<view class="name">{{goods.name}}</view>
-			<view class="name detail">{{goods.text}}</view>
+			<view class="name">{{goodsInfo.name}}</view>
+			<view class="name detail">{{goodsInfo.text}}</view>
 			<view class="price">
 				<view class="price_lef">
 					<view class="price_lef_top">
 						<view class="size1">￥</view>
-						<view class="size2">{{goods.price}}</view>
-						<view class="size3">￥{{goods.mktprice}}</view>
+						<view class="size2">{{goodsInfo.price}}</view>
+						<view class="size3">￥{{goodsInfo.mktprice}}</view>
 					</view>
-					<view class="price_lef_bot">销量 {{goods.buyCount}}</view>
+					<view class="price_lef_bot">销量 {{goodsInfo.buyCount}}</view>
 				</view>
 				<view class="price_rig" @tap="onFenx">
 					<image src="/static/images/goodDetail/fx.png"></image>分享
@@ -38,7 +38,7 @@
 				<uni-icons type="right" color="#8a8a8a"></uni-icons>
 			</view>
 			<view class="guige_bot">
-				<view class="guige_bot_item">共{{goods.category.length}}个规格...</view>
+				<view class="guige_bot_item">共{{goodsInfo.category.length}}个规格...</view>
 			</view>
 		</view>
 		<view class="pj">
@@ -50,8 +50,7 @@
 			<view class="good_img_text">
 				<image src="/static/images/goodDetail/good_text_img.png"></image>
 			</view>
-			<view class="good_img_fwb">
-				这是富文本商品详情
+				<view class="good_img_fwb" v-html="goodsInfo.intro">	
 			</view>
 		</view>
 		<view class="bot_nav">
@@ -60,7 +59,7 @@
 				<text>首页</text>
 			</view>
 			<view class="nav_lef_item" @tap="onCollection">
-				<uni-icons v-if="!goods.isSc" type="heart" size="22" color="#838383"></uni-icons>
+				<uni-icons v-if="!this.isfav" type="heart" size="22" color="#838383"></uni-icons>
 				<uni-icons v-else type="heart-filled" size="22" color="red"></uni-icons>
 				<text>收藏</text>
 			</view>
@@ -108,33 +107,90 @@
 		},
 		data() {
 			return {
-				swiperList: [
-					"/static/images/index/banner.png",
-					"/static/images/index/banner.png",
-				],
-				goods: {},
-				showBuyGood: false,
-				buy_good: {},
-			};
+				goodsId: 0, // 商品id
+				goodsInfo: {}, // 商品详情
+				cartNums: 0, // 购物车数量
+				product: {}, // 货品详情   
+				buyNum: 1, // 选定的购买数量
+				minBuyNum: 1, // 最小可购买数量
+				type: 2, // 1加入购物车 2购买
+				cartType: 1,
+				isfav: false, // 商品是否收藏
+				goodsInfoImages:[],
+			}
 		},
 		onLoad(options) {
-			console.log('商品ID--', options.id)
-			let that = this
-			this.getDetial(options.id)
+			//获取商品ID
+			if (options.id != '') {
+				this.goodsId = options.id;
+			}
+			if (this.goodsId) {
+				//this.getServiceDescription();
+				this.getGoodsDetail();
+				this.getGoodsParams();
+				this.getGoodsComments();
+			} else {
+				
+			}
 		},
-		methods: {
-			getDetial(id) {
-				let param = {
-					id: id,
-					data: ""
+		methods: { 
+			// 获取商品评论信息
+			getGoodsComments() {
+				let data = {
+					page: 1,
+					limit: 5,
+					id: this.goodsId,
+					order:"",
+					where :"",
+					otherData:""
 				}
-				https(urlList.getDetial, 'POST', param, '获取商品信息').then(data => {
+				https(urlList.getGoodsComment, 'POST', data, '').then(data => {
 					this.goods = data.data
-					console.log('请求成功', data)
+				
 				}).catch(err => {
-					console.log('请求失败', err)
+					//console.log('请求失败', err)
 				})
 			},
+			//获取商品详情
+			getGoodsDetail(id) {
+				let _this = this;
+				let data = {
+					id: parseInt(this.goodsId),
+					data: ""
+				}
+				https(urlList.getDetial, 'POST', data, '').then(res => {
+					if (res.status == true) {
+						let info = res.data;
+						let products = res.data.products;
+						_this.goodsInfoImages = info.images.split(',')
+						_this.goodsInfo=info;
+						_this.isfav=res.data.isFav;
+						_this.product=products;
+					}
+					else
+					{
+						
+					}
+				}).catch(err => {})
+			},
+			 // 获取商品参数信息
+			            getGoodsParams() {
+			                https(urlList.getDetial, 'POST', data, '').then(res => {
+			                	if (res.status == true) {
+			                		let info = res.data;
+			                		let products = res.data.products;
+			                		_this.goodsInfoImages = info.images.split(',')
+			                		_this.goodsInfo=info;
+			                		_this.isfav=res.data.isFav;
+			                		_this.product=products;
+			                	}
+			                	else
+			                	{
+			                		
+			                	}
+			                }).catch(err => {})
+			            },
+						
 			openBuyGood() {
 				this.showBuyGood = true;
 				this.buy_good = this.goods
@@ -149,15 +205,14 @@
 			},
 			onCollection() {
 				let param = {
-					id: this.goods.id,
+					id: this.goodsInfo.id,
 					data: ""
 				}
 				https(urlList.goodsCollection, 'POST', param, '').then(data => {
-					this.getDetial(this.goods.id);
+					 this.isfav = !this.isfav;
 				}).catch(err => {
-					console.log('收藏失败', err)
+					
 				})
-				this.goods.isSc = !this.goods.isSc;
 			},
 			onFenx() {
 				this.$refs.popup.open()
