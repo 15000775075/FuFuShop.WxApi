@@ -59,63 +59,45 @@
 				goods: [],
 				showBuyGood: false,
 				buy_good: {},
-				page:1,
-				limit:15,
-				order:"sort asc",
-				where:"",
-				keyword:""
+				page: 1,
+				limit: 9,
+				order: "sort asc",
+				where: '{"FieldName":"isRecommend","ConditionalType":"0","FieldValue":"true"}',
+				keyword: ""
 			}
 		},
 		onLoad() {
 			//获取轮播列表
-			 this.getSwiperList();
-			//this.getGoodsRecommendList();
-			this.getGoodsPageList(this.page,this.limit,this.order,this.where)
+			this.getSwiperList();
+			this.getGoodsPageList(this.page, this.limit, this.order, this.where)
 		},
 		methods: {
-			//分页查询商品列表
-			getGoodsPageList(page,limit,order,where)
-			{
-				let param=
-				{
-					page:page,
-					limit:limit,
-					order:order,
-					where:where,
-				};
-				https(urlList.getGoodsPageList,'post',param,'').then(data=>
-				{
-					this.goods=data.data.list
-				}).catch(err => {
-						console.log('请求失败', err)
-					})
-			},
-			// 获取首页推荐商品
-			getGoodsRecommendList() {
+			//分页查询商品列表 条件为推荐商品
+			getGoodsPageList(page, limit, order, where) {
 				let param = {
-					id: 100,
-					data: ''
+					number: 9,
+					limit: limit,
+					order: order,
+					where: where,
 				};
-				https(urlList.getGoodsRecommendList, 'POST', param, '获取商品')
-					.then(data => {
-						this.goods = data.data
-						console.log('请求成功', data)
-					}).catch(err => {
-						console.log('请求失败', err)
-					})
+				https(urlList.getGoodsPageList, 'post', param, '').then(data => {
+					this.goods = data.data.list
+				}).catch(err => {
+					console.log('请求失败', err)
+				})
 			},
 			//轮播列表
 			getSwiperList() {
-				let param={
+				let param = {
 					"otherData": "",
-					  "id": 0,
-					  "page":1,
-					  "limit": 10,
-					  "order": "",
-					  "where": "TplIndexBanner1",
+					"id": 0,
+					"page": 1,
+					"limit": 10,
+					"order": "",
+					"where": "TplIndexBanner1",
 				};
 				https(urlList.getAdvertList, 'POST', param, '获取广告').then(data => {
-					this.swiperList=data.data;
+					this.swiperList = data.data;
 				}).catch(err => {
 					console.log('请求失败', err)
 				})

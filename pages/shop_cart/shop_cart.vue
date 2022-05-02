@@ -18,14 +18,14 @@
 					</label>
 				</view>
 				<view class="rig_goods">
-					<image :src="item.img" @tap="goodDetail(item.id)"></image>
+					<image :src="item.products.images" @tap="goodDetail(item.id)"></image>
 					<view class="r_goods_rig">
-						<view class="r_g_r_name">{{item.name}}</view>
-						<view class="r_g_r_type">女装：26 码</view>
+						<view class="r_g_r_name">{{item.products.name}}</view>
+						<view class="r_g_r_type">{{item.products.spesDesc}}</view>
 						<view class="r_g_r_price">
-							<view class="r_g_r_p_price">￥{{item.price}}</view>
+							<view class="r_g_r_p_price">￥{{item.products.amount}}</view>
 							<view class="r_g_r_p_num">
-								<uni-number-box @change="changeNum(index)" :min="1" :max="100" v-model="item.num">
+								<uni-number-box @change="changeNum(index)" :min="1" :max="100" v-model="item.nums">
 								</uni-number-box>
 							</view>
 						</view>
@@ -71,8 +71,22 @@
 			};
 		},
 		onLoad() {
+			this.getCartList();
 		},
 		methods: {
+			//分页查询商品列表 条件为推荐商品
+			getCartList(page, limit, order, where) {
+				let param = {
+					ids: '',
+					couponCode:''
+				};
+				https(urlList.getCartList, 'post', param, '').then(data => {
+					this.goods = data.data.list
+					this.totalPrice = data.data.goodsAmount
+				}).catch(err => {
+					console.log('请求失败', err)
+				})
+			},
 			goodDetail(id) {
 				uni.navigateTo({
 					url: '/pages/goodDetail/goodDetail?id=' + id

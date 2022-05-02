@@ -58,12 +58,18 @@
 			addCart() {
 				let param = {
 					"nums": this.buy_good.buy_num,
-					"productId": this.buy_good.product.id
+					"productId": this.buy_good.product.id,
+					"type": 1,
+					"cartType": 1,
 				}
 				https(urlList.addCart, 'POST', param, '添加中').then(data => {
-					console.log('请求成功', data)
+					uni.showToast({
+						title:"添加成功"
+					})
 				}).catch(err => {
-					console.log('请求失败', err)
+					uni.showToast({
+						title:"添加失败"
+					})
 				})
 			},
 			handleComfig(type) {

@@ -50,7 +50,7 @@
 			<view class="good_img_text">
 				<image src="/static/images/goodDetail/good_text_img.png"></image>
 			</view>
-				<view class="good_img_fwb" v-html="goodsInfo.intro">	
+			<view class="good_img_fwb" v-html="goodsInfo.intro">
 			</view>
 		</view>
 		<view class="bot_nav">
@@ -64,7 +64,7 @@
 				<text>收藏</text>
 			</view>
 			<view class="nav_rig_btn">
-				<view class="btn color1" @tap="openBuyGood">加入购物车</view>
+				<view class="btn color1" @tap="addCart">加入购物车</view>
 				<view class="btn color2" @tap="openBuyGood">立即购买</view>
 			</view>
 		</view>
@@ -116,7 +116,7 @@
 				type: 2, // 1加入购物车 2购买
 				cartType: 1,
 				isfav: false, // 商品是否收藏
-				goodsInfoImages:[],
+				goodsInfoImages: [],
 			}
 		},
 		onLoad(options) {
@@ -130,23 +130,40 @@
 				this.getGoodsParams();
 				this.getGoodsComments();
 			} else {
-				
+
 			}
 		},
-		methods: { 
+		methods: {
+			addCart() {
+				let param = {
+					"nums": this.buyNum,
+					"productId": this.product.id,
+					"type": 1,
+					"cartType": 1,
+				}
+				https(urlList.addCart, 'POST', param, '添加中').then(data => {
+					uni.showToast({
+						title: "添加成功"
+					})
+				}).catch(err => {
+					uni.showToast({
+						title: "添加失败"
+					})
+				})
+			},
 			// 获取商品评论信息
 			getGoodsComments() {
 				let data = {
 					page: 1,
 					limit: 5,
 					id: this.goodsId,
-					order:"",
-					where :"",
-					otherData:""
+					order: "",
+					where: "",
+					otherData: ""
 				}
 				https(urlList.getGoodsComment, 'POST', data, '').then(data => {
 					this.goods = data.data
-				
+
 				}).catch(err => {
 					//console.log('请求失败', err)
 				})
@@ -161,36 +178,31 @@
 				https(urlList.getDetial, 'POST', data, '').then(res => {
 					if (res.status == true) {
 						let info = res.data;
-						let products = res.data.products;
+						let products = res.data.product;
 						_this.goodsInfoImages = info.images.split(',')
-						_this.goodsInfo=info;
-						_this.isfav=res.data.isFav;
-						_this.product=products;
-					}
-					else
-					{
-						
+						_this.goodsInfo = info;
+						_this.isfav = res.data.isFav;
+						_this.product = products;
+					} else {
+
 					}
 				}).catch(err => {})
 			},
-			 // 获取商品参数信息
-			            getGoodsParams() {
-			                https(urlList.getDetial, 'POST', data, '').then(res => {
-			                	if (res.status == true) {
-			                		let info = res.data;
-			                		let products = res.data.products;
-			                		_this.goodsInfoImages = info.images.split(',')
-			                		_this.goodsInfo=info;
-			                		_this.isfav=res.data.isFav;
-			                		_this.product=products;
-			                	}
-			                	else
-			                	{
-			                		
-			                	}
-			                }).catch(err => {})
-			            },
-						
+			// 获取商品参数信息
+			getGoodsParams() {
+				https(urlList.getDetial, 'POST', data, '').then(res => {
+					if (res.status == true) {
+						let info = res.data;
+						let products = res.data.products;
+						_this.goodsInfoImages = info.images.split(',')
+						_this.goodsInfo = info;
+						_this.isfav = res.data.isFav;
+						_this.product = products;
+					} else {
+
+					}
+				}).catch(err => {})
+			},
 			openBuyGood() {
 				this.showBuyGood = true;
 				this.buy_good = this.goods
@@ -209,9 +221,9 @@
 					data: ""
 				}
 				https(urlList.goodsCollection, 'POST', param, '').then(data => {
-					 this.isfav = !this.isfav;
+					this.isfav = !this.isfav;
 				}).catch(err => {
-					
+
 				})
 			},
 			onFenx() {

@@ -589,14 +589,6 @@ var getSystemInfo = {
   } };
 
 
-var showActionSheet = {
-  args: function args(fromArgs) {
-    if (typeof fromArgs === 'object') {
-      fromArgs.alertText = fromArgs.title;
-    }
-  } };
-
-
 // import navigateTo from 'uni-helpers/navigate-to'
 
 var protocols = {
@@ -604,8 +596,7 @@ var protocols = {
   // navigateTo,  // 由于在微信开发者工具的页面参数，会显示__id__参数，因此暂时关闭mp-weixin对于navigateTo的AOP
   previewImage: previewImage,
   getSystemInfo: getSystemInfo,
-  getSystemInfoSync: getSystemInfo,
-  showActionSheet: showActionSheet };
+  getSystemInfoSync: getSystemInfo };
 
 var todos = [
 'vibrate',
@@ -956,7 +947,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"wb-shop","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"wb-shop","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2230,9 +2221,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 178:
-/*!*******************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-icons/components/uni-icons/icons.js ***!
-  \*******************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-icons/components/uni-icons/icons.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3407,9 +3398,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 18:
-/*!*****************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/static/api.js ***!
-  \*****************************************************/
+/*!**********************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/static/api.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3423,17 +3414,18 @@ var urlList = {
   goodsCollection: serverUrl + 'User/GoodsCollection',
   //广告
   getAdvertList: serverUrl + 'Advert/GetAdvertList',
-  //获取商品
-  getGoodsRecommendList: serverUrl + 'Good/GetGoodsRecommendList',
-  //获取商品分类
+  //商品分类
   getAllCategories: serverUrl + 'Good/GetAllCategories',
-  //分页获取商品列表
+  //获取推荐商品
+  getGoodsRecommendList: serverUrl + 'Good/GetGoodsRecommendList',
+  //商品
   getGoodsPageList: serverUrl + 'Good/GetGoodsPageList',
   getGoodsComment: serverUrl + 'Good/GetGoodsComment',
   getDetial: serverUrl + 'Good/GetDetial',
   //购物车
   addCart: serverUrl + 'Cart/AddCart',
-  getList: serverUrl + 'Cart/GetList',
+  getCartList: serverUrl + 'Cart/GetList',
+  getCartDtoData: serverUrl + 'Cart/GetCartDtoData',
   doDelete: serverUrl + 'Cart/DoDelete',
   setCartNum: serverUrl + 'Cart/SetCartNum' };
 
@@ -3525,9 +3517,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 200:
-/*!**********************************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-search-bar/components/uni-search-bar/i18n/index.js ***!
-  \**********************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-search-bar/components/uni-search-bar/i18n/index.js ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3543,9 +3535,9 @@ var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 2
 /***/ }),
 
 /***/ 201:
-/*!*********************************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-search-bar/components/uni-search-bar/i18n/en.json ***!
-  \*********************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-search-bar/components/uni-search-bar/i18n/en.json ***!
+  \**************************************************************************************************************************/
 /*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
 /***/ (function(module) {
 
@@ -3554,9 +3546,9 @@ module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-
 /***/ }),
 
 /***/ 202:
-/*!**************************************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hans.json ***!
-  \**************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hans.json ***!
+  \*******************************************************************************************************************************/
 /*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
 /***/ (function(module) {
 
@@ -3565,9 +3557,9 @@ module.exports = JSON.parse("{\"uni-search-bar.cancel\":\"cancel\",\"uni-search-
 /***/ }),
 
 /***/ 203:
-/*!**************************************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hant.json ***!
-  \**************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-search-bar/components/uni-search-bar/i18n/zh-Hant.json ***!
+  \*******************************************************************************************************************************/
 /*! exports provided: uni-search-bar.cancel, uni-search-bar.placeholder, default */
 /***/ (function(module) {
 
@@ -4367,9 +4359,9 @@ if (hadRuntime) {
 /***/ }),
 
 /***/ 235:
-/*!********************************************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-datetime-picker/components/uni-datetime-picker/i18n/index.js ***!
-  \********************************************************************************************************************/
+/*!*************************************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-datetime-picker/components/uni-datetime-picker/i18n/index.js ***!
+  \*************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4385,9 +4377,9 @@ var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 2
 /***/ }),
 
 /***/ 236:
-/*!*******************************************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-datetime-picker/components/uni-datetime-picker/i18n/en.json ***!
-  \*******************************************************************************************************************/
+/*!************************************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-datetime-picker/components/uni-datetime-picker/i18n/en.json ***!
+  \************************************************************************************************************************************/
 /*! exports provided: uni-datetime-picker.selectDate, uni-datetime-picker.selectTime, uni-datetime-picker.selectDateTime, uni-datetime-picker.startDate, uni-datetime-picker.endDate, uni-datetime-picker.startTime, uni-datetime-picker.endTime, uni-datetime-picker.ok, uni-datetime-picker.clear, uni-datetime-picker.cancel, uni-calender.MON, uni-calender.TUE, uni-calender.WED, uni-calender.THU, uni-calender.FRI, uni-calender.SAT, uni-calender.SUN, default */
 /***/ (function(module) {
 
@@ -4396,9 +4388,9 @@ module.exports = JSON.parse("{\"uni-datetime-picker.selectDate\":\"select date\"
 /***/ }),
 
 /***/ 237:
-/*!************************************************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-datetime-picker/components/uni-datetime-picker/i18n/zh-Hans.json ***!
-  \************************************************************************************************************************/
+/*!*****************************************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-datetime-picker/components/uni-datetime-picker/i18n/zh-Hans.json ***!
+  \*****************************************************************************************************************************************/
 /*! exports provided: uni-datetime-picker.selectDate, uni-datetime-picker.selectTime, uni-datetime-picker.selectDateTime, uni-datetime-picker.startDate, uni-datetime-picker.endDate, uni-datetime-picker.startTime, uni-datetime-picker.endTime, uni-datetime-picker.ok, uni-datetime-picker.clear, uni-datetime-picker.cancel, uni-calender.SUN, uni-calender.MON, uni-calender.TUE, uni-calender.WED, uni-calender.THU, uni-calender.FRI, uni-calender.SAT, default */
 /***/ (function(module) {
 
@@ -4407,9 +4399,9 @@ module.exports = JSON.parse("{\"uni-datetime-picker.selectDate\":\"选择日期\
 /***/ }),
 
 /***/ 238:
-/*!************************************************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-datetime-picker/components/uni-datetime-picker/i18n/zh-Hant.json ***!
-  \************************************************************************************************************************/
+/*!*****************************************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-datetime-picker/components/uni-datetime-picker/i18n/zh-Hant.json ***!
+  \*****************************************************************************************************************************************/
 /*! exports provided: uni-datetime-picker.selectDate, uni-datetime-picker.selectTime, uni-datetime-picker.selectDateTime, uni-datetime-picker.startDate, uni-datetime-picker.endDate, uni-datetime-picker.startTime, uni-datetime-picker.endTime, uni-datetime-picker.ok, uni-datetime-picker.clear, uni-datetime-picker.cancel, uni-calender.SUN, uni-calender.MON, uni-calender.TUE, uni-calender.WED, uni-calender.THU, uni-calender.FRI, uni-calender.SAT, default */
 /***/ (function(module) {
 
@@ -4418,9 +4410,9 @@ module.exports = JSON.parse("{\"uni-datetime-picker.selectDate\":\"選擇日期\
 /***/ }),
 
 /***/ 246:
-/*!***************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/components/addressPicker/pcaData.js ***!
-  \***************************************************************************/
+/*!********************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/components/addressPicker/pcaData.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8314,9 +8306,9 @@ module.exports = {
 /***/ }),
 
 /***/ 261:
-/*!***************************************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-transition/components/uni-transition/createAnimation.js ***!
-  \***************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-transition/components/uni-transition/createAnimation.js ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8454,9 +8446,9 @@ function createAnimation(option, _this) {
 /***/ }),
 
 /***/ 267:
-/*!**************************************************************************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/uni_modules/uni-datetime-picker/components/uni-datetime-picker/util.js ***!
-  \**************************************************************************************************************/
+/*!*******************************************************************************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/uni_modules/uni-datetime-picker/components/uni-datetime-picker/util.js ***!
+  \*******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8885,7 +8877,7 @@ Calendar;exports.default = _default;
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/*!
  * Vue.js v2.6.11
- * (c) 2014-2022 Evan You
+ * (c) 2014-2021 Evan You
  * Released under the MIT License.
  */
 /*  */
@@ -12965,10 +12957,10 @@ function updateChildComponent (
     // keep a copy of raw propsData
     vm.$options.propsData = propsData;
   }
-  
+
   // fixed by xxxxxx update properties(mp runtime)
   vm._$updateProperties && vm._$updateProperties(vm);
-  
+
   // update listeners
   listeners = listeners || emptyObject;
   var oldListeners = vm.$options._parentListeners;
@@ -13494,12 +13486,12 @@ function initProps (vm, propsOptions) {
       defineReactive$$1(props, key, value, function () {
         if (!isRoot && !isUpdatingChildComponent) {
           {
-            if(vm.mpHost === 'mp-baidu' || vm.mpHost === 'mp-kuaishou' || vm.mpHost === 'mp-xhs'){//百度、快手、小红书 observer 在 setData callback 之后触发，直接忽略该 warn
+            if(vm.mpHost === 'mp-baidu' || vm.mpHost === 'mp-kuaishou'){//百度、快手 observer 在 setData callback 之后触发，直接忽略该 warn
                 return
             }
             //fixed by xxxxxx __next_tick_pending,uni://form-field 时不告警
             if(
-                key === 'value' && 
+                key === 'value' &&
                 Array.isArray(vm.$options.behaviors) &&
                 vm.$options.behaviors.indexOf('uni://form-field') !== -1
               ){
@@ -13511,7 +13503,7 @@ function initProps (vm, propsOptions) {
             var $parent = vm.$parent;
             while($parent){
               if($parent.__next_tick_pending){
-                return  
+                return
               }
               $parent = $parent.$parent;
             }
@@ -13839,10 +13831,10 @@ function initMixin (Vue) {
     initEvents(vm);
     initRender(vm);
     callHook(vm, 'beforeCreate');
-    !vm._$fallback && initInjections(vm); // resolve injections before data/props  
+    !vm._$fallback && initInjections(vm); // resolve injections before data/props
     initState(vm);
     !vm._$fallback && initProvide(vm); // resolve provide after data/props
-    !vm._$fallback && callHook(vm, 'created');      
+    !vm._$fallback && callHook(vm, 'created');
 
     /* istanbul ignore if */
     if ( true && config.performance && mark) {
@@ -14341,6 +14333,7 @@ function _diff(current, pre, path, result) {
                 var currentType = type(currentValue);
                 var preType = type(preValue);
                 if (currentType != ARRAYTYPE && currentType != OBJECTTYPE) {
+                    // NOTE 此处将 != 修改为 !==。涉及地方太多恐怕测试不到，如果出现数据对比问题，将其修改回来。
                     if (currentValue !== pre[key]) {
                         setResult(result, (path == '' ? '' : path + ".") + key, currentValue);
                     }
@@ -14400,7 +14393,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"wb-shop","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"wb-shop","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -14421,14 +14414,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"wb-shop","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"wb-shop","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"wb-shop","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"wb-shop","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -14514,7 +14507,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"wb-shop","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"wb-shop","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -14567,7 +14560,7 @@ function mountComponent$1(
       }
     }
   }
-  
+
   !vm._$fallback && callHook(vm, 'beforeMount');
 
   var updateComponent = function () {
@@ -14700,9 +14693,10 @@ function internalMixin(Vue) {
 
   Vue.prototype.$emit = function(event) {
     if (this.$scope && event) {
-      (this.$scope['_triggerEvent'] || this.$scope['triggerEvent']).call(this.$scope, event, {
-        __args__: toArray(arguments, 1)
-      });
+      (this.$scope['_triggerEvent'] || this.$scope['triggerEvent'])
+        .call(this.$scope, event, {
+          __args__: toArray(arguments, 1)
+        })
     }
     return oldEmit.apply(this, arguments)
   };
@@ -14767,7 +14761,7 @@ function internalMixin(Vue) {
       target = this;
     }
     // 解决动态属性添加
-    Vue.set(target, key, value);
+    Vue.set(target, key, value)
   };
 
   Vue.prototype.__set_sync = function(target, key, value) {
@@ -14775,7 +14769,7 @@ function internalMixin(Vue) {
       target = this;
     }
     // 解决动态属性添加
-    Vue.set(target, key, value);
+    Vue.set(target, key, value)
   };
 
   Vue.prototype.__get_orig = function(item) {
@@ -14908,7 +14902,7 @@ Vue.prototype.__patch__ = patch;
 // public mount method
 Vue.prototype.$mount = function(
     el ,
-    hydrating 
+    hydrating
 ) {
     return mountComponent$1(this, el, hydrating)
 };
@@ -15389,9 +15383,9 @@ function resolveLocaleChain(locale) {
 /***/ }),
 
 /***/ 5:
-/*!**************************************************!*\
-  !*** D:/Code/FuFuShop/FuFuShop.WxWeb/pages.json ***!
-  \**************************************************/
+/*!*******************************************************************!*\
+  !*** /Users/blindmouse/Projects/dotnet/FuFuShop.WxWeb/pages.json ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

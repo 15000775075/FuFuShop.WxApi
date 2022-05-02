@@ -8,17 +8,18 @@ const urlList = {
 	goodsCollection:serverUrl+'User/GoodsCollection',
 	//广告
 	getAdvertList: serverUrl + 'Advert/GetAdvertList',
-	//获取商品
-	getGoodsRecommendList: serverUrl + 'Good/GetGoodsRecommendList',
-	//获取商品分类
+	//商品分类
 	getAllCategories: serverUrl + 'Good/GetAllCategories',
-	//分页获取商品列表
+	//获取推荐商品
+	getGoodsRecommendList: serverUrl + 'Good/GetGoodsRecommendList',
+	//商品
 	getGoodsPageList: serverUrl + 'Good/GetGoodsPageList',
 	getGoodsComment: serverUrl + 'Good/GetGoodsComment',
 	getDetial: serverUrl + 'Good/GetDetial',
 	//购物车
 	addCart: serverUrl + 'Cart/AddCart',
-	getList: serverUrl + 'Cart/GetList',
+	getCartList: serverUrl + 'Cart/GetList',
+	getCartDtoData: serverUrl + 'Cart/GetCartDtoData',
 	doDelete: serverUrl + 'Cart/DoDelete',
 	setCartNum: serverUrl + 'Cart/SetCartNum',
 	
