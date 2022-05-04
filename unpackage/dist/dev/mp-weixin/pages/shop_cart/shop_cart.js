@@ -210,8 +210,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _require =
-
 
 
 
@@ -222,20 +222,22 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       selectAllGoods: false,
       goods: [],
       totalPrice: '0.00',
-      isChange: false };
+      isChange: false,
+      clickTimeOut: null };
 
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad() {},
+  onShow: function onShow() {
     this.getCartList();
   },
   methods: {
     //分页查询商品列表 条件为推荐商品
-    getCartList: function getCartList(page, limit, order, where) {var _this = this;
+    getCartList: function getCartList() {var _this = this;
       var param = {
         ids: '',
         couponCode: '' };
 
-      https(urlList.getCartList, 'post', param, '').then(function (data) {
+      https(urlList.getCartDtoData, 'post', param, '更新购物车').then(function (data) {
         _this.goods = data.data.list;
         _this.totalPrice = data.data.goodsAmount;
       }).catch(function (err) {
@@ -248,7 +250,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
     },
     // 删除
-    clearGoods: function clearGoods() {
+    clearGoods: function clearGoods() {var _this2 = this;
       var goods = this.goods;
       var clearGoods = [];
       for (var i = 0; i < goods.length; i++) {
@@ -256,13 +258,26 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
           clearGoods.push(goods[i].id);
         }
       };
-      if (clearGoods.length <= 0) {
-        uni.showToast({
-          title: '请选择商品',
-          icon: 'none' });
-
-      }
       console.log('删除的商品--', clearGoods);
+      if (clearGoods.length == 0) return;
+      uni.showModal({
+        title: "确定删除？",
+        success: function success(data) {
+          if (!data.confirm) return;
+          clearGoods.forEach(function (id) {
+            var param = {
+              id: id };
+
+            https(urlList.doDelete, 'post', param, '删除中').then(function (data) {
+              if (data.status == true)
+              uni.showToast({
+                title: "删除成功" });
+
+            });
+          });
+          _this2.getCartList();
+        } });
+
     },
     // 编辑
     onChange: function onChange() {
@@ -315,8 +330,19 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
     },
     // 加减数量
     changeNum: function changeNum(index) {
-      this.$nextTick(function () {
-        this.getTotalPrice();
+      this.$nextTick(function () {var _this3 = this;
+        clearTimeout(this.clickTimeOut);
+        this.clickTimeOut = setTimeout(function () {
+          var param = {
+            id: _this3.goods[index].products.id,
+            num: _this3.goods[index].nums };
+
+          https(urlList.setCartNum, 'post', param, '更新商品数量').then(function (data) {
+            _this3.getTotalPrice();
+          }).catch(function (err) {
+            console.log('请求失败', err);
+          });
+        }, 1000);
       });
     },
     // 获取总价
@@ -325,7 +351,8 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       var total = 0;
       for (var i = 0; i < goods.length; i++) {
         if (goods[i].selected) {
-          total += goods[i].num * goods[i].price;
+          console.log(goods[i]);
+          total += goods[i].nums * goods[i].products.price;
         }
       };
       this.totalPrice = total.toFixed(2);

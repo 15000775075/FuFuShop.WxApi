@@ -257,6 +257,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   components: {
@@ -274,18 +275,15 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       type: 2, // 1加入购物车 2购买
       cartType: 1,
       isfav: false, // 商品是否收藏
-      goodsInfoImages: [] };
+      goodsInfoImages: [],
+      showBuyGood: false };
 
   },
   onLoad: function onLoad(options) {
     //获取商品ID
     if (options.id != '') {
       this.goodsId = options.id;
-    }
-    if (this.goodsId) {
-      //this.getServiceDescription();
       this.getGoodsDetail();
-      this.getGoodsParams();
       this.getGoodsComments();
     } else {
 
@@ -293,6 +291,10 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
   },
   methods: {
     addCart: function addCart() {
+      if (!this.product.id) {
+        this.openBuyGood();
+        return;
+      }
       var param = {
         "nums": this.buyNum,
         "productId": this.product.id,
@@ -300,6 +302,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         "cartType": 1 };
 
       https(urlList.addCart, 'POST', param, '添加中').then(function (data) {
+        if (data.status)
         uni.showToast({
           title: "添加成功" });
 
@@ -310,7 +313,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       });
     },
     // 获取商品评论信息
-    getGoodsComments: function getGoodsComments() {var _this2 = this;
+    getGoodsComments: function getGoodsComments() {var _this = this;
       var data = {
         page: 1,
         limit: 5,
@@ -320,42 +323,25 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         otherData: "" };
 
       https(urlList.getGoodsComment, 'POST', data, '').then(function (data) {
-        _this2.goods = data.data;
+        _this.goods = data.data;
 
       }).catch(function (err) {
         //console.log('请求失败', err)
       });
     },
     //获取商品详情
-    getGoodsDetail: function getGoodsDetail(id) {
-      var _this = this;
-      var data = {
+    getGoodsDetail: function getGoodsDetail() {var _this2 = this;
+      var param = {
         id: parseInt(this.goodsId),
         data: "" };
 
-      https(urlList.getDetial, 'POST', data, '').then(function (res) {
+      https(urlList.getDetial, 'POST', param, '').then(function (res) {
         if (res.status == true) {
           var info = res.data;
-          var products = res.data.product;
-          _this.goodsInfoImages = info.images.split(',');
-          _this.goodsInfo = info;
-          _this.isfav = res.data.isFav;
-          _this.product = products;
-        } else {
-
-        }
-      }).catch(function (err) {});
-    },
-    // 获取商品参数信息
-    getGoodsParams: function getGoodsParams() {
-      https(urlList.getDetial, 'POST', data, '').then(function (res) {
-        if (res.status == true) {
-          var info = res.data;
-          var products = res.data.products;
-          _this.goodsInfoImages = info.images.split(',');
-          _this.goodsInfo = info;
-          _this.isfav = res.data.isFav;
-          _this.product = products;
+          _this2.goodsInfoImages = info.images.split(',');
+          _this2.goodsInfo = info;
+          _this2.isfav = res.data.isFav;
+          console.log('是否收藏', _this2.isfav);
         } else {
 
         }
@@ -378,8 +364,13 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         id: this.goodsInfo.id,
         data: "" };
 
-      https(urlList.goodsCollection, 'POST', param, '').then(function (data) {
-        _this3.isfav = !_this3.isfav;
+      https(urlList.goodsCollectionCreateOrDelete, 'POST', param, '').then(function (data) {
+        if (data.status == true) {
+          _this3.isfav = !_this3.isfav;
+          uni.showToast({
+            title: data.msg });
+
+        }
       }).catch(function (err) {
 
       });

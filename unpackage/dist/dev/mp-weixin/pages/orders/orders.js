@@ -175,52 +175,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-var _default =
+var _require =
+
+
+
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   data: function data() {
     return {
       topNavList: ['全部', '待付款', '待发货', '待收货', '已完成'],
       tabIndex: 0,
-      orders: [
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2,
-        totalPrice: '430.32',
-        category: '27黑色 （9956款）' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2,
-        totalPrice: '430.32',
-        category: '27黑色 （9956款）' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2,
-        totalPrice: '430.32',
-        category: '27黑色 （9956款）' }] };
-
-
+      orders: [],
+      param: {
+        page: 1,
+        limit: 10,
+        status: 0 } };
 
 
   },
   onLoad: function onLoad(options) {
     this.tabIndex = options.tabIndex;
+    this.param.status = this.tabIndex;
+    this.getOrderList();
   },
   methods: {
+    getOrderList: function getOrderList() {var _this = this;
+      var param = this.param;
+      https(urlList.getOrderList, 'post', param, '更新订单').then(function (data) {
+        _this.orders = data.data.list;
+      });
+    },
     onTopTabs: function onTopTabs(index) {
       this.tabIndex = index;
+      this.param.status = this.tabIndex === 0 ? -1 : this.tabIndex;
+      this.getOrderList();
     },
     goSearch: function goSearch() {
       uni.navigateTo({
@@ -240,6 +228,22 @@ var _default =
     onLookFp: function onLookFp(id) {
       uni.navigateTo({
         url: '/pages/orders-fp/orders-fp?id=' + id });
+
+    },
+    onPay: function onPay(item) {
+      uni.showModal({
+        title: "确认支付" + item.goodsAmount + "￥",
+        success: function success(res) {
+          if (!res.confirm)
+          uni.showToast({
+            title: "取消支付",
+            icon: "error" });else
+
+
+          uni.showToast({
+            title: "支付成功" });
+
+        } });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

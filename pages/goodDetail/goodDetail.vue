@@ -38,7 +38,7 @@
 				<uni-icons type="right" color="#8a8a8a"></uni-icons>
 			</view>
 			<view class="guige_bot">
-				<view class="guige_bot_item">共{{goodsInfo.category.length}}个规格...</view>
+				<view class="guige_bot_item">共{{goodsInfo.products.length}}个规格...</view>
 			</view>
 		</view>
 		<view class="pj">
@@ -59,8 +59,8 @@
 				<text>首页</text>
 			</view>
 			<view class="nav_lef_item" @tap="onCollection">
-				<uni-icons v-if="!this.isfav" type="heart" size="22" color="#838383"></uni-icons>
-				<uni-icons v-else type="heart-filled" size="22" color="red"></uni-icons>
+				<uni-icons v-if="isfav" type="heart-filled" size="22" color="red"></uni-icons>
+				<uni-icons v-else type="heart" size="22" color="#838383"></uni-icons>
 				<text>收藏</text>
 			</view>
 			<view class="nav_rig_btn">
@@ -90,6 +90,7 @@
 			</view>
 		</uni-popup>
 		<hai-bao ref="poster"></hai-bao>
+		<buy-goods v-show="showBuyGood" :buy_good="goodsInfo" @closeBuyGood="closeBuyGood"></buy-goods>
 	</view>
 </template>
 
@@ -117,17 +118,14 @@
 				cartType: 1,
 				isfav: false, // 商品是否收藏
 				goodsInfoImages: [],
+				showBuyGood: false
 			}
 		},
 		onLoad(options) {
 			//获取商品ID
 			if (options.id != '') {
 				this.goodsId = options.id;
-			}
-			if (this.goodsId) {
-				//this.getServiceDescription();
 				this.getGoodsDetail();
-				this.getGoodsParams();
 				this.getGoodsComments();
 			} else {
 
@@ -135,6 +133,10 @@
 		},
 		methods: {
 			addCart() {
+				if (!this.product.id) {
+					this.openBuyGood()
+					return;
+				}
 				let param = {
 					"nums": this.buyNum,
 					"productId": this.product.id,
@@ -142,9 +144,10 @@
 					"cartType": 1,
 				}
 				https(urlList.addCart, 'POST', param, '添加中').then(data => {
-					uni.showToast({
-						title: "添加成功"
-					})
+					if (data.status)
+						uni.showToast({
+							title: "添加成功"
+						})
 				}).catch(err => {
 					uni.showToast({
 						title: "添加失败"
@@ -169,35 +172,18 @@
 				})
 			},
 			//获取商品详情
-			getGoodsDetail(id) {
-				let _this = this;
-				let data = {
+			getGoodsDetail() {
+				let param = {
 					id: parseInt(this.goodsId),
 					data: ""
 				}
-				https(urlList.getDetial, 'POST', data, '').then(res => {
+				https(urlList.getDetial, 'POST', param, '').then(res => {
 					if (res.status == true) {
 						let info = res.data;
-						let products = res.data.product;
-						_this.goodsInfoImages = info.images.split(',')
-						_this.goodsInfo = info;
-						_this.isfav = res.data.isFav;
-						_this.product = products;
-					} else {
-
-					}
-				}).catch(err => {})
-			},
-			// 获取商品参数信息
-			getGoodsParams() {
-				https(urlList.getDetial, 'POST', data, '').then(res => {
-					if (res.status == true) {
-						let info = res.data;
-						let products = res.data.products;
-						_this.goodsInfoImages = info.images.split(',')
-						_this.goodsInfo = info;
-						_this.isfav = res.data.isFav;
-						_this.product = products;
+						this.goodsInfoImages = info.images.split(',')
+						this.goodsInfo = info;
+						this.isfav = res.data.isFav;
+						console.log('是否收藏', this.isfav)
 					} else {
 
 					}
@@ -220,8 +206,13 @@
 					id: this.goodsInfo.id,
 					data: ""
 				}
-				https(urlList.goodsCollection, 'POST', param, '').then(data => {
-					this.isfav = !this.isfav;
+				https(urlList.goodsCollectionCreateOrDelete, 'POST', param, '').then(data => {
+					if (data.status == true) {
+						this.isfav = !this.isfav;
+						uni.showToast({
+							title: data.msg
+						})
+					}
 				}).catch(err => {
 
 				})

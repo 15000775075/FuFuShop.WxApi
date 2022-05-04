@@ -135,7 +135,7 @@
   width: 100%;
   border-radius: 35rpx;
   background-color: white;
-  font-family: PingFangSC-Ultralight,ans-serif;
+  font-family: PingFangSC-Ultralight, ans-serif;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -327,7 +327,7 @@
   width: 100%;
   border-radius: 35rpx;
   background-color: #F7F7F7;
-  font-family: PingFangSC-Ultralight,ans-serif;
+  font-family: PingFangSC-Ultralight, ans-serif;
   display: flex;
   flex-direction: row;
   align-items: center;

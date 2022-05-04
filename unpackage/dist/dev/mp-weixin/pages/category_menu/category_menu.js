@@ -203,7 +203,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
   data: function data() {
     return {
       lefNavList: [],
-      lefIndex: 1,
+      lefIndex: 0,
       isHideLoading: false, //下拉加载状态
       goods: [],
       showBuyGood: false,
@@ -217,16 +217,14 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
   },
   onLoad: function onLoad() {
     this.getAllCategories();
-    this.getGoodsPageList(this.page, this.limit, this.order, this.where);
   },
   methods: {
-    getGoodsPageList: function getGoodsPageList(page, limit, order, where)
-    {var _this = this;
+    getGoodsPageList: function getGoodsPageList() {var _this = this;
       var param = {
-        "page": page,
-        "limit": limit,
-        "order": order,
-        "where": where };
+        "page": this.page,
+        "limit": this.limit,
+        "order": this.order,
+        "where": JSON.stringify(this.where) };
 
 
       console.log(param);
@@ -238,12 +236,12 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       });
     },
     getAllCategories: function getAllCategories() {var _this2 = this;
-      https(urlList.getAllCategories, 'POST', "", '获取分类列表').then(function (data)
-      {
+      https(urlList.getAllCategories, 'POST', "", '获取分类列表').then(function (data) {
+        if (data.status) {}
         _this2.lefNavList = data.data;
-      }).catch(function (err)
-      {
-      });
+        if (_this2.lefNavList.length > 0)
+        _this2.onLefTabs(0, _this2.lefNavList[0].id);
+      }).catch(function (err) {});
     },
     goSearch: function goSearch() {
       uni.navigateTo({
@@ -256,24 +254,14 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
     },
     // 左侧切换tabs
-    onLefTabs: function onLefTabs(index, id) {var _this3 = this;
+    onLefTabs: function onLefTabs(index, id) {
+      if (this.lefIndex != 0 && this.lefIndex == index) return;
       this.lefIndex = index;
       console.log('分类ID---', id);
-      var where = {
+      this.where = {
         catId: id };
 
-      var param = {
-        "page": 1,
-        "limit": 10,
-        "order": "",
-        "where": JSON.stringify(where) };
-
-      https(urlList.getGoodsPageList, 'POST', param, '获取商品列表').then(function (data) {
-        _this3.goods = data.data.list;
-        console.log('请求成功', data);
-      }).catch(function (err) {
-        console.log('请求失败', err);
-      });
+      this.getGoodsPageList();
     },
     showBuyGoodModel: function showBuyGoodModel(id, good) {
       this.buy_good = good;

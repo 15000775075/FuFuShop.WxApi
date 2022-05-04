@@ -114,7 +114,6 @@
 			},
 			showBuyGoodModel(id, good) {
 				this.buy_good = good;
-				this.buy_good.newSpecArray = this.buy_good.newSpec.split('|');
 				this.buy_good.buy_num = 1;
 				this.showBuyGood = true
 			},

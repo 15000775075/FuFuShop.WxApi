@@ -14,20 +14,20 @@
 					</view>
 				</view>
 				<view class="buy_category">
-					<block v-for="(item,index) in buy_good.newSpecArray" :key="index">
+					<block v-for="(item,index) in buy_good.products" :key="index">
 						<view class="buy_category_item" :class="selectIndex==index?'active':''"
 							@tap="selectCategory(item,index)">
-							{{item}}
+							{{item.spesDesc}}
 						</view>
 					</block>
 				</view>
 				<view class="buy_num">
 					<view class="buy_num_lef">数量</view>
-					<uni-number-box :min="1" :max="buy_good.stock" v-model="buy_good.buy_num"></uni-number-box>
+					<uni-number-box :min="1" :max="buy_good.stock" v-model="buy_num"></uni-number-box>
 				</view>
 				<view class="buy_btn">
 					<view class="buy_btn_a buy_btn_lef" @tap="addCart()">加入购物车</view>
-					<view class="buy_btn_a buy_btn_rig" @tap="handleComfig(2)">立即购买</view>
+					<view class="buy_btn_a buy_btn_rig" @tap="goNowBuy()">立即购买</view>
 				</view>
 			</view>
 		</view>
@@ -49,6 +49,7 @@
 		data() {
 			return {
 				selectIndex: 0,
+				buy_num: 1,
 			};
 		},
 		mounted() {
@@ -57,32 +58,29 @@
 		methods: {
 			addCart() {
 				let param = {
-					"nums": this.buy_good.buy_num,
-					"productId": this.buy_good.product.id,
+					"nums": this.buy_num,
+					"productId": this.buy_good.products[this.selectIndex].id,
 					"type": 1,
 					"cartType": 1,
 				}
 				https(urlList.addCart, 'POST', param, '添加中').then(data => {
-					uni.showToast({
-						title:"添加成功"
-					})
+					if (data.status)
+						uni.showToast({
+							title: "添加成功"
+						})
 				}).catch(err => {
 					uni.showToast({
-						title:"添加失败"
+						title: "添加失败"
 					})
 				})
 			},
-			handleComfig(type) {
-				if (type == 1) {
-
-				} else {
-					let id = [];
-					id.push(this.buy_good.id)
-					uni.navigateTo({
-						url: '/pages/nowBuy/nowBuy?id=' + JSON.stringify(id)
-					})
-				}
-				console.log(this.buy_good)
+			goNowBuy() {
+				console.log(this.buy_good.products[this.selectIndex]);
+				let id = [];
+				id.push(this.buy_good.products[this.selectIndex].id)
+				uni.navigateTo({
+					url: '/pages/nowBuy/nowBuy?id=' + JSON.stringify(id)
+				})
 			},
 			closeBuyGood() {
 				this.$emit('closeBuyGood')

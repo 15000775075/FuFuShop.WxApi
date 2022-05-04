@@ -48,32 +48,30 @@
 		data() {
 			return {
 				lefNavList: [],
-				lefIndex: 1,
+				lefIndex: 0,
 				isHideLoading: false, //下拉加载状态
 				goods: [],
 				showBuyGood: false,
 				buy_good: {},
-				page:1,
-				limit:10,
-				order:"",
-				where:"",
-				catId:0
+				page: 1,
+				limit: 10,
+				order: "",
+				where: "",
+				catId: 0
 			};
 		},
 		onLoad() {
 			this.getAllCategories();
-			this.getGoodsPageList(this.page,this.limit,this.order,this.where);
 		},
 		methods: {
-			getGoodsPageList(page,limit,order,where)
-			{
-				let param={
-					"page":page,
-					"limit":limit,
-					"order":order,
-					"where":where
+			getGoodsPageList() {
+				let param = {
+					"page": this.page,
+					"limit": this.limit,
+					"order": this.order,
+					"where": JSON.stringify(this.where)
 				};
-				
+
 				console.log(param)
 				https(urlList.getGoodsPageList, 'POST', param, '获取商品列表').then(data => {
 					this.goods = data.data.list
@@ -83,12 +81,12 @@
 				})
 			},
 			getAllCategories() {
-				https(urlList.getAllCategories, 'POST', "", '获取分类列表').then(data => 
-				{
+				https(urlList.getAllCategories, 'POST', "", '获取分类列表').then(data => {
+					if (data.status) {}
 					this.lefNavList = data.data
-				}).catch(err => 
-				{
-				})
+					if (this.lefNavList.length > 0)
+						this.onLefTabs(0, this.lefNavList[0].id);
+				}).catch(err => {})
 			},
 			goSearch() {
 				uni.navigateTo({
@@ -102,23 +100,13 @@
 			},
 			// 左侧切换tabs
 			onLefTabs(index, id) {
+				if (this.lefIndex != 0 && this.lefIndex == index) return;
 				this.lefIndex = index;
 				console.log('分类ID---', id)
-				let where = {
-					catId :id,
+				this.where = {
+					catId: id,
 				}
-				let param = {
-					"page": 1,
-					"limit": 10,
-					"order": "",
-					"where":JSON.stringify(where)
-				}
-				https(urlList.getGoodsPageList, 'POST', param, '获取商品列表').then(data => {
-					this.goods = data.data.list
-					console.log('请求成功', data)
-				}).catch(err => {
-					console.log('请求失败', err)
-				})
+				this.getGoodsPageList();
 			},
 			showBuyGoodModel(id, good) {
 				this.buy_good = good;

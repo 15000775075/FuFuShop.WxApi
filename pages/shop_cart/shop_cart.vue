@@ -5,12 +5,12 @@
 			<view class="t_c_change" @tap="onChange">{{isChange?'完成':'编辑'}}</view>
 		</view>
 		<view v-if="goods.length > 0" class="cen_goods">
-			<view class="goods_text">
+			<!-- <view class="goods_text">
 				<label class="radio" @tap="selectAll">
 					<radio style="transform:scale(0.8);margin-left: 20rpx;" color="#FF4544" :checked="selectAllGoods" />
 					<text>XXX 品牌</text>
 				</label>
-			</view>
+			</view> -->
 			<view class="goods_item" v-for="(item,index) in goods" :key="index">
 				<view class="lef_select">
 					<label class="radio" @tap="selectGoods(index)">
@@ -23,9 +23,10 @@
 						<view class="r_g_r_name">{{item.products.name}}</view>
 						<view class="r_g_r_type">{{item.products.spesDesc}}</view>
 						<view class="r_g_r_price">
-							<view class="r_g_r_p_price">￥{{item.products.amount}}</view>
+							<view class="r_g_r_p_price">￥{{item.products.price}}</view>
 							<view class="r_g_r_p_num">
-								<uni-number-box @change="changeNum(index)" :min="1" :max="100" v-model="item.nums">
+								<uni-number-box @change="changeNum(index)" :min="1" :max="item.products.stock"
+									v-model="item.nums">
 								</uni-number-box>
 							</view>
 						</view>
@@ -56,7 +57,6 @@
 </template>
 
 <script>
-
 	const {
 		urlList,
 		https
@@ -68,19 +68,21 @@
 				goods: [],
 				totalPrice: '0.00',
 				isChange: false,
+				clickTimeOut: null
 			};
 		},
-		onLoad() {
+		onLoad() {},
+		onShow() {
 			this.getCartList();
 		},
 		methods: {
 			//分页查询商品列表 条件为推荐商品
-			getCartList(page, limit, order, where) {
+			getCartList() {
 				let param = {
 					ids: '',
-					couponCode:''
+					couponCode: ''
 				};
-				https(urlList.getCartList, 'post', param, '').then(data => {
+				https(urlList.getCartDtoData, 'post', param, '更新购物车').then(data => {
 					this.goods = data.data.list
 					this.totalPrice = data.data.goodsAmount
 				}).catch(err => {
@@ -101,13 +103,26 @@
 						clearGoods.push(goods[i].id)
 					}
 				};
-				if (clearGoods.length <= 0) {
-					uni.showToast({
-						title: '请选择商品',
-						icon: 'none'
-					})
-				}
 				console.log('删除的商品--', clearGoods)
+				if (clearGoods.length == 0) return;
+				uni.showModal({
+					title: "确定删除？",
+					success:(data)=> {
+						if (!data.confirm) return;
+						clearGoods.forEach((id) => {
+							let param = {
+								id: id,
+							};
+							https(urlList.doDelete, 'post', param, '删除中').then(data => {
+								if (data.status == true)
+									uni.showToast({
+										title: "删除成功"
+									})
+							});
+						});
+						this.getCartList();
+					}
+				})
 			},
 			// 编辑
 			onChange() {
@@ -161,7 +176,18 @@
 			// 加减数量
 			changeNum(index) {
 				this.$nextTick(function() {
-					this.getTotalPrice()
+					clearTimeout(this.clickTimeOut);
+					this.clickTimeOut = setTimeout(() => {
+						let param = {
+							id: this.goods[index].products.id,
+							num: this.goods[index].nums
+						}
+						https(urlList.setCartNum, 'post', param, '更新商品数量').then(data => {
+							this.getTotalPrice();
+						}).catch(err => {
+							console.log('请求失败', err)
+						})
+					}, 1000)
 				});
 			},
 			// 获取总价
@@ -170,7 +196,8 @@
 				let total = 0;
 				for (let i = 0; i < goods.length; i++) {
 					if (goods[i].selected) {
-						total += goods[i].num * goods[i].price;
+						console.log(goods[i])
+						total += goods[i].nums * goods[i].products.price;
 					}
 				};
 				this.totalPrice = total.toFixed(2);

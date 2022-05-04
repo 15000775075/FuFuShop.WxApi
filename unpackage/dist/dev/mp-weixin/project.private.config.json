@@ -165,6 +165,20 @@
                     "name": "",
                     "pathName": "pages/goodDetail/goodDetail",
                     "query": "id=4143",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "确认订单",
+                    "pathName": "pages/nowBuy/nowBuy",
+                    "query": "id=%5B3%2C4%5D",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "地址列表",
+                    "pathName": "pages/address/address",
+                    "query": "type=1",
                     "scene": null,
                     "launchMode": "default"
                 }

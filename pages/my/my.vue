@@ -115,7 +115,7 @@
 					},
 				],
 				botTabs: [{
-					
+
 						img: '/static/images/my/tabs2-1.png',
 						text: '收货地址',
 						num: 7
@@ -147,9 +147,11 @@
 				]
 			};
 		},
-		onLoad() {
-			const that = this;
-			this.getUser()
+		onLoad(option) {
+			uni.getStorageSync("token") && this.getUser();
+		},
+		onShow(option) {
+
 		},
 		methods: {
 			goUrl(num, orderNum) {
@@ -227,7 +229,7 @@
 						console.log(res1.userInfo);
 						wx.login({
 							success: res => {
-								
+
 								if (res.code) {
 									let postData = {
 										code: res.code,
@@ -235,13 +237,21 @@
 									};
 									https(urlList.wxlogin, 'POST', postData, '登录中').then(data => {
 										console.log('请求成功', data)
-										uni.setStorageSync('token',data.data.auth.token);
-										//uni.setStorageSync('user_info',data.data.user);
-										uni.showToast({
-											title:"登录成功"
-										})
-										that.userInfo = data.data.user;
+										if (data.status == true) {
+											uni.setStorageSync('token', data.data.auth
+												.token);
+											that.userInfo = data.data.user;
+											uni.showToast({
+												title: "登录成功"
+											})
+										} else
+											uni.showToast({
+												title: "登录失败"
+											})
 									}).catch(err => {
+										uni.showToast({
+											title: "登录失败"
+										})
 										console.log('请求失败', err)
 									})
 								} else {
@@ -269,17 +279,16 @@
 				})
 
 			},
-			getUser()
-			{
+			getUser() {
 				https(urlList.getUser, 'POST', '', '').then(data => {
 					this.userInfo = data.data;
-					console.log('userinfo:'+this.userinfo)
+					console.log('userinfo:' + this.userinfo)
 				}).catch(err => {
 					console.log('请求失败', err)
 				})
 			}
-		
-		
+
+
 		}
 	}
 </script>

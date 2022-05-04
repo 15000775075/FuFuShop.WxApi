@@ -276,30 +276,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+var _require =
+
+
+
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   data: function data() {
     return {
-      topNavList: ['到店自提', '快递配送'],
+      topNavList: ['快递配送', '到店自提'],
       tabIndex: 0,
-      address: {},
-      goods: [
-      {
+      address: null,
+      goods: [{
         id: 111,
         name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
         img: '/static/images/index/good.jpg',
@@ -318,32 +306,120 @@ var _default =
 
       yhqList: ['可用优惠券(0)', '不可用优惠券(0)'],
       yhqIndex: 0,
-      yhqData: [
-      { id: 1001, price: 20, end_time: '2022-02-30 15:20:35' },
-      { id: 1002, price: 10, end_time: '2022-02-30 15:20:35' },
-      { id: 1003, price: 20.20, end_time: '2022-02-30 15:20:35' },
-      { id: 1004, price: 20.20, end_time: '2022-02-30 15:20:35' }],
+      yhqData: [{
+        id: 1001,
+        price: 20,
+        end_time: '2022-02-30 15:20:35' },
+
+      {
+        id: 1002,
+        price: 10,
+        end_time: '2022-02-30 15:20:35' },
+
+      {
+        id: 1003,
+        price: 20.20,
+        end_time: '2022-02-30 15:20:35' },
+
+      {
+        id: 1004,
+        price: 20.20,
+        end_time: '2022-02-30 15:20:35' }],
+
 
       selectYhqName: '暂无优惠券可用',
       selectYhqPrice: 0,
       selectYhqId: '',
-      totalPrice: 0.00 };
+      totalPrice: 0.00,
+      costFreight: 0.00,
+      goodsIds: "",
+      memo: "" };
 
   },
   onLoad: function onLoad(options) {
     console.log('商品ID', JSON.parse(options.id));
+    this.goodsIds = options.id;
+    this.getGoods(this.goodsIds);
   },
   methods: {
+    getGoods: function getGoods(ids) {var _this = this;
+      if (ids.length < 3) return;
+      ids = ids.substr(1, ids.length - 2);
+      console.log(ids);
+      var param = {
+        ids: ids,
+        couponCode: '',
+        receiptType: this.tabIndex + 1 };
+
+      https(urlList.getCartList, 'post', param, '获取商品').then(function (data) {
+        _this.goods = [];
+        data.data.list.forEach(function (item, index) {
+          item.isSelect === true && _this.goods.push(item);
+        });
+        if (_this.goods.length === 0) {
+          uni.showModal({
+            title: "查询商品出错",
+            icon: "error",
+            complete: function complete() {
+              uni.navigateBack();
+            },
+            mask: true,
+            showCancel: false });
+
+          return;
+        }
+        _this.totalPrice = data.data.goodsAmount;
+        _this.costFreight = data.data.costFreight;
+        _this.getUserDefaultShip();
+      });
+    },
+    getUserDefaultShip: function getUserDefaultShip() {var _this2 = this;
+      https(urlList.getUserDefaultShip, 'post', {}, '获取收货地址').then(function (data) {
+        _this2.address = data.data;
+      });
+    },
+
     onUpOrder: function onUpOrder() {
-      // uni.requestSubscribeMessage({
-      // 	tmplIds: ['2t_x25fDv2ekqJJPfCiLj-_Sc94bT9J9XzaR3-6FlCM'],
-      // 	success (res) { 
-      // 		console.log('1111')
-      // 	}
-      // });
+      var param = {
+        "areaId": this.address.areaId,
+        "cartIds": this.goodsIds.substr(1, this.goodsIds.length - 2),
+        "couponCode": "",
+        "memo": this.memo,
+        "point": 0,
+        "receiptType": this.tabIndex + 1,
+        "source": 2,
+        "taxCode": "",
+        "taxName": "",
+        "taxType": 1,
+        "ushipId": this.address.id,
+        "storeId": 0,
+        "orderType": 1,
+        "ladingName": this.address.name,
+        "ladingMobile": this.address.mobile,
+        "objectId": 0,
+        "teamId": 0,
+        "scene": 0 };
+
+      https(urlList.createOrder, 'post', param, '提交订单').then(function (data) {
+        uni.showToast({
+          title: "提交成功,拉起支付" });
+
+        uni.showModal({
+          title: "确认支付20￥",
+          success: function success(res) {
+            uni.showToast({
+              title: "支付成功" });
+
+            uni.navigateTo({
+              url: "../orders/orders" });
+
+          } });
+
+      });
     },
     onTopTabs: function onTopTabs(index) {
       this.tabIndex = index;
+      this.getGoods(this.goodsIds);
     },
     selectAddress: function selectAddress() {
       uni.navigateTo({

@@ -182,7 +182,10 @@ var pcaData = __webpack_require__(/*! ./pcaData.js */ 246).pca;var _default =
     },
     // 确认
     confirm: function confirm(e) {
-      var current = this.pcaArr[this.pcaIndex[0]].name + '' + this.pcaArr[this.pcaIndex[0]].children[this.pcaIndex[1]].name + '' + this.pcaArr[this.pcaIndex[0]].children[this.pcaIndex[1]].children[this.pcaIndex[2]].name;
+      var current = {
+        desc: this.pcaArr[this.pcaIndex[0]].name + '' + this.pcaArr[this.pcaIndex[0]].children[this.pcaIndex[1]].name + '' + this.pcaArr[this.pcaIndex[0]].children[this.pcaIndex[1]].children[this.pcaIndex[2]].name,
+        code: this.pcaArr[this.pcaIndex[0]].children[this.pcaIndex[1]].children[this.pcaIndex[2]].code };
+
       this.$emit('confirm', current);
       this.hide();
     } } };exports.default = _default;

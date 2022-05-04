@@ -190,7 +190,8 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
   data: function data() {
     return {
-      selectIndex: 0 };
+      selectIndex: 0,
+      buy_num: 1 };
 
   },
   mounted: function mounted() {
@@ -199,12 +200,13 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
   methods: {
     addCart: function addCart() {
       var param = {
-        "nums": this.buy_good.buy_num,
-        "productId": this.buy_good.product.id,
+        "nums": this.buy_num,
+        "productId": this.buy_good.products[this.selectIndex].id,
         "type": 1,
         "cartType": 1 };
 
       https(urlList.addCart, 'POST', param, '添加中').then(function (data) {
+        if (data.status)
         uni.showToast({
           title: "添加成功" });
 
@@ -214,17 +216,13 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
       });
     },
-    handleComfig: function handleComfig(type) {
-      if (type == 1) {
+    goNowBuy: function goNowBuy() {
+      console.log(this.buy_good.products[this.selectIndex]);
+      var id = [];
+      id.push(this.buy_good.products[this.selectIndex].id);
+      uni.navigateTo({
+        url: '/pages/nowBuy/nowBuy?id=' + JSON.stringify(id) });
 
-      } else {
-        var id = [];
-        id.push(this.buy_good.id);
-        uni.navigateTo({
-          url: '/pages/nowBuy/nowBuy?id=' + JSON.stringify(id) });
-
-      }
-      console.log(this.buy_good);
     },
     closeBuyGood: function closeBuyGood() {
       this.$emit('closeBuyGood');

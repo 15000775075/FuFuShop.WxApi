@@ -156,7 +156,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var AddressPicker = function AddressPicker() {Promise.all(/*! require.ensure | components/addressPicker/addressPicker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/addressPicker/addressPicker")]).then((function () {return resolve(__webpack_require__(/*! @/components/addressPicker/addressPicker.vue */ 241));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var AddressPicker = function AddressPicker() {Promise.all(/*! require.ensure | components/addressPicker/addressPicker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/addressPicker/addressPicker")]).then((function () {return resolve(__webpack_require__(/*! @/components/addressPicker/addressPicker.vue */ 241));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _require =
 
 
 
@@ -236,26 +236,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   components: {
     AddressPicker: AddressPicker },
@@ -265,68 +246,49 @@ __webpack_require__.r(__webpack_exports__);
       add: false,
       searchValue: '',
       isSelect: false,
-      addressList: [{
-        id: 1110,
-        userName: '小明',
-        phone: '13243489883',
-        isDetail: false,
-        address: '北京市西城区动物园',
-        xxAddress: '一区二号' },
-
-      {
-        id: 2220,
-        userName: '小红',
-        phone: '10010',
-        isDetail: true,
-        address: '北京市海淀区植物园',
-        xxAddress: '一区二号' },
-
-      {
-        id: 33330,
-        userName: '小刚',
-        phone: '13243489883',
-        isDetail: false,
-        address: '广东省广州长隆动物园',
-        xxAddress: '一区二号' },
-
-
-      {
-        id: 4440,
-        userName: '小刚',
-        phone: '13243489883',
-        isDetail: false,
-        address: '广东省广州长隆动物园',
-        xxAddress: '一区二号' }],
-
-
-
-      address: {
-        userName: '',
-        phone: '',
+      addressList: [],
+      address: _defineProperty({
+        id: 0,
+        name: '',
+        mobile: '',
         address: '',
-        xxAddress: '' } };
+        areaId: '',
+        areaName: '',
+        isDefault: '' }, "address",
+      '') };
 
 
   },
   onLoad: function onLoad(options) {
     if (options.type == 11) {
       this.add = true;
+      console.log('编辑', options.address);
+      if (options.address !== undefined)
+      this.address = JSON.parse(options.address);
     };
     if (options.type == 1) {
       this.isSelect = true;
+    };
+  },
+  onShow: function onShow() {
+    if (this.isSelect) {
+      this.getAddress();
     };
   },
   methods: {
     onSearch: function onSearch() {
       console.log(this.searchValue);
     },
-    getAddress: function getAddress() {
-      uni.chooseAddress({
-        success: function success(res) {
-          console.log(res.userName, res.telNumber);
-          console.log(res.provinceName, res.cityName, res.countyName, res.detailInfo);
-        } });
-
+    getAddress: function getAddress() {var _this = this;
+      https(urlList.getUserShip, 'post', {}, '更新地址').then(function (data) {
+        _this.addressList = data.data;
+      });
+      // uni.chooseAddress({
+      // 	success(res) {
+      // 		console.log(res.userName, res.telNumber)
+      // 		console.log(res.provinceName, res.cityName, res.countyName, res.detailInfo)
+      // 	}
+      // })
     },
     addAddress: function addAddress() {
       uni.navigateTo({
@@ -346,37 +308,100 @@ __webpack_require__.r(__webpack_exports__);
       console.log('编辑', item);
       var that = this;
       uni.navigateTo({
-        url: '/pages/address/address?type=' + 11,
-        success: function success() {
-          that.address = item;
-        } });
+        url: '/pages/address/address?address=' + JSON.stringify(item) + '&type=' + 11 });
 
     },
-    clearAddess: function clearAddess(id) {
+    clearAddess: function clearAddess(id) {var _this2 = this;
       console.log('删除地址', id);
       uni.showModal({
         content: '确定要删除吗?',
         success: function success(res) {
-          if (res.confirm) {
-            uni.showToast({
-              title: '删除成功',
-              icon: 'none',
-              duration: 1500 });
+          if (!res.confirm) return;
+          var param = {
+            id: id };
 
-          }
+          https(urlList.removeShip, 'post', param, '删除中').then(function (data) {
+            if (data.status == true) {
+              uni.showToast({
+                title: "删除成功" });
+
+
+              _this2.getAddress();
+            }
+          });
         } });
 
     },
-    setDetail: function setDetail(id) {
+    setDetail: function setDetail(item) {var _this3 = this;
+      var id = item.id;
       console.log('设为默认', id);
+      var param = {
+        id: id };
+
+      https(urlList.setDefShip, 'post', param, '保存中').then(function (data) {
+        if (data.status == true) {
+          uni.showToast({
+            title: "保存成功" });
+
+          _this3.addressList.forEach(function (item) {
+            item.isDefault = false;
+          });
+          item.isDefault = true;
+        }
+      });
     },
     onOpenSelectAddress: function onOpenSelectAddress() {
       this.$refs.addressPicker.show();
     },
     onOkSelectAddress: function onOkSelectAddress(e) {
-      this.address.address = e;
+      this.address.areaId = e.code;
+      this.address.areaName = e.desc;
     },
     registerOk: function registerOk() {
+      if (this.address.name === "") {
+        uni.showToast({
+          title: '请输入收货人',
+          icon: "error" });
+
+        return;
+      }
+      if (this.address.mobile.length !== 11) {
+        uni.showToast({
+          title: '手机号码有误',
+          icon: "error" });
+
+        return;
+      }
+      if (this.address.areaId === undefined) {
+        uni.showToast({
+          title: '请选择地区',
+          icon: "error" });
+
+        return;
+      }
+      if (this.address.address === "") {
+        uni.showToast({
+          title: '请输入详细地址',
+          icon: "error" });
+
+        return;
+      }
+
+      var param = {
+        id: this.address.id,
+        address: this.address.address,
+        areaId: this.address.areaId,
+        isDefault: 0,
+        mobile: this.address.mobile,
+        name: this.address.name };
+
+      https(urlList.saveUserShip, 'post', param, '保存中').then(function (data) {
+        if (data.status == true)
+        uni.showToast({
+          title: "保存成功" });
+
+        uni.navigateBack();
+      });
       console.log('保存地址', this.address);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

@@ -3407,37 +3407,60 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */(function(uni) {var serverUrl = 'http://localhost/api/';
 //const serverUrl = 'http://114.132.200.253:8081/api/';
 var urlList = {
+
   //微信登录
   wxlogin: serverUrl + 'User/OnLogin',
   getUser: serverUrl + 'User/GetUserInfo',
+
   //商品收藏
-  goodsCollection: serverUrl + 'User/GoodsCollection',
+  goodsCollectionCreateOrDelete: serverUrl + 'User/GoodsCollectionCreateOrDelete',
+
   //广告
   getAdvertList: serverUrl + 'Advert/GetAdvertList',
+
   //商品分类
   getAllCategories: serverUrl + 'Good/GetAllCategories',
+
   //获取推荐商品
   getGoodsRecommendList: serverUrl + 'Good/GetGoodsRecommendList',
+
   //商品
   getGoodsPageList: serverUrl + 'Good/GetGoodsPageList',
   getGoodsComment: serverUrl + 'Good/GetGoodsComment',
   getDetial: serverUrl + 'Good/GetDetial',
+
   //购物车
   addCart: serverUrl + 'Cart/AddCart',
   getCartList: serverUrl + 'Cart/GetList',
   getCartDtoData: serverUrl + 'Cart/GetCartDtoData',
   doDelete: serverUrl + 'Cart/DoDelete',
-  setCartNum: serverUrl + 'Cart/SetCartNum' };
+  setCartNum: serverUrl + 'Cart/SetCartNum',
+
+  //收货地址
+  getUserDefaultShip: serverUrl + 'User/GetUserDefaultShip',
+  setDefShip: serverUrl + 'User/SetDefShip',
+  getUserShip: serverUrl + 'User/GetUserShip',
+  saveUserShip: serverUrl + 'User/SaveUserShip',
+  getShipDetail: serverUrl + 'User/GetShipDetail',
+  removeShip: serverUrl + 'User/RemoveShip',
+
+  //订单
+  createOrder: serverUrl + 'Order/CreateOrder',
+  getOrderList: serverUrl + 'Order/GetOrderList',
+  getOrderStatusNum: serverUrl + 'Order/GetOrderStatusNum',
+  orderDetails: serverUrl + 'Order/OrderDetails',
+  orderConfirm: serverUrl + 'Order/OrderConfirm',
+  logisticsByApi: serverUrl + 'Order/LogisticsByApi' };
 
 
 
 /**
-                                                * @param {请求地址} url 
-                                                * @param {请求方式} urltype 
-                                                * @param {token} token 
-                                                * @param {请求数据} data 
-                                                * @param {loading内容} text 
-                                                */
+                                                         * @param {请求地址} url 
+                                                         * @param {请求方式} urltype 
+                                                         * @param {token} token 
+                                                         * @param {请求数据} data 
+                                                         * @param {loading内容} text 
+                                                         */
 var request = function request(url, urltype, data, text) {
   if (text) {
     uni.showLoading({
@@ -3456,13 +3479,26 @@ var request = function request(url, urltype, data, text) {
 
       dataType: 'json',
       success: function success(request) {
-        console.log('asdasdasd', request);
+        console.log('请求结果：', request);
         if (request.data.code === 401) {
           uni.clearStorageSync("token");
           uni.clearStorageSync("user_info");
           uni.showModal({
-            title: request.data.msg });
+            title: request.data.msg,
+            confirmText: "去登录",
+            success: function success(isSure) {
+              uni.reLaunch({
+                url: "/pages/my/my?isLogin=1" });
 
+              console.log(isSure);
+            } });
+
+        } else if (request.data.status !== true) {
+          uni.showToast({
+            title: request.data.msg,
+            icon: "error" });
+
+          return;
         }
         reslove(request.data);
       },

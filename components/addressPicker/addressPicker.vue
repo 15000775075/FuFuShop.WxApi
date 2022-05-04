@@ -66,7 +66,10 @@
 			},
 			// 确认
 			confirm(e){
-			  let current=this.pcaArr[this.pcaIndex[0]].name+''+this.pcaArr[this.pcaIndex[0]].children[this.pcaIndex[1]].name+''+this.pcaArr[this.pcaIndex[0]].children[this.pcaIndex[1]].children[this.pcaIndex[2]].name;
+			  let current={
+				  desc:this.pcaArr[this.pcaIndex[0]].name+''+this.pcaArr[this.pcaIndex[0]].children[this.pcaIndex[1]].name+''+this.pcaArr[this.pcaIndex[0]].children[this.pcaIndex[1]].children[this.pcaIndex[2]].name,
+				  code:this.pcaArr[this.pcaIndex[0]].children[this.pcaIndex[1]].children[this.pcaIndex[2]].code
+			  };
 				this.$emit('confirm',current)
 			  this.hide();
 			}

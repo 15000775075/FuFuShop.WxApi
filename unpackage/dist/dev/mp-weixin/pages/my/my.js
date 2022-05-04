@@ -302,9 +302,11 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
 
   },
-  onLoad: function onLoad() {
-    var that = this;
-    this.getUser();
+  onLoad: function onLoad(option) {
+    uni.getStorageSync("token") && this.getUser();
+  },
+  onShow: function onShow(option) {
+
   },
   methods: {
     goUrl: function goUrl(num, orderNum) {
@@ -390,13 +392,21 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
                 https(urlList.wxlogin, 'POST', postData, '登录中').then(function (data) {
                   console.log('请求成功', data);
-                  uni.setStorageSync('token', data.data.auth.token);
-                  //uni.setStorageSync('user_info',data.data.user);
-                  uni.showToast({
-                    title: "登录成功" });
+                  if (data.status == true) {
+                    uni.setStorageSync('token', data.data.auth.
+                    token);
+                    that.userInfo = data.data.user;
+                    uni.showToast({
+                      title: "登录成功" });
 
-                  that.userInfo = data.data.user;
+                  } else
+                  uni.showToast({
+                    title: "登录失败" });
+
                 }).catch(function (err) {
+                  uni.showToast({
+                    title: "登录失败" });
+
                   console.log('请求失败', err);
                 });
               } else {
@@ -424,8 +434,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
 
     },
-    getUser: function getUser()
-    {var _this = this;
+    getUser: function getUser() {var _this = this;
       https(urlList.getUser, 'POST', '', '').then(function (data) {
         _this.userInfo = data.data;
         console.log('userinfo:' + _this.userinfo);
