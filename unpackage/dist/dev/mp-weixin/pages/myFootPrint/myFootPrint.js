@@ -211,7 +211,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var _default =
+var _require =
+
+
+
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   data: function data() {
     return {
@@ -307,17 +311,34 @@ var _default =
           { id: 1001, text: '27黑色 （9956款）' },
           { id: 1002, text: '28黑色 （9956款）' },
           { id: 1003, text: '29黑色 （9956款）' },
-          { id: 1003, text: '25黑色 （9956款）' }] }] }] };
+          { id: 1003, text: '25黑色 （9956款）' }] }] }],
 
 
 
 
 
+      param: {
+        page: 1,
+        limit: 10,
+        order: "id",
+        where: "",
+        otherData: "",
+        id: 0 } };
 
+
+  },
+  onLoad: function onLoad() {
+    this.getGoodsbrowsing();
   },
   methods: {
     onTopTabs: function onTopTabs(index) {
       this.tabIndex = index;
+    },
+    getGoodsbrowsing: function getGoodsbrowsing() {var _this = this;
+      var param = this.param;
+      https(urlList.getGoodsbrowsing, 'post', param, '更新足迹').then(function (data) {
+        _this.goodList = data.data.list;
+      });
     },
     goodDetail: function goodDetail(id) {
       uni.navigateTo({

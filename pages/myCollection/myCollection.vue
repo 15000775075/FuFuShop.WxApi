@@ -8,11 +8,11 @@
 					:key="index"
 					@tap="goodDetail(item.id)"
 				>
-					<image class="image_good" :src="item.img"></image>
-					<view class="good_name">{{item.name}}</view>
+					<image class="image_good" :src="item.goods.image"></image>
+					<view class="good_name">{{item.goodsName}}</view>
 					<view class="good_price">
-						<view>￥{{item.price}}</view>
-						<view class="rig_cart">已售 {{item.num}}</view>
+						<view>￥{{item.goods.price}}</view>
+						<view class="rig_cart">已售 {{item.goods.buyCount}}</view>
 					</view>
 				</view>
 			</block>
@@ -27,6 +27,10 @@
 </template>
 
 <script>
+	const {
+		urlList,
+		https
+	} = require('@/static/api');
 	export default {
 		data() {
 			return {
@@ -80,14 +84,31 @@
 						price:'215.26',
 						num:20
 					},
-				]
+				],
+				param: {
+					page: 1,
+					limit: 10,
+					order: "id",
+					where: "",
+					otherData:"",
+					id:0
+				}
 			};
+		},
+		onLoad() {
+			this.getOrderList();
 		},
 		methods:{
 			goodDetail(id){
 				uni.navigateTo({
 					url:'/pages/goodDetail/goodDetail?id=' + id
 				})
+			},
+			getOrderList() {
+				let param = this.param;
+				https(urlList.goodsCollectionList, 'post', param, '更新收藏').then(data => {
+					this.goods = data.data.list
+				});
 			},
 		}
 	}

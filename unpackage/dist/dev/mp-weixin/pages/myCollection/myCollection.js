@@ -158,7 +158,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var _default =
+var _require =
+
+
+
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   data: function data() {
     return {
@@ -210,16 +214,33 @@ var _default =
         name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
         img: '/static/images/index/good.jpg',
         price: '215.26',
-        num: 20 }] };
+        num: 20 }],
 
 
+      param: {
+        page: 1,
+        limit: 10,
+        order: "id",
+        where: "",
+        otherData: "",
+        id: 0 } };
 
+
+  },
+  onLoad: function onLoad() {
+    this.getOrderList();
   },
   methods: {
     goodDetail: function goodDetail(id) {
       uni.navigateTo({
         url: '/pages/goodDetail/goodDetail?id=' + id });
 
+    },
+    getOrderList: function getOrderList() {var _this = this;
+      var param = this.param;
+      https(urlList.goodsCollectionList, 'post', param, '更新收藏').then(function (data) {
+        _this.goods = data.data.list;
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

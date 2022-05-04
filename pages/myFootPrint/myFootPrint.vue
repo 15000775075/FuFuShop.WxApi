@@ -17,10 +17,10 @@
 			<block v-for="(item,index) in goodList" :key="index">
 				<view class="good_time">{{item.time}}</view>
 				<view class="good_content">
-					<block v-for="(val,ind) in item.goods" :key="ind">
+					<block v-for="(val,ind) in goodList" :key="ind">
 						<view class="goods_list" @tap="goodDetail(val.id)">
-							<image class="image_good" :src="val.img"></image>
-							<view class="good_name">{{val.name}}</view>
+							<image class="image_good" :src="val.goodImage"></image>
+							<view class="good_name">{{val.goodsName}}</view>
 							<view class="good_price">
 								<view>￥{{val.price}}</view>
 								<view class="rig_cart" @tap.stop="onGoodNav(val.id)">···</view>
@@ -54,6 +54,10 @@
 </template>
 
 <script>
+	const {
+		urlList,
+		https
+	} = require('@/static/api');
 	export default {
 		data() {
 			return {
@@ -154,12 +158,29 @@
 							},
 						],
 					},
-				]
+				],
+				param: {
+					page: 1,
+					limit: 10,
+					order: "id",
+					where: "",
+					otherData:"",
+					id:0
+				}
 			};
+		},
+		onLoad() {
+			this.getGoodsbrowsing();
 		},
 		methods:{
 			onTopTabs(index){
 				this.tabIndex = index;
+			},
+			getGoodsbrowsing() {
+				let param = this.param;
+				https(urlList.getGoodsbrowsing, 'post', param, '更新足迹').then(data => {
+					this.goodList = data.data.list
+				});
 			},
 			goodDetail(id){
 				uni.navigateTo({

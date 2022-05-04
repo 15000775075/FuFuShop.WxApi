@@ -8,6 +8,11 @@ const urlList = {
 
 	//商品收藏
 	goodsCollectionCreateOrDelete: serverUrl + 'User/GoodsCollectionCreateOrDelete',
+	goodsCollectionList: serverUrl + 'User/GoodsCollectionList',
+	
+	//足迹
+	goodsCollectionList: serverUrl + 'User/AddGoodsBrowsing',
+	getGoodsbrowsing: serverUrl + 'User/Goodsbrowsing',
 
 	//广告
 	getAdvertList: serverUrl + 'Advert/GetAdvertList',

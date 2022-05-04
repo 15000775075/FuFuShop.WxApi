@@ -127,6 +127,7 @@
 				this.goodsId = options.id;
 				this.getGoodsDetail();
 				this.getGoodsComments();
+				this.addGoodsBrowsing();
 			} else {
 
 			}
@@ -213,8 +214,6 @@
 							title: data.msg
 						})
 					}
-				}).catch(err => {
-
 				})
 			},
 			onFenx() {
@@ -240,6 +239,14 @@
 				this.$refs.poster.qrcode = 'https://oss.zhangyubk.com/%E8%8D%89%E8%8E%93%E5%8D%83%E5%B1%82.png';
 				// console.log(this.$refs.poster)
 			},
+			addGoodsBrowsing(){
+				let param = {
+					id: this.goodsId,
+					data: ""
+				}
+				https(urlList.addGoodsBrowsing, 'POST', param, '').then(data => {
+				})
+			}
 		}
 	}
 </script>
