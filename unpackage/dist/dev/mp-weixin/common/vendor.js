@@ -3404,9 +3404,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(uni) {var _urlList;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var serverUrl = 'http://localhost/api/';
+/* WEBPACK VAR INJECTION */(function(uni) {var serverUrl = 'http://localhost/api/';
 //const serverUrl = 'http://114.132.200.253:8081/api/';
-var urlList = (_urlList = {
+var urlList = {
 
   //微信登录
   wxlogin: serverUrl + 'User/OnLogin',
@@ -3414,58 +3414,58 @@ var urlList = (_urlList = {
 
   //商品收藏
   goodsCollectionCreateOrDelete: serverUrl + 'User/GoodsCollectionCreateOrDelete',
-  goodsCollectionList: serverUrl + 'User/GoodsCollectionList' }, _defineProperty(_urlList, "goodsCollectionList",
+  goodsCollectionList: serverUrl + 'User/GoodsCollectionList',
 
+  //足迹
+  AddGoodsBrowsing: serverUrl + 'User/AddGoodsBrowsing',
+  getGoodsbrowsing: serverUrl + 'User/Goodsbrowsing',
 
-serverUrl + 'User/AddGoodsBrowsing'), _defineProperty(_urlList, "getGoodsbrowsing",
-serverUrl + 'User/Goodsbrowsing'), _defineProperty(_urlList, "getAdvertList",
+  //广告
+  getAdvertList: serverUrl + 'Advert/GetAdvertList',
 
+  //商品分类
+  getAllCategories: serverUrl + 'Good/GetAllCategories',
 
-serverUrl + 'Advert/GetAdvertList'), _defineProperty(_urlList, "getAllCategories",
+  //获取推荐商品
+  getGoodsRecommendList: serverUrl + 'Good/GetGoodsRecommendList',
 
+  //商品
+  getGoodsPageList: serverUrl + 'Good/GetGoodsPageList',
+  getGoodsComment: serverUrl + 'Good/GetGoodsComment',
+  getDetial: serverUrl + 'Good/GetDetial',
 
-serverUrl + 'Good/GetAllCategories'), _defineProperty(_urlList, "getGoodsRecommendList",
+  //购物车
+  addCart: serverUrl + 'Cart/AddCart',
+  getCartList: serverUrl + 'Cart/GetList',
+  getCartDtoData: serverUrl + 'Cart/GetCartDtoData',
+  doDelete: serverUrl + 'Cart/DoDelete',
+  setCartNum: serverUrl + 'Cart/SetCartNum',
 
+  //收货地址
+  getUserDefaultShip: serverUrl + 'User/GetUserDefaultShip',
+  setDefShip: serverUrl + 'User/SetDefShip',
+  getUserShip: serverUrl + 'User/GetUserShip',
+  saveUserShip: serverUrl + 'User/SaveUserShip',
+  getShipDetail: serverUrl + 'User/GetShipDetail',
+  removeShip: serverUrl + 'User/RemoveShip',
 
-serverUrl + 'Good/GetGoodsRecommendList'), _defineProperty(_urlList, "getGoodsPageList",
-
-
-serverUrl + 'Good/GetGoodsPageList'), _defineProperty(_urlList, "getGoodsComment",
-serverUrl + 'Good/GetGoodsComment'), _defineProperty(_urlList, "getDetial",
-serverUrl + 'Good/GetDetial'), _defineProperty(_urlList, "addCart",
-
-
-serverUrl + 'Cart/AddCart'), _defineProperty(_urlList, "getCartList",
-serverUrl + 'Cart/GetList'), _defineProperty(_urlList, "getCartDtoData",
-serverUrl + 'Cart/GetCartDtoData'), _defineProperty(_urlList, "doDelete",
-serverUrl + 'Cart/DoDelete'), _defineProperty(_urlList, "setCartNum",
-serverUrl + 'Cart/SetCartNum'), _defineProperty(_urlList, "getUserDefaultShip",
-
-
-serverUrl + 'User/GetUserDefaultShip'), _defineProperty(_urlList, "setDefShip",
-serverUrl + 'User/SetDefShip'), _defineProperty(_urlList, "getUserShip",
-serverUrl + 'User/GetUserShip'), _defineProperty(_urlList, "saveUserShip",
-serverUrl + 'User/SaveUserShip'), _defineProperty(_urlList, "getShipDetail",
-serverUrl + 'User/GetShipDetail'), _defineProperty(_urlList, "removeShip",
-serverUrl + 'User/RemoveShip'), _defineProperty(_urlList, "createOrder",
-
-
-serverUrl + 'Order/CreateOrder'), _defineProperty(_urlList, "getOrderList",
-serverUrl + 'Order/GetOrderList'), _defineProperty(_urlList, "getOrderStatusNum",
-serverUrl + 'Order/GetOrderStatusNum'), _defineProperty(_urlList, "orderDetails",
-serverUrl + 'Order/OrderDetails'), _defineProperty(_urlList, "orderConfirm",
-serverUrl + 'Order/OrderConfirm'), _defineProperty(_urlList, "logisticsByApi",
-serverUrl + 'Order/LogisticsByApi'), _urlList);
+  //订单
+  createOrder: serverUrl + 'Order/CreateOrder',
+  getOrderList: serverUrl + 'Order/GetOrderList',
+  getOrderStatusNum: serverUrl + 'Order/GetOrderStatusNum',
+  orderDetails: serverUrl + 'Order/OrderDetails',
+  orderConfirm: serverUrl + 'Order/OrderConfirm',
+  logisticsByApi: serverUrl + 'Order/LogisticsByApi' };
 
 
 
 /**
-                                                 * @param {请求地址} url 
-                                                 * @param {请求方式} urltype 
-                                                 * @param {token} token 
-                                                 * @param {请求数据} data 
-                                                 * @param {loading内容} text 
-                                                 */
+                                                         * @param {请求地址} url 
+                                                         * @param {请求方式} urltype 
+                                                         * @param {token} token 
+                                                         * @param {请求数据} data 
+                                                         * @param {loading内容} text 
+                                                         */
 var request = function request(url, urltype, data, text) {
   if (text) {
     uni.showLoading({

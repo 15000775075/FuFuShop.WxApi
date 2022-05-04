@@ -25,11 +25,11 @@
 			</block>
 		</view>
 		<view class="cen_goods">
-			<view class="goods_top">
+			<!-- <view class="goods_top">
 				<view class="top_top">
 					<uni-icons type="shop-filled" color="#545454" size="24"></uni-icons> XXX商城
 				</view>
-			</view>
+			</view> -->
 			<view class="goods_car">
 				<view class="car_top">
 					<image src="/static/images/common/car.png"></image> 配送方式
@@ -51,21 +51,21 @@
 					</view>
 				</view>
 			</view>
-			<view class="yhq" @tap="openYhq">
+		<!-- 	<view class="yhq" @tap="openYhq">
 				<view class="yhq_lef">
 					<image src="/static/images/common/hui.png"></image> 优惠券
 				</view>
 				<view class="yhq_rig">{{selectYhqName}}
 					<uni-icons type="right" size="22" color="#7d7d7d"></uni-icons>
 				</view>
-			</view>
+			</view> -->
 			<view class="yhq">
 				<view class="yhq_lef">运费</view>
 				<view class="yf_rig">￥{{costFreight}}</uni-icons>
 				</view>
 			</view>
 			<view class="liuyan">
-				<input class="input_css" v-model="memo" placeholder="买家留言" border="none"></input>
+				<textarea class="input_css" v-model="memo" placeholder="买家留言" border="none"></textarea>
 			</view>
 			<view class="total_price">
 				<view class="color1">共 1 件</view>
@@ -78,7 +78,7 @@
 			<view class="btn_lef">合计：￥{{totalPrice}}</view>
 			<view class="btn_rig" @tap="onUpOrder">提交订单</view>
 		</view>
-		<uni-popup ref="yhq" type="bottom">
+		<!-- <uni-popup ref="yhq" type="bottom">
 			<view class="select_yhq">
 				<view class="top_nav">
 					<view class="top_name">
@@ -114,7 +114,7 @@
 					</block>
 				</view>
 			</view>
-		</uni-popup>
+		</uni-popup> -->
 	</view>
 </template>
 
@@ -129,23 +129,7 @@
 				topNavList: ['快递配送', '到店自提'],
 				tabIndex: 0,
 				address: null,
-				goods: [{
-						id: 111,
-						name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img: '/static/images/index/good.jpg',
-						price: '215.26',
-						num: 1,
-						selected: false,
-					},
-					{
-						id: 222,
-						name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img: '/static/images/index/good.jpg',
-						price: '215.26',
-						num: 1,
-						selected: false,
-					},
-				],
+				goods: [],
 				yhqList: ['可用优惠券(0)', '不可用优惠券(0)'],
 				yhqIndex: 0,
 				yhqData: [{

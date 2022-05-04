@@ -14,6 +14,9 @@
 		</view>
 		<view v-if="orders.length > 0" class="cen_goods">
 			<view v-for="(item,index) in orders" :key="index" class="orders_item">
+				<view class="item_title">
+					<view>订单号：{{item.orderId}} </view>
+				</view>
 				<view class="item_good" v-for="(product,index) in item.items">
 					<image :src="product.imageUrl" @tap="goGoodDetail(item.id)"></image>
 					<view class="good_rig">
@@ -22,15 +25,29 @@
 					</view>
 				</view>
 				<view class="item_price">
-					<view v-if="item.status===1">共{{item.items.length}} 件商品 待付款：￥{{item.goodsAmount}}</view>
+					<view v-if="item.status===1 && item.payStatus===1">共{{item.items.length}} 件商品
+						待付款：￥{{item.goodsAmount}}</view>
 					<view v-else>共{{item.items.length}} 件商品 实付款：￥{{item.payedAmount}}</view>
 				</view>
 				<view class="item_price">
-					<view class="btn" @tap="onLookFp(item.id)">查看发票</view>
-					<view class="btn" @tap="onEvaluate(item.id)">评价晒单</view>
-					<view class="btn color1" v-if="item.status===1" @tap="onPay(item)">立刻支付</view>
-					<view class="btn color1" v-else-if="item.status===3" @tap="goGoodDetail(item.id)">查看物流</view>
-					<view class="btn color1" v-else="item.status===2" @tap="goGoodDetail(item.id)">再次购买</view>
+
+					<!-- 待发货 -->
+					<!-- 待收货 -->
+					<view class="btn" v-if="item.status===1 && item.payStatus!=1 && item.shipStatus!=1"
+						@tap="onEvaluate(item.id)">查看物流</view>
+					<!-- 已完成 -->
+					<view class="btn"
+						v-if="item.status===1 && item.payStatus!=1 && item.shipStatus!=1 && item.confirmStatus!=1"
+						@tap="onLookFp(item.id)">查看发票</view>
+					<view class="btn"
+						v-if="item.status===1 && item.payStatus!=1 && item.shipStatus!=1 && item.confirmStatus!=1"
+						@tap="onEvaluate(item.id)">评价晒单</view>
+					<!-- 待支付 -->
+					<view class="btn" v-if="item.status===1 && item.payStatus===1" @tap="onEvaluate(item.id)">取消订单
+					</view>
+					<view class="btn color1" v-if="item.status===1 && item.payStatus===1" @tap="onPay(item)">立刻支付</view>
+
+					<view class="btn color1" v-if="item.payStatus!=1" @tap="goGoodDetail(item.id)">再次购买</view>
 				</view>
 			</view>
 		</view>
@@ -260,6 +277,16 @@
 					flex-direction: row;
 					align-items: center;
 					justify-content: flex-end;
+				}
+
+				.item_title {
+					width: 100%;
+					padding: 20rpx 0rpx 20rpx 0rpx;
+					font-size: 29rpx;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: flex-start;
 				}
 
 				.btn {

@@ -255,8 +255,9 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         areaId: '',
         areaName: '',
         isDefault: '' }, "address",
-      '') };
+      ''),
 
+      type: 2 };
 
   },
   onLoad: function onLoad(options) {
@@ -269,6 +270,10 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
     if (options.type == 1) {
       this.isSelect = true;
     };
+    if (options.type == 2) {
+      this.isSelect = true;
+    };
+    this.type = options.type;
   },
   onShow: function onShow() {
     if (this.isSelect) {
@@ -296,7 +301,8 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
     },
     selectTap: function selectTap(item) {
-      if (this.isSelect) {
+      console.log(this.type);
+      if (this.isSelect && this.type != 2) {
         var pages = getCurrentPages();
         var prevPage = pages[pages.length - 2];
         console.log(prevPage.$vm);

@@ -155,6 +155,15 @@
   align-items: center;
   justify-content: flex-end;
 }
+.warp .cen_goods .orders_item .item_title.data-v-8a71bbb4 {
+  width: 100%;
+  padding: 20rpx 0rpx 20rpx 0rpx;
+  font-size: 29rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
 .warp .cen_goods .orders_item .btn.data-v-8a71bbb4 {
   height: 50rpx;
   width: 160rpx;

@@ -228,7 +228,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
   },
   onLoad: function onLoad() {
-    this.getOrderList();
+    this.goodsCollectionList();
   },
   methods: {
     goodDetail: function goodDetail(id) {
@@ -236,7 +236,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         url: '/pages/goodDetail/goodDetail?id=' + id });
 
     },
-    getOrderList: function getOrderList() {var _this = this;
+    goodsCollectionList: function goodsCollectionList() {var _this = this;
       var param = this.param;
       https(urlList.goodsCollectionList, 'post', param, '更新收藏').then(function (data) {
         _this.goods = data.data.list;

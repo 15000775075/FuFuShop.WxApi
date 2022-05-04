@@ -98,7 +98,8 @@
 					areaName: '',
 					isDefault: '',
 					address: '',
-				}
+				},
+				type: 2
 			};
 		},
 		onLoad(options) {
@@ -111,6 +112,10 @@
 			if (options.type == 1) {
 				this.isSelect = true;
 			};
+			if (options.type == 2) {
+				this.isSelect = true;
+			};
+			this.type = options.type;
 		},
 		onShow() {
 			if (this.isSelect) {
@@ -138,7 +143,8 @@
 				})
 			},
 			selectTap(item) {
-				if (this.isSelect) {
+				console.log(this.type)
+				if (this.isSelect && this.type != 2) {
 					let pages = getCurrentPages();
 					let prevPage = pages[pages.length - 2];
 					console.log(prevPage.$vm)
@@ -167,7 +173,7 @@
 								uni.showToast({
 									title: "删除成功"
 								})
-							
+
 								this.getAddress();
 							}
 						})
@@ -175,20 +181,20 @@
 				})
 			},
 			setDetail(item) {
-				let id=item.id;
+				let id = item.id;
 				console.log('设为默认', id)
 				let param = {
 					id: id
 				}
 				https(urlList.setDefShip, 'post', param, '保存中').then(data => {
-					if (data.status == true){
+					if (data.status == true) {
 						uni.showToast({
 							title: "保存成功"
 						})
-						this.addressList.forEach((item)=>{
-							item.isDefault=false
+						this.addressList.forEach((item) => {
+							item.isDefault = false
 						})
-						item.isDefault=true;
+						item.isDefault = true;
 					}
 				})
 			},

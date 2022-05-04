@@ -97,9 +97,6 @@ try {
   components = {
     uniIcons: function() {
       return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 173))
-    },
-    uniPopup: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 213))
     }
   }
 } catch (e) {
@@ -287,23 +284,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       topNavList: ['快递配送', '到店自提'],
       tabIndex: 0,
       address: null,
-      goods: [{
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 1,
-        selected: false },
-
-      {
-        id: 222,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 1,
-        selected: false }],
-
-
+      goods: [],
       yhqList: ['可用优惠券(0)', '不可用优惠券(0)'],
       yhqIndex: 0,
       yhqData: [{

@@ -206,22 +206,26 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         "cartType": 1 };
 
       https(urlList.addCart, 'POST', param, '添加中').then(function (data) {
-        if (data.status)
         uni.showToast({
           title: "添加成功" });
-
-      }).catch(function (err) {
-        uni.showToast({
-          title: "添加失败" });
 
       });
     },
     goNowBuy: function goNowBuy() {
       console.log(this.buy_good.products[this.selectIndex]);
-      var id = [];
-      id.push(this.buy_good.products[this.selectIndex].id);
-      uni.navigateTo({
-        url: '/pages/nowBuy/nowBuy?id=' + JSON.stringify(id) });
+      var param = {
+        "nums": this.buy_num,
+        "productId": this.buy_good.products[this.selectIndex].id,
+        "type": 1,
+        "cartType": 1 };
+
+      https(urlList.addCart, 'POST', param, '添加到购物车').then(function (data) {
+        var id = [];
+        id.push(data.data);
+        uni.navigateTo({
+          url: '/pages/nowBuy/nowBuy?id=' + JSON.stringify(id) });
+
+      });
 
     },
     closeBuyGood: function closeBuyGood() {

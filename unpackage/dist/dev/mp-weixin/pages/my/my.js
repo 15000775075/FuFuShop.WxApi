@@ -346,7 +346,7 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         case 7:
           console.log('收货地址');
           uni.navigateTo({
-            url: '/pages/address/address' });
+            url: '/pages/address/address?type=2' });
 
           break;
         case 8:

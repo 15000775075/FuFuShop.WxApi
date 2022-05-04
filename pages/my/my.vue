@@ -25,7 +25,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="top_tab2">
+		<!-- <view class="top_tab2">
 			<view class="tab1_item" @tap="goUrl(3)">
 				<view class="tab1_item_top">0</view>
 				<view class="tab1_item_bot">
@@ -41,7 +41,7 @@
 					<text>优惠券</text>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="my_tabs">
 			<view class="tabs_top" @tap="goUrl(5,0)">
 				<view class="tabs_top_lef">我的订单</view>
@@ -191,7 +191,7 @@
 					case 7:
 						console.log('收货地址')
 						uni.navigateTo({
-							url: '/pages/address/address'
+							url: '/pages/address/address?type=2'
 						})
 						break;
 					case 8:

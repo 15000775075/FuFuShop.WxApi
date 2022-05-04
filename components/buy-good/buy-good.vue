@@ -3,7 +3,7 @@
 		<view class="buyGood">
 			<view class="buy_content">
 				<view class="buy_top">
-					<image src="/static/images/index/good.jpg"></image>
+					<image :src="buy_good.image"></image>
 					<view class="buy_top_cen">
 						<view class="buy_top_cen_price">￥{{buy_good.price}}</view>
 						<view class="buy_top_cen_kc">库存: {{buy_good.stock}}</view>
@@ -64,23 +64,27 @@
 					"cartType": 1,
 				}
 				https(urlList.addCart, 'POST', param, '添加中').then(data => {
-					if (data.status)
-						uni.showToast({
-							title: "添加成功"
-						})
-				}).catch(err => {
 					uni.showToast({
-						title: "添加失败"
+						title: "添加成功"
 					})
 				})
 			},
 			goNowBuy() {
 				console.log(this.buy_good.products[this.selectIndex]);
-				let id = [];
-				id.push(this.buy_good.products[this.selectIndex].id)
-				uni.navigateTo({
-					url: '/pages/nowBuy/nowBuy?id=' + JSON.stringify(id)
+				let param = {
+					"nums": this.buy_num,
+					"productId": this.buy_good.products[this.selectIndex].id,
+					"type": 1,
+					"cartType": 1,
+				}
+				https(urlList.addCart, 'POST', param, '添加到购物车').then(data => {
+					let id = [];
+					id.push(data.data)
+					uni.navigateTo({
+						url: '/pages/nowBuy/nowBuy?id=' + JSON.stringify(id)
+					})
 				})
+				
 			},
 			closeBuyGood() {
 				this.$emit('closeBuyGood')

@@ -18,7 +18,7 @@
 				<view class="good_time">{{item.time}}</view>
 				<view class="good_content">
 					<block v-for="(val,ind) in goodList" :key="ind">
-						<view class="goods_list" @tap="goodDetail(val.id)">
+						<view class="goods_list" @tap="goodDetail(item.goodsId)">
 							<image class="image_good" :src="val.goodImage"></image>
 							<view class="good_name">{{val.goodsName}}</view>
 							<view class="good_price">

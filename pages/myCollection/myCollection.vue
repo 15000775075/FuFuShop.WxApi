@@ -6,7 +6,7 @@
 					class="goods_list" 
 					v-for="(item,index) in goods" 
 					:key="index"
-					@tap="goodDetail(item.id)"
+					@tap="goodDetail(item.goodsId)"
 				>
 					<image class="image_good" :src="item.goods.image"></image>
 					<view class="good_name">{{item.goodsName}}</view>
@@ -96,7 +96,7 @@
 			};
 		},
 		onLoad() {
-			this.getOrderList();
+			this.goodsCollectionList();
 		},
 		methods:{
 			goodDetail(id){
@@ -104,7 +104,7 @@
 					url:'/pages/goodDetail/goodDetail?id=' + id
 				})
 			},
-			getOrderList() {
+			goodsCollectionList() {
 				let param = this.param;
 				https(urlList.goodsCollectionList, 'post', param, '更新收藏').then(data => {
 					this.goods = data.data.list
