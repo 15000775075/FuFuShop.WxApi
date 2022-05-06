@@ -23,6 +23,7 @@
 				</view>
 			</block>
 		</view>
+		<uni-load-more style="background-color: #F7F7F7;" :status="loadMoreStatus"></uni-load-more>
 	</view>
 </template>
 
@@ -31,60 +32,14 @@
 		urlList,
 		https
 	} = require('@/static/api');
+	import LoadMore from '@/components/uni-load-more/uni-load-more.vue'
 	export default {
+		components: {
+			LoadMore
+		},
 		data() {
 			return {
-				goods:[
-					{
-						id:111,
-						name:'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img:'/static/images/index/good.jpg',
-						price:'215.26',
-						num:20
-					},
-					{
-						id:111,
-						name:'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img:'/static/images/index/good.jpg',
-						price:'215.26',
-						num:2
-					},
-					{
-						id:111,
-						name:'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img:'/static/images/index/good.jpg',
-						price:'215.26',
-						num:20
-					},
-					{
-						id:111,
-						name:'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img:'/static/images/index/good.jpg',
-						price:'215.26',
-						num:20
-					},
-					{
-						id:111,
-						name:'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img:'/static/images/index/good.jpg',
-						price:'215.26',
-						num:20
-					},
-					{
-						id:111,
-						name:'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img:'/static/images/index/good.jpg',
-						price:'215.26',
-						num:20
-					},
-					{
-						id:111,
-						name:'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-						img:'/static/images/index/good.jpg',
-						price:'215.26',
-						num:20
-					},
-				],
+				goods:[],
 				param: {
 					page: 1,
 					limit: 10,
@@ -92,11 +47,18 @@
 					where: "",
 					otherData:"",
 					id:0
-				}
+				},
+				loadMoreStatus:"more"
 			};
 		},
 		onLoad() {
 			this.goodsCollectionList();
+		},
+		onReachBottom() {
+			if (this.loadMoreStatus === 'more') {
+				this.loadMoreStatus = 'loading';
+				this.getGoodsPageList()
+			}
 		},
 		methods:{
 			goodDetail(id){
@@ -107,7 +69,12 @@
 			goodsCollectionList() {
 				let param = this.param;
 				https(urlList.goodsCollectionList, 'post', param, '更新收藏').then(data => {
-					this.goods = data.data.list
+					this.goods = this.goods.concat(data.data.list);
+					if (data.data.list.length == this.param.limit) {
+						this.param.page++;
+						this.loadMoreStatus = 'more';
+					} else
+						this.loadMoreStatus = 'noMore';
 				});
 			},
 		}
@@ -122,6 +89,7 @@
 	.goods{
 		width: 100%;
 		height: 100%;
+		padding-top: 30rpx;
 		overflow-y: auto;
 		display: flex;
 		flex-direction: row;

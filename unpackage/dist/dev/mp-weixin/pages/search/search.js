@@ -97,6 +97,12 @@ try {
   components = {
     uniSearchBar: function() {
       return Promise.all(/*! import() | uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue */ 195))
+    },
+    uniIcons: function() {
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 173))
+    },
+    uniLoadMore: function() {
+      return Promise.all(/*! import() | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 318))
     }
   }
 } catch (e) {
@@ -174,72 +180,136 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _require =
 
 
 
-__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var LoadMore = function LoadMore() {Promise.all(/*! require.ensure | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-load-more/uni-load-more.vue */ 318));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var BuyGoods = function BuyGoods() {__webpack_require__.e(/*! require.ensure | components/buy-good/buy-good */ "components/buy-good/buy-good").then((function () {return resolve(__webpack_require__(/*! @/components/buy-good/buy-good.vue */ 188));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
 {
+  components: {
+    LoadMore: LoadMore,
+    BuyGoods: BuyGoods },
+
   data: function data() {
     return {
-      page: 1,
-      limit: 15,
-      order: "viewCount asc",
-      where: "",
       goods: [],
-      searchValue: "" };
+      hotGoods: [],
+      searchValue: "",
+      isShowHot: true,
+      isShowNull: false,
+      loadMoreStatus: 'noMore',
+      showBuyGood: false,
+      buy_good: {},
+      loadingText: '',
+      param: {
+        page: 1,
+        limit: 9,
+        order: "viewCount asc",
+        where: "" } };
 
 
   },
   onLoad: function onLoad() {
-    this.getGoodsPageList(this.page, this.limit, this.order, this.where);
+    this.getGoodsRecommendList();
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.loadMoreStatus === 'more') {
+      this.loadMoreStatus = 'loading';
+      this.loadingText = '';
+      this.getGoodsPageList();
+    }
   },
   methods: {
     //分页查询商品列表
-    getGoodsPageList: function getGoodsPageList(page, limit, order, where) {var _this = this;
-      var param = {
-        page: page,
-        limit: limit,
-        order: order,
-        where: where };
-
-      https(urlList.getGoodsPageList, 'post', param, '').then(function (data) {
-        var list = data.data.list;
-        console.log(list.length);
-        if (list.length <= 0) {
-          _this.getGoodsRecommendList();
+    getGoodsPageList: function getGoodsPageList() {var _this = this;
+      var param = this.param;
+      https(urlList.getGoodsPageList, 'post', param, this.loadingText).then(function (data) {
+        _this.goods = _this.goods.concat(data.data.list);
+        _this.isShowHot = false;
+        if (data.data.list.length == _this.param.limit) {
+          _this.param.page++;
+          _this.loadMoreStatus = 'more';
+        } else if (_this.param.page === 1 && data.data.list.length <= 0) {
+          // this.isShowHot = true;
+          _this.getGoodsRecommendList(true);
+          _this.loadMoreStatus = 'noMore';
+          _this.isShowNull = true;
         } else {
-          _this.goods = list;
+          _this.loadMoreStatus = 'noMore';
         }
       }).catch(function (err) {
         console.log('请求失败', err);
       });
     },
     // 获取首页推荐商品
-    getGoodsRecommendList: function getGoodsRecommendList() {var _this2 = this;
+    getGoodsRecommendList: function getGoodsRecommendList(isSearch) {var _this2 = this;
       var param = {
         id: 100,
         data: '' };
 
       https(urlList.getGoodsRecommendList, 'POST', param, '获取商品').
       then(function (data) {
-        _this2.goods = data.data;
-        console.log('请求成功', data);
-      }).catch(function (err) {
-        console.log('请求失败', err);
+        _this2.hotGoods = data.data;
+        if (isSearch)
+        _this2.goods = _this2.hotGoods;
       });
     },
 
     onSearch: function onSearch() {
+      this.goods = [];
+      this.param.page = 1;
+      this.loadMoreStatus = 'more';
+      this.loadingText = "搜索中";
       var where = {
         searchName: this.searchValue };
 
-      this.getGoodsPageList(this.page, this.limit, this.order, JSON.stringify(where));
+      this.param.where = JSON.stringify(where);
+      this.getGoodsPageList();
+      // if (this.searchValue == "") {
+      // 	this.getGoodsRecommendList(true);
+      // 	this.loadMoreStatus = 'noMore';
+      // } else {
+
+      // }
     },
     goGoodDetail: function goGoodDetail(id) {
       uni.navigateTo({
         url: '/pages/goodDetail/goodDetail?id=' + id });
 
+    },
+    showBuyGoodModel: function showBuyGoodModel(id, good) {
+      this.buy_good = good;
+      this.buy_good.buy_num = 1;
+      this.showBuyGood = true;
+    },
+    closeBuyGood: function closeBuyGood() {
+      this.showBuyGood = false;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

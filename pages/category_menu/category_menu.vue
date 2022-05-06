@@ -29,6 +29,7 @@
 							</view>
 						</view>
 					</view>
+					<uni-load-more :status="loadMoreStatus"></uni-load-more>
 				</scroll-view>
 			</view>
 		</view>
@@ -37,13 +38,15 @@
 </template>
 <script>
 	import BuyGoods from '@/components/buy-good/buy-good.vue'
+	import LoadMore from '@/components/uni-load-more/uni-load-more.vue'
 	const {
 		urlList,
 		https
 	} = require('@/static/api');
 	export default {
 		components: {
-			BuyGoods
+			BuyGoods,
+			LoadMore
 		},
 		data() {
 			return {
@@ -53,11 +56,14 @@
 				goods: [],
 				showBuyGood: false,
 				buy_good: {},
-				page: 1,
-				limit: 10,
-				order: "",
-				where: "",
-				catId: 0
+				catId: 0,
+				param: {
+					page: 1,
+					limit: 6,
+					order: "",
+					where: "",
+				},
+				loadMoreStatus:'more'
 			};
 		},
 		onLoad() {
@@ -65,19 +71,14 @@
 		},
 		methods: {
 			getGoodsPageList() {
-				let param = {
-					"page": this.page,
-					"limit": this.limit,
-					"order": this.order,
-					"where": JSON.stringify(this.where)
-				};
-
-				console.log(param)
+				let param = this.param;
 				https(urlList.getGoodsPageList, 'POST', param, '获取商品列表').then(data => {
-					this.goods = data.data.list
-					console.log('请求成功', data)
-				}).catch(err => {
-					console.log('请求失败', err)
+					this.goods = this.goods.concat(data.data.list);
+					if (data.data.list.length == this.param.limit) {
+						this.param.page++;
+						this.loadMoreStatus = 'more';
+					} else
+						this.loadMoreStatus = 'noMore';
 				})
 			},
 			getAllCategories() {
@@ -102,10 +103,13 @@
 			onLefTabs(index, id) {
 				if (this.lefIndex != 0 && this.lefIndex == index) return;
 				this.lefIndex = index;
+				this.param.page=1;
+				this.loadMoreStatus='more';
+				this.goods=[];
 				console.log('分类ID---', id)
-				this.where = {
+				this.param.where = JSON.stringify({
 					catId: id,
-				}
+				}) 
 				this.getGoodsPageList();
 			},
 			showBuyGoodModel(id, good) {
@@ -118,6 +122,10 @@
 			// 上拉加载
 			upLoading() {
 				console.log('上拉加载')
+				if (this.loadMoreStatus === 'more') {
+					this.loadMoreStatus = 'loading';
+					this.getGoodsPageList();
+				}
 			},
 			// 下拉刷新
 			downLoading() {

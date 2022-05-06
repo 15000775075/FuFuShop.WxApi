@@ -97,6 +97,9 @@ try {
   components = {
     uniIcons: function() {
       return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 173))
+    },
+    uniLoadMore: function() {
+      return Promise.all(/*! import() | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 188))
     }
   }
 } catch (e) {
@@ -153,7 +156,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var BuyGoods = function BuyGoods() {__webpack_require__.e(/*! require.ensure | components/buy-good/buy-good */ "components/buy-good/buy-good").then((function () {return resolve(__webpack_require__(/*! @/components/buy-good/buy-good.vue */ 188));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _require =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var BuyGoods = function BuyGoods() {__webpack_require__.e(/*! require.ensure | components/buy-good/buy-good */ "components/buy-good/buy-good").then((function () {return resolve(__webpack_require__(/*! @/components/buy-good/buy-good.vue */ 199));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var LoadMore = function LoadMore() {Promise.all(/*! require.ensure | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-load-more/uni-load-more.vue */ 188));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _require =
+
+
 
 
 
@@ -198,7 +203,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   components: {
-    BuyGoods: BuyGoods },
+    BuyGoods: BuyGoods,
+    LoadMore: LoadMore },
 
   data: function data() {
     return {
@@ -208,11 +214,14 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       goods: [],
       showBuyGood: false,
       buy_good: {},
-      page: 1,
-      limit: 10,
-      order: "",
-      where: "",
-      catId: 0 };
+      catId: 0,
+      param: {
+        page: 1,
+        limit: 6,
+        order: "",
+        where: "" },
+
+      loadMoreStatus: 'more' };
 
   },
   onLoad: function onLoad() {
@@ -220,19 +229,14 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
   },
   methods: {
     getGoodsPageList: function getGoodsPageList() {var _this = this;
-      var param = {
-        "page": this.page,
-        "limit": this.limit,
-        "order": this.order,
-        "where": JSON.stringify(this.where) };
-
-
-      console.log(param);
+      var param = this.param;
       https(urlList.getGoodsPageList, 'POST', param, '获取商品列表').then(function (data) {
-        _this.goods = data.data.list;
-        console.log('请求成功', data);
-      }).catch(function (err) {
-        console.log('请求失败', err);
+        _this.goods = _this.goods.concat(data.data.list);
+        if (data.data.list.length == _this.param.limit) {
+          _this.param.page++;
+          _this.loadMoreStatus = 'more';
+        } else
+        _this.loadMoreStatus = 'noMore';
       });
     },
     getAllCategories: function getAllCategories() {var _this2 = this;
@@ -257,9 +261,12 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
     onLefTabs: function onLefTabs(index, id) {
       if (this.lefIndex != 0 && this.lefIndex == index) return;
       this.lefIndex = index;
+      this.param.page = 1;
+      this.loadMoreStatus = 'more';
+      this.goods = [];
       console.log('分类ID---', id);
-      this.where = {
-        catId: id };
+      this.param.where = JSON.stringify({
+        catId: id });
 
       this.getGoodsPageList();
     },
@@ -273,6 +280,10 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
     // 上拉加载
     upLoading: function upLoading() {
       console.log('上拉加载');
+      if (this.loadMoreStatus === 'more') {
+        this.loadMoreStatus = 'loading';
+        this.getGoodsPageList();
+      }
     },
     // 下拉刷新
     downLoading: function downLoading() {

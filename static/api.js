@@ -16,6 +16,9 @@ const urlList = {
 
 	//广告
 	getAdvertList: serverUrl + 'Advert/GetAdvertList',
+	
+	//公告
+	noticeList: serverUrl + 'Notice/NoticeList',
 
 	//商品分类
 	getAllCategories: serverUrl + 'Good/GetAllCategories',

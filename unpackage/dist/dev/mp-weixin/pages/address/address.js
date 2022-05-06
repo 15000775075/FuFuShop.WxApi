@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniSearchBar: function() {
-      return Promise.all(/*! import() | uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue */ 195))
+      return Promise.all(/*! import() | uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue */ 206))
     },
     uniIcons: function() {
       return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 173))
@@ -156,7 +156,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var AddressPicker = function AddressPicker() {Promise.all(/*! require.ensure | components/addressPicker/addressPicker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/addressPicker/addressPicker")]).then((function () {return resolve(__webpack_require__(/*! @/components/addressPicker/addressPicker.vue */ 241));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _require =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var AddressPicker = function AddressPicker() {Promise.all(/*! require.ensure | components/addressPicker/addressPicker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/addressPicker/addressPicker")]).then((function () {return resolve(__webpack_require__(/*! @/components/addressPicker/addressPicker.vue */ 252));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _require =
 
 
 

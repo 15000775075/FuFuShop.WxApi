@@ -21,7 +21,7 @@
 				showIcon="true" :text="noticeBarText"></uni-notice-bar>
 		</view>
 		<view class="hd_css">
-			<image src="/static/images/index/hd1.png"></image>
+			<image :src="centerImage"></image>
 		</view>
 		<view class="goods">
 			<block v-for="(item,index) in goods" :key="index">
@@ -37,20 +37,24 @@
 					</view>
 				</view>
 			</block>
+
 		</view>
+		<uni-load-more :status="loadMoreStatus"></uni-load-more>
 		<buy-goods v-show="showBuyGood" :buy_good="buy_good" @closeBuyGood="closeBuyGood"></buy-goods>
 	</view>
 </template>
 
 <script>
 	import BuyGoods from '@/components/buy-good/buy-good.vue'
+	import LoadMore from '@/components/uni-load-more/uni-load-more.vue'
 	const {
 		urlList,
 		https
 	} = require('@/static/api');
 	export default {
 		components: {
-			BuyGoods
+			BuyGoods,
+			LoadMore
 		},
 		data() {
 			return {
@@ -59,32 +63,42 @@
 				goods: [],
 				showBuyGood: false,
 				buy_good: {},
-				page: 1,
-				limit: 9,
-				order: "sort asc",
-				where: '{"FieldName":"isRecommend","ConditionalType":"0","FieldValue":"true"}',
-				keyword: ""
+				centerImage: '/static/images/index/hd1.png',
+				keyword: "",
+				param: {
+					page: 1,
+					limit: 9,
+					order: "sort asc",
+					where: '{"isRecommend":"true"}',
+				},
+				loadMoreStatus: 'more'
 			}
 		},
 		onLoad() {
 			//获取轮播列表
 			this.getSwiperList();
-			this.getGoodsPageList(this.page, this.limit, this.order, this.where)
+			this.getNotice();
+			this.getCenterImage();
+			this.getGoodsPageList();
+		},
+		onReachBottom() {
+			if (this.loadMoreStatus === 'more') {
+				this.loadMoreStatus = 'loading';
+				this.getGoodsPageList()
+			}
 		},
 		methods: {
 			//分页查询商品列表 条件为推荐商品
-			getGoodsPageList(page, limit, order, where) {
-				let param = {
-					number: 9,
-					limit: limit,
-					order: order,
-					where: where,
-				};
-				https(urlList.getGoodsPageList, 'post', param, '').then(data => {
-					this.goods = data.data.list
-				}).catch(err => {
-					console.log('请求失败', err)
-				})
+			getGoodsPageList() {
+				let param = this.param;
+				https(urlList.getGoodsPageList, 'post', param, '加载中').then(data => {
+					this.goods = this.goods.concat(data.data.list);
+					if (data.data.list.length == this.param.limit) {
+						this.param.page++;
+						this.loadMoreStatus = 'more';
+					} else
+						this.loadMoreStatus = 'noMore';
+				});
 			},
 			//轮播列表
 			getSwiperList() {
@@ -96,10 +110,36 @@
 					"order": "",
 					"where": "TplIndexBanner1",
 				};
-				https(urlList.getAdvertList, 'POST', param, '获取广告').then(data => {
+				https(urlList.getAdvertList, 'POST', param, '').then(data => {
 					this.swiperList = data.data;
-				}).catch(err => {
-					console.log('请求失败', err)
+				})
+			},
+			//轮播列表
+			getCenterImage() {
+				let param = {
+					"otherData": "",
+					"id": 0,
+					"page": 1,
+					"limit": 1,
+					"order": "",
+					"where": "TplIndexBanner3",
+				};
+				https(urlList.getAdvertList, 'POST', param, '').then(data => {
+					this.centerImage = data.data[0].imageUrl;
+				})
+			},
+			// 公告
+			getNotice() {
+				let param = {
+					"otherData": "",
+					"id": 0,
+					"page": 1,
+					"limit": 1,
+					"order": "",
+					"where": "",
+				};
+				https(urlList.noticeList, 'POST', param, '').then(data => {
+					this.noticeBarText = data.data[0].title;
 				})
 			},
 			goSearch() {

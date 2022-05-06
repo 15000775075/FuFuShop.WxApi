@@ -93,6 +93,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uniLoadMore: function() {
+      return Promise.all(/*! import() | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 318))
+    }
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -158,77 +181,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _require =
 
 
 
-__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var LoadMore = function LoadMore() {Promise.all(/*! require.ensure | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-load-more/uni-load-more.vue */ 318));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 {
+  components: {
+    LoadMore: LoadMore },
+
   data: function data() {
     return {
-      goods: [
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 20 },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2 },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 20 },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 20 },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 20 },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 20 },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 20 }],
-
-
+      goods: [],
       param: {
         page: 1,
         limit: 10,
         order: "id",
         where: "",
         otherData: "",
-        id: 0 } };
+        id: 0 },
 
+      loadMoreStatus: "more" };
 
   },
   onLoad: function onLoad() {
     this.goodsCollectionList();
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.loadMoreStatus === 'more') {
+      this.loadMoreStatus = 'loading';
+      this.getGoodsPageList();
+    }
   },
   methods: {
     goodDetail: function goodDetail(id) {
@@ -239,7 +224,12 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
     goodsCollectionList: function goodsCollectionList() {var _this = this;
       var param = this.param;
       https(urlList.goodsCollectionList, 'post', param, '更新收藏').then(function (data) {
-        _this.goods = data.data.list;
+        _this.goods = _this.goods.concat(data.data.list);
+        if (data.data.list.length == _this.param.limit) {
+          _this.param.page++;
+          _this.loadMoreStatus = 'more';
+        } else
+        _this.loadMoreStatus = 'noMore';
       });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

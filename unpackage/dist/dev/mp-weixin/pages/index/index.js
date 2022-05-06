@@ -108,6 +108,9 @@ try {
     },
     uniNoticeBar: function() {
       return __webpack_require__.e(/*! import() | uni_modules/uni-notice-bar/components/uni-notice-bar/uni-notice-bar */ "uni_modules/uni-notice-bar/components/uni-notice-bar/uni-notice-bar").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-notice-bar/components/uni-notice-bar/uni-notice-bar.vue */ 181))
+    },
+    uniLoadMore: function() {
+      return Promise.all(/*! import() | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 188))
     }
   }
 } catch (e) {
@@ -162,7 +165,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var BuyGoods = function BuyGoods() {__webpack_require__.e(/*! require.ensure | components/buy-good/buy-good */ "components/buy-good/buy-good").then((function () {return resolve(__webpack_require__(/*! @/components/buy-good/buy-good.vue */ 188));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _require =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var BuyGoods = function BuyGoods() {__webpack_require__.e(/*! require.ensure | components/buy-good/buy-good */ "components/buy-good/buy-good").then((function () {return resolve(__webpack_require__(/*! @/components/buy-good/buy-good.vue */ 199));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var LoadMore = function LoadMore() {Promise.all(/*! require.ensure | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-load-more/uni-load-more.vue */ 188));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _require =
+
+
+
 
 
 
@@ -214,7 +220,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
 {
   components: {
-    BuyGoods: BuyGoods },
+    BuyGoods: BuyGoods,
+    LoadMore: LoadMore },
 
   data: function data() {
     return {
@@ -223,31 +230,41 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       goods: [],
       showBuyGood: false,
       buy_good: {},
-      page: 1,
-      limit: 9,
-      order: "sort asc",
-      where: '{"FieldName":"isRecommend","ConditionalType":"0","FieldValue":"true"}',
-      keyword: "" };
+      centerImage: '/static/images/index/hd1.png',
+      keyword: "",
+      param: {
+        page: 1,
+        limit: 9,
+        order: "sort asc",
+        where: '{"isRecommend":"true"}' },
+
+      loadMoreStatus: 'more' };
 
   },
   onLoad: function onLoad() {
     //获取轮播列表
     this.getSwiperList();
-    this.getGoodsPageList(this.page, this.limit, this.order, this.where);
+    this.getNotice();
+    this.getCenterImage();
+    this.getGoodsPageList();
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.loadMoreStatus === 'more') {
+      this.loadMoreStatus = 'loading';
+      this.getGoodsPageList();
+    }
   },
   methods: {
     //分页查询商品列表 条件为推荐商品
-    getGoodsPageList: function getGoodsPageList(page, limit, order, where) {var _this = this;
-      var param = {
-        number: 9,
-        limit: limit,
-        order: order,
-        where: where };
-
-      https(urlList.getGoodsPageList, 'post', param, '').then(function (data) {
-        _this.goods = data.data.list;
-      }).catch(function (err) {
-        console.log('请求失败', err);
+    getGoodsPageList: function getGoodsPageList() {var _this = this;
+      var param = this.param;
+      https(urlList.getGoodsPageList, 'post', param, '加载中').then(function (data) {
+        _this.goods = _this.goods.concat(data.data.list);
+        if (data.data.list.length == _this.param.limit) {
+          _this.param.page++;
+          _this.loadMoreStatus = 'more';
+        } else
+        _this.loadMoreStatus = 'noMore';
       });
     },
     //轮播列表
@@ -260,10 +277,36 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         "order": "",
         "where": "TplIndexBanner1" };
 
-      https(urlList.getAdvertList, 'POST', param, '获取广告').then(function (data) {
+      https(urlList.getAdvertList, 'POST', param, '').then(function (data) {
         _this2.swiperList = data.data;
-      }).catch(function (err) {
-        console.log('请求失败', err);
+      });
+    },
+    //轮播列表
+    getCenterImage: function getCenterImage() {var _this3 = this;
+      var param = {
+        "otherData": "",
+        "id": 0,
+        "page": 1,
+        "limit": 1,
+        "order": "",
+        "where": "TplIndexBanner3" };
+
+      https(urlList.getAdvertList, 'POST', param, '').then(function (data) {
+        _this3.centerImage = data.data[0].imageUrl;
+      });
+    },
+    // 公告
+    getNotice: function getNotice() {var _this4 = this;
+      var param = {
+        "otherData": "",
+        "id": 0,
+        "page": 1,
+        "limit": 1,
+        "order": "",
+        "where": "" };
+
+      https(urlList.noticeList, 'POST', param, '').then(function (data) {
+        _this4.noticeBarText = data.data[0].title;
       });
     },
     goSearch: function goSearch() {

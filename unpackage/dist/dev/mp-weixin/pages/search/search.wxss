@@ -30,6 +30,168 @@
   flex-direction: column;
   align-items: center;
 }
+.warp .cen_goods.data-v-4cedc0c6 {
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 150rpx;
+}
+.warp .cen_goods .no_goods.data-v-4cedc0c6 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  font-size: 30rpx;
+  color: #9d9d9d;
+}
+.warp .cen_goods .no_goods image.data-v-4cedc0c6 {
+  width: 400rpx;
+  height: 400rpx;
+  margin-bottom: 10rpx;
+}
+.warp .cen_goods .goods_text.data-v-4cedc0c6 {
+  width: 100%;
+  height: 100rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.warp .cen_goods .goods_text .radio.data-v-4cedc0c6 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #6a6a6a;
+  font-size: 27rpx;
+}
+.warp .cen_goods .goods_text .radio text.data-v-4cedc0c6 {
+  margin-left: 10rpx;
+}
+.warp .cen_goods .goods_item.data-v-4cedc0c6 {
+  width: 100%;
+  height: 250rpx;
+  border-top: 1rpx solid #f0f0f0;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.warp .cen_goods .goods_item .lef_select.data-v-4cedc0c6 {
+  width: 100rpx;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.warp .cen_goods .goods_item .rig_goods.data-v-4cedc0c6 {
+  width: 620rpx;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 30rpx;
+}
+.warp .cen_goods .goods_item .rig_goods image.data-v-4cedc0c6 {
+  height: 150rpx;
+  width: 150rpx;
+}
+.warp .cen_goods .goods_item .rig_goods .r_goods_rig.data-v-4cedc0c6 {
+  width: 450rpx;
+  display: flex;
+  flex-direction: column;
+}
+.warp .cen_goods .goods_item .rig_goods .r_goods_rig .r_g_r_name.data-v-4cedc0c6 {
+  width: 100%;
+  font-size: 32rpx;
+  color: #4c4c4c;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.warp .cen_goods .goods_item .rig_goods .r_goods_rig .r_g_r_type.data-v-4cedc0c6 {
+  font-size: 29rpx;
+  margin-top: 10rpx;
+  color: #7d7d7d;
+}
+.warp .cen_goods .goods_item .rig_goods .r_goods_rig .r_g_r_price.data-v-4cedc0c6 {
+  width: 100%;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.warp .cen_goods .goods_item .rig_goods .r_goods_rig .r_g_r_price .r_g_r_p_price.data-v-4cedc0c6 {
+  color: #FF4544;
+}
+.warp .goods.data-v-4cedc0c6 {
+  width: 100%;
+  margin-top: 100rpx;
+  padding-top: 30rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.warp .goods .goods_list.data-v-4cedc0c6 {
+  width: 216.67rpx;
+  margin-left: 25rpx;
+  margin-bottom: 50rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.warp .goods .goods_list .image_good.data-v-4cedc0c6 {
+  width: 100%;
+  height: 220rpx;
+  border-top-right-radius: 20rpx;
+}
+.warp .goods .goods_list .hot_css.data-v-4cedc0c6 {
+  width: 60rpx;
+  height: 50rpx;
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+}
+.warp .goods .goods_list .good_name.data-v-4cedc0c6 {
+  width: 100%;
+  font-size: 26rpx;
+  margin-top: 10rpx;
+  color: #555555;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.warp .goods .goods_list .good_price.data-v-4cedc0c6 {
+  width: 100%;
+  margin: 0 auto;
+  color: red;
+  margin-top: 10rpx;
+  font-size: 29rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.warp .goods .goods_list .good_price .rig_cart.data-v-4cedc0c6 {
+  height: 45rpx;
+  width: 45rpx;
+  border-radius: 50%;
+  border: 1rpx solid #FF4544;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .warp .top_search.data-v-4cedc0c6 {
   width: 100%;
   height: 100rpx;
