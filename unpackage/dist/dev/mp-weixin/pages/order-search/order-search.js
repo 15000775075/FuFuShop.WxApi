@@ -96,10 +96,13 @@ var components
 try {
   components = {
     uniSearchBar: function() {
-      return Promise.all(/*! import() | uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue */ 206))
+      return Promise.all(/*! import() | uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-search-bar/components/uni-search-bar/uni-search-bar.vue */ 195))
     },
     uniDatetimePicker: function() {
-      return Promise.all(/*! import() | uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker.vue */ 241))
+      return Promise.all(/*! import() | uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-datetime-picker/components/uni-datetime-picker/uni-datetime-picker.vue */ 230))
+    },
+    uniLoadMore: function() {
+      return Promise.all(/*! import() | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 318))
     }
   }
 } catch (e) {
@@ -213,70 +216,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var _default =
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _require =
+
+
+
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var LoadMore = function LoadMore() {Promise.all(/*! require.ensure | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-load-more/uni-load-more.vue */ 318));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 {
+  components: {
+    LoadMore: LoadMore },
+
   data: function data() {
     return {
       searchValue: '',
       searchTime: '',
-      orders: [
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2,
-        totalPrice: '430.32',
-        category: '27黑色 （9956款）' },
+      orders: [],
+      param: {
+        page: 1,
+        limit: 6,
+        status: 0,
+        key: '',
+        startTime: '',
+        endTime: '' },
 
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2,
-        totalPrice: '430.32',
-        category: '27黑色 （9956款）' },
+      loadMoreStatus: 'more' };
 
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2,
-        totalPrice: '430.32',
-        category: '27黑色 （9956款）' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2,
-        totalPrice: '430.32',
-        category: '27黑色 （9956款）' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2,
-        totalPrice: '430.32',
-        category: '27黑色 （9956款）' },
-
-      {
-        id: 111,
-        name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-        img: '/static/images/index/good.jpg',
-        price: '215.26',
-        num: 2,
-        totalPrice: '430.32',
-        category: '27黑色 （9956款）' }] };
-
-
-
-
+  },
+  onLoad: function onLoad() {
+    this.getOrderList();
   },
   methods: {
     onSearch: function onSearch(num) {
@@ -284,8 +277,26 @@ var _default =
         this.searchValue = '';
         this.searchTime = '';
       } else {
+        this.param.page = 1;
+        this.param.key = this.searchValue;
+        if (this.searchTime != '') {
+          this.param.startTime = this.searchTime[0];
+          this.param.endTime = this.searchTime[1];
+        }
+        this.getOrderList();
         console.log('搜索', this.searchValue, this.searchTime);
       }
+    },
+    getOrderList: function getOrderList() {var _this = this;
+      var param = this.param;
+      https(urlList.getOrderList, 'post', param, '加载中').then(function (data) {
+        _this.orders = _this.orders.concat(data.data.list);
+        if (data.data.list.length == _this.param.limit) {
+          _this.param.page++;
+          _this.loadMoreStatus = 'more';
+        } else
+        _this.loadMoreStatus = 'noMore';
+      });
     },
     goGoodDetail: function goGoodDetail(id) {
       uni.navigateTo({
@@ -296,7 +307,17 @@ var _default =
       uni.navigateTo({
         url: '/pages/orders-fp/orders-fp?id=' + id });
 
-    } } };exports.default = _default;
+    },
+    // 上拉加载
+    upLoading: function upLoading() {
+      console.log('上拉加载');
+      if (this.loadMoreStatus === 'more') {
+        this.loadMoreStatus = 'loading';
+        this.getOrderList();
+      }
+    },
+    // 下拉刷新
+    downLoading: function downLoading() {} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

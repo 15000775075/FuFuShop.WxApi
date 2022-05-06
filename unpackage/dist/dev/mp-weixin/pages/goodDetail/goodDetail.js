@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uniIcons: function() {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 173))
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 181))
     },
     uniPopup: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 213))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 232))
     }
   }
 } catch (e) {
@@ -156,7 +156,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var BuyGoods = function BuyGoods() {__webpack_require__.e(/*! require.ensure | components/buy-good/buy-good */ "components/buy-good/buy-good").then((function () {return resolve(__webpack_require__(/*! @/components/buy-good/buy-good.vue */ 188));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var HaiBao = function HaiBao() {Promise.all(/*! require.ensure | components/haibao/haibao */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/haibao/haibao")]).then((function () {return resolve(__webpack_require__(/*! @/components/haibao/haibao.vue */ 220));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _require =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var BuyGoods = function BuyGoods() {__webpack_require__.e(/*! require.ensure | components/buy-good/buy-good */ "components/buy-good/buy-good").then((function () {return resolve(__webpack_require__(/*! @/components/buy-good/buy-good.vue */ 207));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var HaiBao = function HaiBao() {Promise.all(/*! require.ensure | components/haibao/haibao */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/haibao/haibao")]).then((function () {return resolve(__webpack_require__(/*! @/components/haibao/haibao.vue */ 239));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _require =
 
 
 

@@ -186,6 +186,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "搜索订单",
+                    "pathName": "pages/order-search/order-search",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

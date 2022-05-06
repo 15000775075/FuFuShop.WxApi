@@ -37,12 +37,12 @@
 			</view>
 			<view class="bot_btn">
 				<view class="btn color1" @tap="addAddress">
-					<uni-icons style="margin-right: 10rpx;" size="23" type="plus-filled" color="white"></uni-icons> 手动添加
+					<uni-icons style="margin-right: 10rpx;" size="23" type="plus-filled" color="white"></uni-icons> 添加地址
 				</view>
-				<view class="btn color2" @tap="getAddress">
+				<!-- <view class="btn color2" @tap="getAddress">
 					<uni-icons style="margin-right: 10rpx;" size="23" type="navigate-filled" color="white"></uni-icons>
 					自动获取
-				</view>
+				</view> -->
 			</view>
 		</block>
 		<block v-else>
@@ -375,7 +375,7 @@
 			justify-content: center;
 
 			.btn {
-				width: 40%;
+				width: 80%;
 				height: 80rpx;
 
 				display: flex;

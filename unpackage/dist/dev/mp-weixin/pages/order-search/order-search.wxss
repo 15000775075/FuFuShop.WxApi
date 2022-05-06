@@ -68,6 +68,18 @@
   display: flex;
   flex-direction: column;
 }
+.warp .bot_goods .item_title.data-v-e322a934 {
+  width: 100%;
+  padding: 20rpx 0rpx 20rpx 0rpx;
+  font-size: 29rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.warp .bot_goods .item_title .item_title_item.data-v-e322a934 {
+  padding: 6rpx;
+}
 .warp .bot_goods .orders_item.data-v-e322a934 {
   margin: 20rpx auto;
   width: 680rpx;

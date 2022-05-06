@@ -49,10 +49,12 @@ const urlList = {
 	//订单
 	createOrder: serverUrl + 'Order/CreateOrder',
 	getOrderList: serverUrl + 'Order/GetOrderList',
+	cancelOrder: serverUrl + 'Order/CancelOrder',
 	getOrderStatusNum: serverUrl + 'Order/GetOrderStatusNum',
 	orderDetails: serverUrl + 'Order/OrderDetails',
 	orderConfirm: serverUrl + 'Order/OrderConfirm',
 	logisticsByApi: serverUrl + 'Order/LogisticsByApi',
+	// 订单评价接口
 
 
 };

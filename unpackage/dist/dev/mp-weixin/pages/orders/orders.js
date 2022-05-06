@@ -93,6 +93,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uniLoadMore: function() {
+      return Promise.all(/*! import() | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 318))
+    }
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -192,12 +215,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _require =
 
 
 
-__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var LoadMore = function LoadMore() {Promise.all(/*! require.ensure | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-load-more/uni-load-more.vue */ 318));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 {
+  components: {
+    LoadMore: LoadMore },
+
   data: function data() {
     return {
       topNavList: ['全部', '待付款', '待发货', '待收货', '已完成'],
@@ -205,9 +242,13 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       orders: [],
       param: {
         page: 1,
-        limit: 10,
-        status: 0 } };
+        limit: 3,
+        status: 0,
+        key: '',
+        startTime: '',
+        endTime: '' },
 
+      loadMoreStatus: 'more' };
 
   },
   onLoad: function onLoad(options) {
@@ -218,15 +259,24 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
   methods: {
     getOrderList: function getOrderList() {var _this = this;
       var param = this.param;
-      https(urlList.getOrderList, 'post', param, '更新订单').then(function (data) {
-        _this.orders = data.data.list;
+      https(urlList.getOrderList, 'post', param, '加载中').then(function (data) {
+        _this.orders = _this.orders.concat(data.data.list);
+        if (data.data.list.length == _this.param.limit) {
+          _this.param.page++;
+          _this.loadMoreStatus = 'more';
+        } else
+        _this.loadMoreStatus = 'noMore';
       });
     },
     onTopTabs: function onTopTabs(index) {
       this.tabIndex = index;
+      this.param.page = 1;
+      this.loadMoreStatus = 'more';
+      this.orders = [];
       this.param.status = this.tabIndex === 0 ? -1 : this.tabIndex;
       this.getOrderList();
     },
+
     goSearch: function goSearch() {
       uni.navigateTo({
         url: '/pages/order-search/order-search' });
@@ -262,6 +312,40 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
         } });
 
+    },
+    onCancelOrder: function onCancelOrder(id) {var _this2 = this;
+      console.log(id);
+      var param = {
+        "id": id,
+        "data": "" };
+
+      uni.showModal({
+        title: "确定不买了吗？",
+        success: function success(res) {
+          if (res.confirm)
+          https(urlList.cancelOrder, 'post', param, '操作中').then(function (data) {
+            _this2.downLoading();
+          });
+        } });
+
+
+    },
+    onLogistics: function onLogistics(id) {
+      uni.navigateTo({
+        url: '/pages/orders-wl/orders-wl?id=' + id });
+
+    },
+    // 上拉加载
+    upLoading: function upLoading() {
+      console.log('上拉加载');
+      if (this.loadMoreStatus === 'more') {
+        this.loadMoreStatus = 'loading';
+        this.getOrderList();
+      }
+    },
+    // 下拉刷新
+    downLoading: function downLoading() {
+      this.onTopTabs(this.tabIndex);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

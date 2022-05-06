@@ -12,10 +12,20 @@
 				</view>
 			</view>
 		</view>
-		<view v-if="orders.length > 0" class="cen_goods">
+		<scroll-view v-if="orders.length > 0" class="cen_goods" scroll-y scroll-top="0" refresher-enabled
+			scroll-anchoring @scrolltolower='upLoading' @refresherrefresh='downLoading'>
 			<view v-for="(item,index) in orders" :key="index" class="orders_item">
 				<view class="item_title">
-					<view>订单号：{{item.orderId}} </view>
+					<view class="item_title_item">订单号：{{item.orderId}} </view>
+					<view class="item_title_item" v-if="item.status==3">订单状态：已取消 </view>
+					<view class="item_title_item" v-else-if="item.status==1 && item.payStatus==1">订单状态：代付款 </view>
+					<view class="item_title_item" v-else-if="item.status==1 && item.payStatus!=1 && item.shipStatus==1">
+						订单状态：待发货 </view>
+					<view class="item_title_item"
+						v-else-if="item.status==1 && item.payStatus!=1 && item.shipStatus==2 ">订单状态：待收货 </view>
+					<view class="item_title_item"
+						v-else="item.status==1 && item.payStatus!=1 && item.shipStatus==2 && item.confirmStatus==2">
+						订单状态：已完成 </view>
 				</view>
 				<view class="item_good" v-for="(product,index) in item.items">
 					<image :src="product.imageUrl" @tap="goGoodDetail(item.id)"></image>
@@ -31,26 +41,26 @@
 				</view>
 				<view class="item_price">
 
-					<!-- 待发货 -->
-					<!-- 待收货 -->
-					<view class="btn" v-if="item.status===1 && item.payStatus!=1 && item.shipStatus!=1"
-						@tap="onEvaluate(item.id)">查看物流</view>
-					<!-- 已完成 -->
-					<view class="btn"
-						v-if="item.status===1 && item.payStatus!=1 && item.shipStatus!=1 && item.confirmStatus!=1"
-						@tap="onLookFp(item.id)">查看发票</view>
-					<view class="btn"
-						v-if="item.status===1 && item.payStatus!=1 && item.shipStatus!=1 && item.confirmStatus!=1"
-						@tap="onEvaluate(item.id)">评价晒单</view>
-					<!-- 待支付 -->
-					<view class="btn" v-if="item.status===1 && item.payStatus===1" @tap="onEvaluate(item.id)">取消订单
+					<!-- 已付款 + 已发货 -->
+					<view class="btn" v-if="item.payStatus!=1 && item.shipStatus==2" @tap="onLogistics(item.id)">查看物流
 					</view>
-					<view class="btn color1" v-if="item.status===1 && item.payStatus===1" @tap="onPay(item)">立刻支付</view>
-
+					<!-- 已完成 -->
+					<!-- <view class="btn"
+						v-if="item.status===1 && item.payStatus!=1 && item.shipStatus!=1 && item.confirmStatus==2"
+						@tap="onLookFp(item.id)">查看发票</view> -->
+					<!-- 已完成+未评价 -->
+					<view class="btn" v-if="item.confirmStatus==2 && !item.isComment" @tap="onEvaluate(item.id)">评价晒单
+					</view>
+					<!-- 待支付 未取消-->
+					<view class="btn" v-if="item.payStatus==1 && item.status==1" @tap="onCancelOrder(item.orderId)">取消订单
+					</view>
+					<view class="btn color1" v-if="item.payStatus==1 && item.status!=3" @tap="onPay(item)">立刻支付</view>
+					<!-- 已支付 -->
 					<view class="btn color1" v-if="item.payStatus!=1" @tap="goGoodDetail(item.id)">再次购买</view>
 				</view>
 			</view>
-		</view>
+			<uni-load-more :status="loadMoreStatus"></uni-load-more>
+		</scroll-view>
 		<view v-else class="cen_goods">
 			<view class="no_goods">
 				<image src="/static/images/common/no.png"></image>
@@ -65,7 +75,11 @@
 		urlList,
 		https
 	} = require('@/static/api');
+	import LoadMore from '@/components/uni-load-more/uni-load-more.vue'
 	export default {
+		components: {
+			LoadMore
+		},
 		data() {
 			return {
 				topNavList: ['全部', '待付款', '待发货', '待收货', '已完成'],
@@ -73,9 +87,13 @@
 				orders: [],
 				param: {
 					page: 1,
-					limit: 10,
+					limit: 3,
 					status: 0,
-				}
+					key: '',
+					startTime: '',
+					endTime: ''
+				},
+				loadMoreStatus: 'more'
 			};
 		},
 		onLoad(options) {
@@ -86,15 +104,24 @@
 		methods: {
 			getOrderList() {
 				let param = this.param;
-				https(urlList.getOrderList, 'post', param, '更新订单').then(data => {
-					this.orders = data.data.list
+				https(urlList.getOrderList, 'post', param, '加载中').then(data => {
+					this.orders = this.orders.concat(data.data.list);
+					if (data.data.list.length == this.param.limit) {
+						this.param.page++;
+						this.loadMoreStatus = 'more';
+					} else
+						this.loadMoreStatus = 'noMore';
 				});
 			},
 			onTopTabs(index) {
 				this.tabIndex = index;
+				this.param.page = 1;
+				this.loadMoreStatus = 'more';
+				this.orders = [];
 				this.param.status = this.tabIndex === 0 ? -1 : this.tabIndex;
 				this.getOrderList();
 			},
+
 			goSearch() {
 				uni.navigateTo({
 					url: '/pages/order-search/order-search'
@@ -130,7 +157,41 @@
 							})
 					}
 				})
-			}
+			},
+			onCancelOrder(id) {
+				console.log(id)
+				let param = {
+					"id": id,
+					"data": ""
+				};
+				uni.showModal({
+					title: "确定不买了吗？",
+					success: (res) => {
+						if (res.confirm)
+							https(urlList.cancelOrder, 'post', param, '操作中').then(data => {
+								this.downLoading();
+							});
+					}
+				})
+
+			},
+			onLogistics(id) {
+				uni.navigateTo({
+					url: '/pages/orders-wl/orders-wl?id=' + id
+				})
+			},
+			// 上拉加载
+			upLoading() {
+				console.log('上拉加载')
+				if (this.loadMoreStatus === 'more') {
+					this.loadMoreStatus = 'loading';
+					this.getOrderList();
+				}
+			},
+			// 下拉刷新
+			downLoading() {
+				this.onTopTabs(this.tabIndex);
+			},
 		}
 	}
 </script>
@@ -224,7 +285,7 @@
 			.orders_item {
 				margin-top: 20rpx;
 				margin-bottom: 20rpx;
-				width: 660rpx;
+				// width: 90%;
 				background-color: white;
 				border-radius: 10rpx;
 				padding: 20rpx 20rpx 0rpx 20rpx;
@@ -286,7 +347,10 @@
 					display: flex;
 					flex-direction: row;
 					align-items: center;
-					justify-content: flex-start;
+					justify-content: space-between;
+					.item_title_item{
+						padding: 6rpx;
+					}
 				}
 
 				.btn {

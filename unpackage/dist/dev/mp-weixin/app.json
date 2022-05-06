@@ -14,6 +14,7 @@
     "pages/orders/orders",
     "pages/order-search/order-search",
     "pages/orders-fp/orders-fp",
+    "pages/orders-wl/orders-wl",
     "pages/adter-sales/adter-sales",
     "pages/bind-phone/bind-phone",
     "pages/address/address",

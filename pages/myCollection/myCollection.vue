@@ -42,7 +42,7 @@
 				goods:[],
 				param: {
 					page: 1,
-					limit: 10,
+					limit: 4,
 					order: "id",
 					where: "",
 					otherData:"",
@@ -57,7 +57,7 @@
 		onReachBottom() {
 			if (this.loadMoreStatus === 'more') {
 				this.loadMoreStatus = 'loading';
-				this.getGoodsPageList()
+				this.goodsCollectionList()
 			}
 		},
 		methods:{
