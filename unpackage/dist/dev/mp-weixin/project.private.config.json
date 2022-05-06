@@ -179,6 +179,13 @@
                     "query": "",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "我的足迹",
+                    "pathName": "pages/myFootPrint/myFootPrint",
+                    "query": "",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }

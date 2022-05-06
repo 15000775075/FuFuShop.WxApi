@@ -275,11 +275,11 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         text: '收货地址',
         num: 7 },
 
-      {
-        img: '/static/images/my/tabs2-2.png',
-        text: '绑定手机号',
-        num: 8 },
-
+      // {
+      // 	img: '/static/images/my/tabs2-2.png',
+      // 	text: '绑定手机号',
+      // 	num: 8
+      // },
       {
         img: '/static/images/my/tabs2-3.png',
         text: '我的收藏',

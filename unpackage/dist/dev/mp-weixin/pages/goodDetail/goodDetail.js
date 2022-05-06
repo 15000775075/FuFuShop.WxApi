@@ -280,12 +280,16 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
   },
   onLoad: function onLoad(options) {
+
     //获取商品ID
     if (options.id != '') {
       this.goodsId = options.id;
       this.getGoodsDetail();
       this.getGoodsComments();
-      this.addGoodsBrowsing();
+      var token = uni.getStorageInfoSync('token');
+      if (token !== undefined || token != "") {
+        this.addGoodsBrowsing();
+      }
     } else {
 
     }

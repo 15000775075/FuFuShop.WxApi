@@ -3426,7 +3426,7 @@ var urlList = {
   goodsCollectionList: serverUrl + 'User/GoodsCollectionList',
 
   //足迹
-  AddGoodsBrowsing: serverUrl + 'User/AddGoodsBrowsing',
+  addGoodsBrowsing: serverUrl + 'User/AddGoodsBrowsing',
   getGoodsbrowsing: serverUrl + 'User/Goodsbrowsing',
 
   //广告
