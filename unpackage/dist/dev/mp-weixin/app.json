@@ -1,71 +1,72 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/category_menu/category_menu",
-    "pages/search/search",
-    "pages/shop_cart/shop_cart",
-    "pages/my/my",
-    "pages/myCollection/myCollection",
-    "pages/myFootPrint/myFootPrint",
-    "pages/goodDetail/goodDetail",
-    "pages/my-integral/my-integral",
-    "pages/my-exchange/my-exchange",
-    "pages/integral-record/integral-record",
-    "pages/orders/orders",
-    "pages/order-search/order-search",
-    "pages/orders-fp/orders-fp",
-    "pages/orders-wl/orders-wl",
-    "pages/adter-sales/adter-sales",
-    "pages/bind-phone/bind-phone",
-    "pages/address/address",
-    "pages/coupon/coupon",
-    "pages/nowBuy/nowBuy",
-    "pages/evaluate/evaluate",
-    "pages/orderDetail/orderDetail"
-  ],
-  "subPackages": [],
-  "window": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#FFFFFF",
-    "backgroundColor": "#F8F8F8"
-  },
-  "tabBar": {
-    "color": "#8a8a8a",
-    "selectedColor": "#d81e06",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "static/images/common/index_n.png",
-        "selectedIconPath": "static/images/common/index.png"
-      },
-      {
-        "pagePath": "pages/category_menu/category_menu",
-        "text": "分类",
-        "iconPath": "static/images/common/menu_n.png",
-        "selectedIconPath": "static/images/common/menu.png"
-      },
-      {
-        "pagePath": "pages/shop_cart/shop_cart",
-        "text": "购物车",
-        "iconPath": "static/images/common/cart_n.png",
-        "selectedIconPath": "static/images/common/cart.png"
-      },
-      {
-        "pagePath": "pages/my/my",
-        "text": "我",
-        "iconPath": "static/images/common/my_n.png",
-        "selectedIconPath": "static/images/common/my.png"
-      }
-    ]
-  },
-  "permission": {
-    "scope.userLocation": {
-      "desc": "定位"
-    }
-  },
-  "usingComponents": {}
+    "pages": [
+        "pages/index/index",
+        "pages/category_menu/category_menu",
+        "pages/search/search",
+        "pages/shop_cart/shop_cart",
+        "pages/my/my",
+        "pages/myCollection/myCollection",
+        "pages/myFootPrint/myFootPrint",
+        "pages/goodDetail/goodDetail",
+        "pages/my-integral/my-integral",
+        "pages/my-exchange/my-exchange",
+        "pages/integral-record/integral-record",
+        "pages/orders/orders",
+        "pages/order-search/order-search",
+        "pages/orders-fp/orders-fp",
+        "pages/orders-wl/orders-wl",
+        "pages/adter-sales/adter-sales",
+        "pages/bind-phone/bind-phone",
+        "pages/address/address",
+        "pages/coupon/coupon",
+        "pages/nowBuy/nowBuy",
+        "pages/evaluate/evaluate",
+        "pages/orderDetail/orderDetail"
+    ],
+    "subPackages": [],
+    "window": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "backgroundColor": "#F8F8F8"
+    },
+    "tabBar": {
+        "color": "#8a8a8a",
+        "selectedColor": "#d81e06",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "首页",
+                "iconPath": "static/images/common/index_n.png",
+                "selectedIconPath": "static/images/common/index.png"
+            },
+            {
+                "pagePath": "pages/category_menu/category_menu",
+                "text": "分类",
+                "iconPath": "static/images/common/menu_n.png",
+                "selectedIconPath": "static/images/common/menu.png"
+            },
+            {
+                "pagePath": "pages/shop_cart/shop_cart",
+                "text": "购物车",
+                "iconPath": "static/images/common/cart_n.png",
+                "selectedIconPath": "static/images/common/cart.png"
+            },
+            {
+                "pagePath": "pages/my/my",
+                "text": "我",
+                "iconPath": "static/images/common/my_n.png",
+                "selectedIconPath": "static/images/common/my.png"
+            }
+        ]
+    },
+    "permission": {
+        "scope.userLocation": {
+            "desc": "定位"
+        }
+    },
+    "usingComponents": {},
+    "sitemapLocation": "sitemap.json"
 }

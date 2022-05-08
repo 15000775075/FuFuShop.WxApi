@@ -45,7 +45,7 @@
 					<view class="btn" v-if="item.payStatus!=1 && item.shipStatus==2" @tap="onLogistics(item.orderId)">
 						查看物流
 					</view>
-					<view class="btn color1" v-if="item.payStatus!=1 && item.shipStatus==2 && item.confirmStatus!=2"
+					<view class="btn color1" v-if="item.payStatus!=1 && item.shipStatus==3 && item.confirmStatus!=2"
 						@tap="onConfirm(item.orderId)">确认收货
 					</view>
 					<!-- 已完成 -->
@@ -184,7 +184,7 @@
 				console.log(id)
 				let param = {
 					"id": id,
-					"data": ""
+					"data": 0
 				};
 				uni.showModal({
 					title: "确定收到商品了吗？",

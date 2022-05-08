@@ -185,7 +185,7 @@
 			},
 			onClear() {
 				let param = {
-					id: this.goods.id,
+					id: this.goods.goodsId,
 					data: ''
 				};
 				https(urlList.delGoodsbrowsing, 'post', param, '删除中').then(data => {

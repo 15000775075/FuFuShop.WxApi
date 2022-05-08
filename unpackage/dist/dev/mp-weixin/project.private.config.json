@@ -188,16 +188,23 @@
                     "scene": null
                 },
                 {
-                    "name": "搜索订单",
-                    "pathName": "pages/order-search/order-search",
+                    "name": "",
+                    "pathName": "pages/orders/orders",
+                    "query": "tabIndex=3",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "",
+                    "pathName": "pages/myFootPrint/myFootPrint",
                     "query": "",
                     "launchMode": "default",
                     "scene": null
                 },
                 {
-                    "name": "足迹",
-                    "pathName": "pages/myFootPrint/myFootPrint",
-                    "query": "",
+                    "name": "",
+                    "pathName": "pages/orders/orders",
+                    "query": "tabIndex=3",
                     "launchMode": "default",
                     "scene": null
                 }
