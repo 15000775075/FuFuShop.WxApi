@@ -24,6 +24,9 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.good_img_fwb image.data-v-54eb02f4 {
+  width: 100%;
+}
 .warp.data-v-54eb02f4 {
   width: 100%;
   background-color: #F2F2F2;

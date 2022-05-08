@@ -148,10 +148,9 @@
 			};
 		},
 		onLoad(option) {
-			uni.getStorageSync("token") && this.getUser();
 		},
 		onShow(option) {
-
+			uni.getStorageSync("token") && this.getUser();
 		},
 		methods: {
 			goUrl(num, orderNum) {

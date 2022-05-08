@@ -13,6 +13,7 @@ const urlList = {
 	//足迹
 	addGoodsBrowsing: serverUrl + 'User/AddGoodsBrowsing',
 	getGoodsbrowsing: serverUrl + 'User/Goodsbrowsing',
+	delGoodsbrowsing: serverUrl + 'User/DelGoodsbrowsing',
 
 	//广告
 	getAdvertList: serverUrl + 'Advert/GetAdvertList',
@@ -69,6 +70,7 @@ const request = (url, urltype, data, text) => {
 	if (text) {
 		uni.showLoading({
 			title: text,
+			mask:true
 		})
 	};
 	let token = uni.getStorageSync('token');

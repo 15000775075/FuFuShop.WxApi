@@ -15,7 +15,7 @@
 		<scroll-view v-if="orders.length > 0" class="cen_goods" scroll-y scroll-top="0" refresher-enabled
 			scroll-anchoring @scrolltolower='upLoading' @refresherrefresh='downLoading'>
 			<view v-for="(item,index) in orders" :key="index" class="orders_item">
-				<view class="item_title">
+				<view class="item_title"  @tap="goOrderDetail(item.orderId)">
 					<view class="item_title_item">订单号：{{item.orderId}} </view>
 					<view class="item_title_item" v-if="item.status==3">订单状态：已取消 </view>
 					<view class="item_title_item" v-else-if="item.status==1 && item.payStatus==1">订单状态：代付款 </view>
@@ -27,14 +27,14 @@
 						v-else="item.status==1 && item.payStatus!=1 && item.shipStatus==2 && item.confirmStatus==2">
 						订单状态：已完成 </view>
 				</view>
-				<view class="item_good" v-for="(product,index) in item.items">
+				<view class="item_good" v-for="(product,index) in item.items" @tap="goOrderDetail(item.orderId)">
 					<image :src="product.imageUrl" @tap="goGoodDetail(item.id)"></image>
 					<view class="good_rig">
 						<view class="good_rig_name">{{product.name}}</view>
 						<view class="good_rig_category">{{product.addon}}</view>
 					</view>
 				</view>
-				<view class="item_price">
+				<view class="item_price" @tap="goOrderDetail(item.orderId)">
 					<view v-if="item.status===1 && item.payStatus===1">共{{item.items.length}} 件商品
 						待付款：￥{{item.goodsAmount}}</view>
 					<view v-else>共{{item.items.length}} 件商品 实付款：￥{{item.payedAmount}}</view>
@@ -42,21 +42,26 @@
 				<view class="item_price">
 
 					<!-- 已付款 + 已发货 -->
-					<view class="btn" v-if="item.payStatus!=1 && item.shipStatus==2" @tap="onLogistics(item.id)">查看物流
+					<view class="btn" v-if="item.payStatus!=1 && item.shipStatus==2" @tap="onLogistics(item.orderId)">
+						查看物流
+					</view>
+					<view class="btn color1" v-if="item.payStatus!=1 && item.shipStatus==2 && item.confirmStatus!=2"
+						@tap="onConfirm(item.orderId)">确认收货
 					</view>
 					<!-- 已完成 -->
 					<!-- <view class="btn"
 						v-if="item.status===1 && item.payStatus!=1 && item.shipStatus!=1 && item.confirmStatus==2"
 						@tap="onLookFp(item.id)">查看发票</view> -->
 					<!-- 已完成+未评价 -->
-					<view class="btn" v-if="item.confirmStatus==2 && !item.isComment" @tap="onEvaluate(item.id)">评价晒单
+					<view class="btn" v-if="item.confirmStatus==2 && !item.isComment" @tap="onEvaluate(item.orderId)">
+						评价晒单
 					</view>
 					<!-- 待支付 未取消-->
 					<view class="btn" v-if="item.payStatus==1 && item.status==1" @tap="onCancelOrder(item.orderId)">取消订单
 					</view>
 					<view class="btn color1" v-if="item.payStatus==1 && item.status!=3" @tap="onPay(item)">立刻支付</view>
 					<!-- 已支付 -->
-					<view class="btn color1" v-if="item.payStatus!=1" @tap="goGoodDetail(item.id)">再次购买</view>
+					<view class="btn color1" v-if="item.payStatus!=1" @tap="goNowBuy(item)">再次购买</view>
 				</view>
 			</view>
 			<uni-load-more :status="loadMoreStatus"></uni-load-more>
@@ -175,6 +180,23 @@
 				})
 
 			},
+			onConfirm(id) {
+				console.log(id)
+				let param = {
+					"id": id,
+					"data": ""
+				};
+				uni.showModal({
+					title: "确定收到商品了吗？",
+					success: (res) => {
+						if (res.confirm)
+							https(urlList.orderConfirm, 'post', param, '操作中').then(data => {
+								this.downLoading();
+							});
+					}
+				})
+
+			},
 			onLogistics(id) {
 				uni.navigateTo({
 					url: '/pages/orders-wl/orders-wl?id=' + id
@@ -191,6 +213,30 @@
 			// 下拉刷新
 			downLoading() {
 				this.onTopTabs(this.tabIndex);
+			},
+			goOrderDetail(orderId) {
+				uni.navigateTo({
+					url: "/pages/orderDetail/orderDetail?id=" + orderId
+				})
+			},
+			goNowBuy(order) {
+				let ids = [];
+				order.items.forEach((goods, index) => {
+					let param = {
+						"nums": goods.nums,
+						"productId": goods.productId,
+						"type": 1,
+						"cartType": 1,
+					}
+					https(urlList.addCart, 'POST', param, '添加到购物车').then(data => {
+						ids.push(data.data)
+						if (ids.length === order.items.length) {
+							uni.navigateTo({
+								url: '/pages/nowBuy/nowBuy?id=' + JSON.stringify(ids)
+							})
+						}
+					})
+				});
 			},
 		}
 	}
@@ -348,7 +394,8 @@
 					flex-direction: row;
 					align-items: center;
 					justify-content: space-between;
-					.item_title_item{
+
+					.item_title_item {
 						padding: 6rpx;
 					}
 				}

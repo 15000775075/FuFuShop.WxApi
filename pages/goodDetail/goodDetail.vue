@@ -50,8 +50,8 @@
 			<view class="good_img_text">
 				<image src="/static/images/goodDetail/good_text_img.png"></image>
 			</view>
-			<view class="good_img_fwb" v-html="goodsInfo.intro">
-			</view>
+			<!-- <view class="good_img_fwb" v-html="goodsInfo.intro">
+			</view> -->
 		</view>
 		<view class="bot_nav">
 			<view class="nav_lef_item" @tap="goIndex">
@@ -122,19 +122,21 @@
 			}
 		},
 		onLoad(options) {
-			
+
 			//获取商品ID
 			if (options.id != '') {
 				this.goodsId = options.id;
 				this.getGoodsDetail();
 				this.getGoodsComments();
-				let token =uni.getStorageInfoSync('token');
-				if( token!==undefined || token!=""){
+				let token = uni.getStorageInfoSync('token');
+				if (token !== undefined || token != "") {
 					this.addGoodsBrowsing();
 				}
 			} else {
 
 			}
+		},
+		onReady() {
 		},
 		methods: {
 			addCart() {
@@ -243,19 +245,21 @@
 				this.$refs.poster.qrcode = 'https://oss.zhangyubk.com/%E8%8D%89%E8%8E%93%E5%8D%83%E5%B1%82.png';
 				// console.log(this.$refs.poster)
 			},
-			addGoodsBrowsing(){
+			addGoodsBrowsing() {
 				let param = {
 					id: this.goodsId,
 					data: ""
 				}
-				https(urlList.addGoodsBrowsing, 'POST', param, '').then(data => {
-				})
+				https(urlList.addGoodsBrowsing, 'POST', param, '').then(data => {})
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	.good_img_fwb image{
+		width: 100%;
+	}
 	.warp {
 		width: 100%;
 		background-color: #F2F2F2;
@@ -475,7 +479,6 @@
 					border-radius: 15rpx;
 				}
 			}
-
 			.good_img_fwb {
 				width: 100%;
 				display: flex;

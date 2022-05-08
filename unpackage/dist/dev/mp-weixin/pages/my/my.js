@@ -303,10 +303,9 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
   },
   onLoad: function onLoad(option) {
-    uni.getStorageSync("token") && this.getUser();
   },
   onShow: function onShow(option) {
-
+    uni.getStorageSync("token") && this.getUser();
   },
   methods: {
     goUrl: function goUrl(num, orderNum) {

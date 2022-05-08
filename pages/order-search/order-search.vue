@@ -118,6 +118,7 @@
 				} else {
 					this.param.page = 1;
 					this.param.key = this.searchValue;
+					this.orders=[];
 					if (this.searchTime != '') {
 						this.param.startTime = this.searchTime[0];
 						this.param.endTime = this.searchTime[1]

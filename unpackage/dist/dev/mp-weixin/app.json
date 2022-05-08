@@ -20,7 +20,8 @@
     "pages/address/address",
     "pages/coupon/coupon",
     "pages/nowBuy/nowBuy",
-    "pages/evaluate/evaluate"
+    "pages/evaluate/evaluate",
+    "pages/orderDetail/orderDetail"
   ],
   "subPackages": [],
   "window": {

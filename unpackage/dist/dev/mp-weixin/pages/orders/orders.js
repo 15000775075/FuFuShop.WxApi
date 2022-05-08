@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniLoadMore: function() {
-      return Promise.all(/*! import() | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 318))
+      return Promise.all(/*! import() | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 196))
     }
   }
 } catch (e) {
@@ -225,11 +225,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var _require =
 
 
 
-__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var LoadMore = function LoadMore() {Promise.all(/*! require.ensure | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-load-more/uni-load-more.vue */ 318));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var LoadMore = function LoadMore() {Promise.all(/*! require.ensure | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-load-more/uni-load-more.vue */ 196));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 {
   components: {
@@ -330,6 +335,23 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
 
     },
+    onConfirm: function onConfirm(id) {var _this3 = this;
+      console.log(id);
+      var param = {
+        "id": id,
+        "data": "" };
+
+      uni.showModal({
+        title: "确定收到商品了吗？",
+        success: function success(res) {
+          if (res.confirm)
+          https(urlList.orderConfirm, 'post', param, '操作中').then(function (data) {
+            _this3.downLoading();
+          });
+        } });
+
+
+    },
     onLogistics: function onLogistics(id) {
       uni.navigateTo({
         url: '/pages/orders-wl/orders-wl?id=' + id });
@@ -346,6 +368,30 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
     // 下拉刷新
     downLoading: function downLoading() {
       this.onTopTabs(this.tabIndex);
+    },
+    goOrderDetail: function goOrderDetail(orderId) {
+      uni.navigateTo({
+        url: "/pages/orderDetail/orderDetail?id=" + orderId });
+
+    },
+    goNowBuy: function goNowBuy(order) {
+      var ids = [];
+      order.items.forEach(function (goods, index) {
+        var param = {
+          "nums": goods.nums,
+          "productId": goods.productId,
+          "type": 1,
+          "cartType": 1 };
+
+        https(urlList.addCart, 'POST', param, '添加到购物车').then(function (data) {
+          ids.push(data.data);
+          if (ids.length === order.items.length) {
+            uni.navigateTo({
+              url: '/pages/nowBuy/nowBuy?id=' + JSON.stringify(ids) });
+
+          }
+        });
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

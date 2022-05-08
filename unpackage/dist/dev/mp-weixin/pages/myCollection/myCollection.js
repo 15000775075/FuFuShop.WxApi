@@ -177,11 +177,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 var _require =
 
 
@@ -197,13 +192,14 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
       goods: [],
       param: {
         page: 1,
-        limit: 4,
+        limit: 6,
         order: "id",
         where: "",
         otherData: "",
         id: 0 },
 
-      loadMoreStatus: "more" };
+      loadMoreStatus: "more",
+      loadingText: '加载中' };
 
   },
   onLoad: function onLoad() {
@@ -211,7 +207,6 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
   },
   onReachBottom: function onReachBottom() {
     if (this.loadMoreStatus === 'more') {
-      this.loadMoreStatus = 'loading';
       this.goodsCollectionList();
     }
   },
@@ -222,8 +217,10 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
 
     },
     goodsCollectionList: function goodsCollectionList() {var _this = this;
+      this.loadMoreStatus = 'loading';
       var param = this.param;
-      https(urlList.goodsCollectionList, 'post', param, '更新收藏').then(function (data) {
+      https(urlList.goodsCollectionList, 'post', param, this.loadingText).then(function (data) {
+        _this.loadingText = '';
         _this.goods = _this.goods.concat(data.data.list);
         if (data.data.list.length == _this.param.limit) {
           _this.param.page++;

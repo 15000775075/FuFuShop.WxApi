@@ -95,11 +95,14 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
+    uniLoadMore: function() {
+      return Promise.all(/*! import() | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/components/uni-load-more/uni-load-more.vue */ 318))
+    },
     uniPopup: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 232))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 213))
     },
     uniIcons: function() {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 181))
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 173))
     }
   }
 } catch (e) {
@@ -207,124 +210,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 var _require =
 
 
 
-__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;var _default =
+__webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _require.https;
+var tomorrow = new Date();
+tomorrow.setDate(new Date().getDate() + 1);var LoadMore = function LoadMore() {Promise.all(/*! require.ensure | components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-load-more/uni-load-more")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-load-more/uni-load-more.vue */ 318));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 {
+  components: {
+    LoadMore: LoadMore },
+
   data: function data() {
     return {
       topNavList: ['今日', '昨日', '近七日', '近三十日', '全部'],
       tabIndex: 0,
-      goodList: [
-      {
-        time: '2021-01-25',
-        goods: [
-        {
-          id: 111,
-          name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-          img: '/static/images/index/good.jpg',
-          price: '215.26',
-          kc: 100,
-          buy_num: 1,
-          category: [
-          { id: 1001, text: '27黑色' },
-          { id: 1002, text: '28黑色' },
-          { id: 1003, text: '29黑色' },
-          { id: 1003, text: '25黑色' }] },
-
-
-        {
-          id: 111,
-          name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-          img: '/static/images/index/good.jpg',
-          price: '215.26',
-          kc: 10,
-          buy_num: 1,
-          category: [
-          { id: 1001, text: '27黑色 （9956款）' },
-          { id: 1002, text: '28黑色 （9956款）' },
-          { id: 1003, text: '29黑色 （9956款）' },
-          { id: 1003, text: '25黑色 （9956款）' }] }] },
-
-
-
-
-      {
-        time: '2021-01-26',
-        goods: [
-        {
-          id: 111,
-          name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-          img: '/static/images/index/good.jpg',
-          price: '215.26',
-          kc: 100,
-          buy_num: 1,
-          category: [
-          { id: 1001, text: '27黑色' },
-          { id: 1002, text: '28黑色' },
-          { id: 1003, text: '29黑色' },
-          { id: 1003, text: '25黑色' }] },
-
-
-        {
-          id: 111,
-          name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-          img: '/static/images/index/good.jpg',
-          price: '215.26',
-          kc: 10,
-          buy_num: 1,
-          category: [
-          { id: 1001, text: '27黑色 （9956款）' },
-          { id: 1002, text: '28黑色 （9956款）' },
-          { id: 1003, text: '29黑色 （9956款）' },
-          { id: 1003, text: '25黑色 （9956款）' }] },
-
-
-        {
-          id: 111,
-          name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-          img: '/static/images/index/good.jpg',
-          price: '215.26',
-          kc: 10,
-          buy_num: 1,
-          category: [
-          { id: 1001, text: '27黑色 （9956款）' },
-          { id: 1002, text: '28黑色 （9956款）' },
-          { id: 1003, text: '29黑色 （9956款）' },
-          { id: 1003, text: '25黑色 （9956款）' }] },
-
-
-        {
-          id: 111,
-          name: 'jk制服裙正版夏季短袖衬衫格裙套装女学生学院风格全套百搭百褶裙',
-          img: '/static/images/index/good.jpg',
-          price: '215.26',
-          kc: 10,
-          buy_num: 1,
-          category: [
-          { id: 1001, text: '27黑色 （9956款）' },
-          { id: 1002, text: '28黑色 （9956款）' },
-          { id: 1003, text: '29黑色 （9956款）' },
-          { id: 1003, text: '25黑色 （9956款）' }] }] }],
-
-
-
-
-
+      goodList: [],
       param: {
         page: 1,
         limit: 10,
         order: "id",
         where: "",
-        otherData: JSON.stringify({ startTime: "2022-05-05", endTime: "2022-05-08" }),
-        id: 0 } };
+        otherData: JSON.stringify({
+          startTime: new Date().format("yyyy-MM-dd"),
+          endTime: tomorrow.format("yyyy-MM-dd") }),
 
+        id: 0 },
+
+      loadMoreStatus: 'more',
+      loadingText: '加载中',
+      goods: {} };
 
   },
   onLoad: function onLoad() {
@@ -333,11 +249,74 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
   methods: {
     onTopTabs: function onTopTabs(index) {
       this.tabIndex = index;
+      this.loadingText = '加载中';
+      this.goodList = [];
+      this.param.page = 1;
+      switch (this.tabIndex) {
+        case 0:
+          this.param.otherData = JSON.stringify({
+            startTime: new Date().format("yyyy-MM-dd"),
+            endTime: tomorrow.format("yyyy-MM-dd") });
+
+          break;
+        case 1:
+          var yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+          this.param.otherData = JSON.stringify({
+            startTime: yesterday.format("yyyy-MM-dd"),
+            endTime: new Date().format("yyyy-MM-dd") });
+
+          break;
+        case 2:
+          var lastweek = new Date();
+          lastweek.setDate(lastweek.getDate() - 7);
+          this.param.otherData = JSON.stringify({
+            startTime: lastweek.format("yyyy-MM-dd"),
+            endTime: tomorrow.format("yyyy-MM-dd") });
+
+          break;
+        case 3:
+          var lastmonth = new Date();
+          lastmonth.setDate(lastmonth.getDate() - 30);
+          this.param.otherData = JSON.stringify({
+            startTime: lastmonth.format("yyyy-MM-dd"),
+            endTime: tomorrow.format("yyyy-MM-dd") });
+
+          break;
+        case 4:
+          this.param.otherData = JSON.stringify({
+            startTime: new Date().format("yyyy") + '-01-01',
+            endTime: tomorrow.format("yyyy-MM-dd") });
+
+          break;}
+
+      this.getGoodsbrowsing();
     },
     getGoodsbrowsing: function getGoodsbrowsing() {var _this = this;
+      this.loadMoreStatus = 'loading';
       var param = this.param;
-      https(urlList.getGoodsbrowsing, 'post', param, '更新足迹').then(function (data) {
-        _this.goodList = data.data.list;
+      https(urlList.getGoodsbrowsing, 'post', param, this.loadingText).then(function (data) {
+        _this.loadingText = '';
+        var count = 0;
+        // 追加数据
+        data.data.list.forEach(function (item, index) {
+          // 最后一条数据是否需要追加商品
+          var lastData = _this.goodList[_this.goodList.length - 1];
+          if (lastData !== undefined && lastData.Time === item.Time) {
+            _this.goodList[index].Goods = _this.goodList[index].Goods.concat(item.Goods);
+          } else {
+            _this.goodList.push(item);
+          }
+          // 记录总数
+          count += item.Goods.length;
+        });
+        console.log(_this.goodList);
+        // 是否还有下一页
+        if (count == _this.param.limit) {
+          _this.param.page++;
+          _this.loadMoreStatus = 'more';
+        } else
+        _this.loadMoreStatus = 'noMore';
       });
     },
     goodDetail: function goodDetail(id) {
@@ -345,18 +324,47 @@ __webpack_require__(/*! @/static/api */ 18),urlList = _require.urlList,https = _
         url: '/pages/goodDetail/goodDetail?id=' + id });
 
     },
-    onGoodNav: function onGoodNav(id) {
-      console.log('功能', id);
+    onGoodNav: function onGoodNav(val) {
       this.$refs.popup.open();
+      this.goods = val;
     },
     closeFenx: function closeFenx() {
       this.$refs.popup.close();
     },
-    onCollection: function onCollection() {
-      console.log('收藏');
+    onCollection: function onCollection() {var _this2 = this;
+      var param = {
+        id: this.goods.goods.id,
+        data: '' };
+
+      https(urlList.goodsCollectionCreateOrDelete, 'post', param, '收藏中').then(function (data) {
+        console.log(_this2.goods);
+        _this2.goods.goods.isFav = !_this2.goods.goods.isFav;
+        uni.showToast({
+          title: data.msg });
+
+      });
     },
-    onClear: function onClear() {
-      console.log('删除');
+    onClear: function onClear() {var _this3 = this;
+      var param = {
+        id: this.goods.id,
+        data: '' };
+
+      https(urlList.delGoodsbrowsing, 'post', param, '删除中').then(function (data) {
+        _this3.$refs.popup.close();
+        uni.showToast({
+          title: "删除成功" });
+
+      });
+    },
+    // 上拉加载
+    upLoading: function upLoading() {
+      if (this.loadMoreStatus === 'more') {
+        this.getGoodsbrowsing();
+      }
+    },
+    // 下拉刷新
+    downLoading: function downLoading() {
+      this.onTopTabs(this.tabIndex);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
