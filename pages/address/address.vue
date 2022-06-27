@@ -63,7 +63,7 @@
 			</view>
 			<view class="t_login_passList">
 				<view class="input_icon">详细地址</view>
-				<input class="input_css" v-model="address.address" type="number" border="none"></input>
+				<input class="input_css" v-model="address.address" type="text" border="none"></input>
 			</view>
 			<view class="btn_css">
 				<button class="btn" @tap="registerOk">保存地址</button>

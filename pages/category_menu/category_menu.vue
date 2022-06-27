@@ -29,7 +29,7 @@
 							</view>
 						</view>
 					</view>
-					<uni-load-more :status="loadMoreStatus"></uni-load-more>
+					<uni-load-more v-if="goods.length>=param.limit" :status="loadMoreStatus"></uni-load-more>
 				</scroll-view>
 			</view>
 		</view>
@@ -63,16 +63,20 @@
 					order: "",
 					where: "",
 				},
-				loadMoreStatus:'more'
+				loadMoreStatus: 'more'
 			};
 		},
 		onLoad() {
 			this.getAllCategories();
+			this.loadMoreStatus = 'more';
 		},
 		methods: {
 			getGoodsPageList() {
 				let param = this.param;
-				https(urlList.getGoodsPageList, 'POST', param, '获取商品列表').then(data => {
+				let loadingText = "";
+				if (this.goods.length < this.param.limit)
+					loadingText = "获取商品";
+				https(urlList.getGoodsPageList, 'POST', param, loadingText).then(data => {
 					this.goods = this.goods.concat(data.data.list);
 					if (data.data.list.length == this.param.limit) {
 						this.param.page++;
@@ -103,13 +107,13 @@
 			onLefTabs(index, id) {
 				if (this.lefIndex != 0 && this.lefIndex == index) return;
 				this.lefIndex = index;
-				this.param.page=1;
-				this.loadMoreStatus='more';
-				this.goods=[];
+				this.param.page = 1;
+				this.loadMoreStatus = 'loading';
+				this.goods = [];
 				console.log('分类ID---', id)
 				this.param.where = JSON.stringify({
 					catId: id,
-				}) 
+				})
 				this.getGoodsPageList();
 			},
 			showBuyGoodModel(id, good) {

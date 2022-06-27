@@ -10,7 +10,7 @@
 		</view>
 		<view class="top_tab1">
 			<view class="tab1_item" @tap="goUrl(1)">
-				<view class="tab1_item_top">{{userInfo.collectionCount}}</view>
+				<view class="tab1_item_top">{{userInfo.collectionCount?userInfo.collectionCount:0}}</view>
 				<view class="tab1_item_bot">
 					<image src="/static/images/my/sc.png"></image>
 					<text>我的收藏</text>
@@ -18,7 +18,7 @@
 			</view>
 			<view class="rig_bor"></view>
 			<view class="tab1_item" @tap="goUrl(2)">
-				<view class="tab1_item_top">{{userInfo.footPrintCount}}</view>
+				<view class="tab1_item_top">{{userInfo.footPrintCount?userInfo.footPrintCount:0}}</view>
 				<view class="tab1_item_bot">
 					<image src="/static/images/my/zj.png"></image>
 					<text>我的足迹</text>

@@ -80,6 +80,7 @@
 			this.getNotice();
 			this.getCenterImage();
 			this.getGoodsPageList();
+			this.loadMoreStatus = 'loading';
 		},
 		onReachBottom() {
 			if (this.loadMoreStatus === 'more') {
@@ -91,7 +92,7 @@
 			//分页查询商品列表 条件为推荐商品
 			getGoodsPageList() {
 				let param = this.param;
-				https(urlList.getGoodsPageList, 'post', param, '加载中').then(data => {
+				https(urlList.getGoodsPageList, 'post', param, '').then(data => {
 					this.goods = this.goods.concat(data.data.list);
 					if (data.data.list.length == this.param.limit) {
 						this.param.page++;

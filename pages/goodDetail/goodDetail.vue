@@ -128,8 +128,8 @@
 				this.goodsId = options.id;
 				this.getGoodsDetail();
 				this.getGoodsComments();
-				let token = uni.getStorageInfoSync('token');
-				if (token !== undefined || token != "") {
+				let token = uni.getStorageSync('token');
+				if (token !== undefined && token != "") {
 					this.addGoodsBrowsing();
 				}
 			} else {

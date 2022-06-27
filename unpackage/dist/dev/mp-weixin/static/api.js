@@ -9,7 +9,7 @@ const urlList = {
 	//商品收藏
 	goodsCollectionCreateOrDelete: serverUrl + 'User/GoodsCollectionCreateOrDelete',
 	goodsCollectionList: serverUrl + 'User/GoodsCollectionList',
-	
+
 	//足迹
 	addGoodsBrowsing: serverUrl + 'User/AddGoodsBrowsing',
 	getGoodsbrowsing: serverUrl + 'User/Goodsbrowsing',
@@ -17,7 +17,7 @@ const urlList = {
 
 	//广告
 	getAdvertList: serverUrl + 'Advert/GetAdvertList',
-	
+
 	//公告
 	noticeList: serverUrl + 'Notice/NoticeList',
 
@@ -70,7 +70,7 @@ const request = (url, urltype, data, text) => {
 	if (text) {
 		uni.showLoading({
 			title: text,
-			mask:true
+			mask: true
 		})
 	};
 	let token = uni.getStorageSync('token');
@@ -92,10 +92,14 @@ const request = (url, urltype, data, text) => {
 					uni.showModal({
 						title: request.data.msg,
 						confirmText: "去登录",
+						cancelText: "暂不登录",
 						success(isSure) {
-							uni.reLaunch({
-								url: "/pages/my/my?isLogin=1"
-							})
+							if (isSure.confirm)
+								uni.reLaunch({
+									url: "/pages/my/my?isLogin=1"
+								})
+							else if (isSure.cancel && url.toLowerCase().indexOf("cart/") <=0){}
+								uni.navigateBack()
 							console.log(isSure)
 						}
 					})
