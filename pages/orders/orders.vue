@@ -157,9 +157,11 @@
 								icon: "error"
 							})
 						else
-							uni.showToast({
-								title: "支付成功",
-							})
+						
+						uni.callPay();
+							// uni.showToast({
+							// 	title: "支付成功",
+							// })
 					}
 				})
 			},
@@ -237,6 +239,52 @@
 						}
 					})
 				});
+			},
+			callPay: function(response) {
+				if (typeof WeixinJSBridge === "undefined") {
+					if (document.addEventListener) {
+						document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady(response), false);
+					} else if (document.attachEvent) {
+						document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady(response));
+						document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady(response));
+					}
+				} else {
+					this.onBridgeReady(response);
+				}
+			},
+			onBridgeReady: function(response) {
+				let that = this;
+				if (!response.package) {
+					return;
+				}
+				WeixinJSBridge.invoke(
+					'getBrandWCPayRequest', {
+						"appId": response.appid, //公众号名称，由商户传入
+						"timeStamp": response.timestamp, //时间戳，自1970年以来的秒数
+						"nonceStr": response.noncestr, //随机串
+						"package": response.package,
+						"signType": response.signType, //微信签名方式：
+						"paySign": response.sign //微信签名
+					},
+					function(res) {
+						if (res.err_msg === "get_brand_wcpay_request:ok") {
+							// 使用以上方式判断前端返回,微信团队郑重提示：
+							//res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+							uni.showLoading({
+								title: '支付成功'
+							});
+							setTimeout(function() {
+								uni.hideLoading();
+								uni.redirectTo({
+									url: '../member/orderdetail?id=' + that.id
+								});
+							}, 1000);
+						} else {
+							uni.hideLoading();
+						}
+						WeixinJSBridge.log(response.err_msg);
+					}
+				);
 			},
 		}
 	}

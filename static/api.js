@@ -1,5 +1,5 @@
-const serverUrl = 'http://localhost/api/';
-//const serverUrl = 'http://114.132.200.253:8081/api/';
+//const serverUrl = 'https://api.fufuchaoshi.com/api/';
+const serverUrl = 'http://127.0.0.1/api/';
 const urlList = {
 
 	//微信登录
@@ -85,7 +85,7 @@ const request = (url, urltype, data, text) => {
 			},
 			dataType: 'json',
 			success(request) {
-				console.log('请求结果：', request)
+			
 				if (request.data.code === 401) {
 					uni.clearStorageSync("token");
 					uni.clearStorageSync("user_info");
@@ -100,7 +100,7 @@ const request = (url, urltype, data, text) => {
 								})
 							else if (isSure.cancel && url.toLowerCase().indexOf("cart/") <=0){}
 								uni.navigateBack()
-							console.log(isSure)
+							
 						}
 					})
 				} else if (request.data.status !== true) {

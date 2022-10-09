@@ -1,0 +1,1 @@
+<view class="warp data-v-7625bd82"><block wx:if="{{fpUrl}}"><image src="{{fpUrl}}" class="data-v-7625bd82"></image></block><block wx:else><view class="noFp data-v-7625bd82">暂无物流信息</view></block></view>

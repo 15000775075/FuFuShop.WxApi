@@ -95,7 +95,7 @@
 						this.param.page++;
 						this.loadMoreStatus = 'more';
 					} else if (this.param.page === 1 && data.data.list.length <= 0) {
-						// this.isShowHot = true;
+						this.isShowHot = true;
 						this.getGoodsRecommendList(true);
 						this.loadMoreStatus = 'noMore';
 						this.isShowNull = true;

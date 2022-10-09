@@ -82,7 +82,7 @@
 					ids: '',
 					couponCode: ''
 				};
-				https(urlList.getCartDtoData, 'post', param, '更新购物车').then(data => {
+				https(urlList.getCartList, 'post', param, '更新购物车').then(data => {
 					this.goods = data.data.list
 					this.totalPrice = data.data.goodsAmount
 				}).catch(err => {

@@ -50,9 +50,10 @@
 			<view class="good_img_text">
 				<image src="/static/images/goodDetail/good_text_img.png"></image>
 			</view>
-			<!-- <view class="good_img_fwb" v-html="goodsInfo.intro">
-			</view> -->
+			<view class="good_img_fwb" v-html="goodsInfo.intro">
+			</view>
 		</view>
+		
 		<view class="bot_nav">
 			<view class="nav_lef_item" @tap="goIndex">
 				<uni-icons type="home" size="22" color="#838383"></uni-icons>
@@ -190,7 +191,6 @@
 						this.goodsInfoImages = info.images.split(',')
 						this.goodsInfo = info;
 						this.isfav = res.data.isFav;
-						console.log('是否收藏', this.isfav)
 					} else {
 
 					}

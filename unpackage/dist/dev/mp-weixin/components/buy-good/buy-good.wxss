@@ -1,0 +1,156 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.bg.data-v-4a6ae284 {
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+}
+.buyGood.data-v-4a6ae284 {
+  width: 100%;
+  height: auto;
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+  background-color: white;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  z-index: 999999;
+}
+.buyGood .buy_content.data-v-4a6ae284 {
+  width: 680rpx;
+  display: flex;
+  flex-direction: column;
+}
+.buyGood .buy_content .buy_top.data-v-4a6ae284 {
+  width: 100%;
+  height: 140rpx;
+  display: flex;
+  flex-direction: row;
+}
+.buyGood .buy_content .buy_top image.data-v-4a6ae284 {
+  height: 200rpx;
+  width: 200rpx;
+  margin-top: -80rpx;
+  border: 7rpx solid white;
+  border-radius: 7rpx;
+}
+.buyGood .buy_content .buy_top .buy_top_cen.data-v-4a6ae284 {
+  width: 386rpx;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 31rpx;
+}
+.buyGood .buy_content .buy_top .buy_top_cen .buy_top_cen_price.data-v-4a6ae284 {
+  color: red;
+  margin-left: 20rpx;
+}
+.buyGood .buy_content .buy_top .buy_top_cen .buy_top_cen_kc.data-v-4a6ae284 {
+  color: #999999;
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+}
+.buyGood .buy_content .buy_top .buy_top_rig.data-v-4a6ae284 {
+  width: 80rpx;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.buyGood .buy_content .buy_category.data-v-4a6ae284 {
+  width: 100%;
+  height: 300rpx;
+  overflow-y: auto;
+  border-bottom: 1rpx solid #ebebeb;
+  border-top: 1rpx solid #ebebeb;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  color: #3b3b3b;
+}
+.buyGood .buy_content .buy_category .buy_category_item.data-v-4a6ae284 {
+  height: 70rpx;
+  display: flex;
+  font-size: 28rpx;
+  align-items: center;
+  padding: 0 20rpx 0 20rpx;
+  background-color: #f8f8f8;
+  border: 1rpx solid #f8f8f8;
+  border-radius: 15rpx;
+  margin-right: 20rpx;
+  margin-top: 20rpx;
+}
+.buyGood .buy_content .buy_category .active.data-v-4a6ae284 {
+  border: 1rpx solid #fa5d57;
+  background-color: rgba(221, 82, 77, 0.1);
+  color: #fa5d57;
+}
+.buyGood .buy_content .buy_num.data-v-4a6ae284 {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.buyGood .buy_content .buy_num .buy_num_lef.data-v-4a6ae284 {
+  color: #3d3d3d;
+}
+.buyGood .buy_content .buy_btn.data-v-4a6ae284 {
+  height: 150rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.buyGood .buy_content .buy_btn .buy_btn_a.data-v-4a6ae284 {
+  width: 46%;
+  height: 80rpx;
+  font-size: 29rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50rpx;
+  color: white;
+}
+.buyGood .buy_content .buy_btn .buy_btn_lef.data-v-4a6ae284 {
+  background-color: #f3c11c;
+}
+.buyGood .buy_content .buy_btn .buy_btn_rig.data-v-4a6ae284 {
+  background-color: #ef1224;
+}
+
